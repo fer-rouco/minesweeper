@@ -1,0 +1,12 @@
+:host {
+  // ####### Common ####### 
+  --border-radius: .5rem;
+
+  // ####### Controls ####### 
+  --control-border: .5px solid rgb(180, 180, 180);
+  --control-border-focus: .5px solid rgb(146, 146, 250);
+  --control-border-radius: var(--border-radius);
+  --control-margin: 0 1rem 1rem 1rem;
+  --control-padding: .5rem;
+
+}

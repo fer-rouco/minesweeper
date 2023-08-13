@@ -1,0 +1,14 @@
+@import '../../../../variables';
+
+.input-field {
+  
+  padding: var(--control-padding);
+
+  border: none;
+  border-radius: var(--control-border-radius);
+
+  &:focus {
+    border: var(--control-border-focus);
+  }
+
+}

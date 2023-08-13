@@ -1,0 +1,21 @@
+@import '../../../../variables';
+
+.select-field {
+
+  padding: var(--control-padding);
+  
+  border: none;
+  border-radius: var(--control-border-radius);
+ 
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-color: #ffffff;
+  background-image: url('../../../../../assets/images/down-arrow.png');
+  background-position: 100%;
+  background-repeat: no-repeat;
+
+  &:focus {
+    border: var(--control-border-focus);
+  }
+
+}

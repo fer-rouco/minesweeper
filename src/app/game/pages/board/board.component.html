@@ -1,0 +1,13 @@
+<panel class="board" title="Board">
+  <board-header></board-header>
+  <div class="board__grid" >
+    <table>
+      <tr *ngFor="let col of grid" class="row">
+        <td *ngFor="let tile of col" class="col">
+          <tile [tile]="tile"></tile>
+        </td>
+      </tr>
+    </table>
+  </div>
+</panel>
+

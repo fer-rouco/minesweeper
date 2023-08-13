@@ -1,0 +1,10 @@
+.board {
+  &__grid {
+    display: flex;
+    justify-content: center;
+  }
+  .col, .row {
+    border: 1px solid #808080;
+  }
+
+}

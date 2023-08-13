@@ -1,0 +1,14 @@
+<field for="input_{{type}}" label="{{label}}">
+  <input
+    type="{{type}}"
+    [(ngModel)]="visualModel"
+    autocomplete="off"
+    class="form-control input-field"
+    placeholder=""
+    title="asd"
+    name="input_{{type}}"
+    (change)="onInputChange($event)"
+    (keyup.enter)="onInputChange($event)"
+    [attr.disabled]="(enabled) ? null : true"
+  />
+</field>

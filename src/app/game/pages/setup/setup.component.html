@@ -1,0 +1,10 @@
+<div class="panel">
+  <panel title='Setup' >
+    <select-field [model]="config" attr="dificultyLevel" label='Dificulty Level' [options]='dificultyLevels' (change)="onDificultyLevelChange()" ></select-field>
+    <numeric-field [model]="config" attr="height" label='Grid Height' [enabled]="isCustomDificultyLevel()" ></numeric-field>
+    <numeric-field [model]="config" attr="width" label='Grid Width' [enabled]="isCustomDificultyLevel()" ></numeric-field>
+    <custom-button (click)='navigateToBoard()' class='panel__to-board-button' >
+      Go to Board
+    </custom-button>
+  </panel>
+</div>

@@ -1,0 +1,33 @@
+@import '../../../variables';
+
+.panel-border {
+  border: 1px solid #999999;
+  border-radius: var(--border-radius);
+}
+
+.panel-background-color {
+  background-color: #eeeeee;
+}
+
+.panel-margin {
+  margin: 1rem;
+}
+
+.panel-container {
+  @extend .panel-border;
+  @extend .panel-background-color;
+  @extend .panel-margin;
+
+  &__title {
+    @extend .panel-border;
+    color: rgb(8, 82, 1);
+    background-color: #def5fd;
+    margin: 1rem;
+    padding: .5rem;
+  }
+
+  &__content {
+    @extend .panel-background-color;
+    @extend .panel-margin;
+  }
+}

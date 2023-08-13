@@ -1,0 +1,24 @@
+<div
+  class="tile" 
+  [ngClass]="{
+    'filled': type === TileTypes.FILLED,
+    'bomb': type === TileTypes.BOMB,
+    'explosion': type === TileTypes.EXPLOSION,
+    'flag': type === TileTypes.FLAG
+  }"
+  (click)="onClick($event)"
+  (contextmenu)="onContextMenuClick($event)">
+  <div 
+    *ngIf="(tile.getNumber() > 0) && revealed"
+    class="tile__number"
+    [ngClass]="{
+      'one': tile.getNumber() === 1,
+      'two': tile.getNumber() === 2,
+      'three': tile.getNumber() === 3,
+      'four': tile.getNumber() === 4,
+      'five': tile.getNumber() === 5,
+      'six': tile.getNumber() === 6
+    }">
+    {{ tile.getNumber() }}
+  </div>
+</div>

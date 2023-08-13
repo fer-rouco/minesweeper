@@ -1,0 +1,17 @@
+@import '../../../../variables';
+
+.field-container {
+  margin: var(--control-margin);
+  padding: var(--control-padding);
+
+  border: var(--control-border);
+  border-radius: var(--control-border-radius);
+
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    font-size: .8rem;
+    margin: .2rem;
+  }
+}

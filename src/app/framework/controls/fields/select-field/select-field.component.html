@@ -1,0 +1,15 @@
+<field for="select_" label="{{label}}">
+  <select
+    [(ngModel)]="visualModel"
+    autocomplete="off"
+    class="form-control select-field"
+    placeholder=""
+    title="asd"
+    name="select_"
+    (change)="onInputChange($event)"
+    (keyup.enter)="onInputChange($event)"
+  >
+    <option *ngFor="let option of options" [value]="option.value">{{option.label}}</option>
+  </select>
+</field>
+
