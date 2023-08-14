@@ -19,6 +19,7 @@ export class BoardComponent {
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService
   ) {
+    this.configService.restoreConfig();
     this.config = this.configService.getConfig();
 
     this.newGame();

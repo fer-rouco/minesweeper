@@ -24,7 +24,13 @@ export class SetupComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.configService.restoreConfig();
     this.config = this.configService.getConfig();
+  }
+
+  public onGoToBoardClick(): void {
+    this.configService.storeConfig();
+    this.navigateToBoard();
   }
 
   public navigateToBoard(): void {

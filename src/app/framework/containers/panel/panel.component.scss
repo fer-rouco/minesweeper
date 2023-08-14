@@ -20,8 +20,9 @@
 
   &__title {
     @extend .panel-border;
+    border: none;
     color: rgb(8, 82, 1);
-    background-color: #def5fd;
+    background-color: #ffffff; // #def5fd
     margin: 1rem;
     padding: .5rem;
   }

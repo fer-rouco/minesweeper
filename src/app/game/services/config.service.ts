@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ConfigModel, DificultyLevel } from '../models/config.model';
+import { StorageManagerService } from './storage/storage-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class ConfigService {
 
   private config: ConfigModel = new ConfigModel();
   
-  constructor() { }
+  constructor(@Inject(StorageManagerService) private storageManagerService: StorageManagerService) { }
 
   public getConfig(): ConfigModel {
     return this.config;
@@ -18,7 +19,7 @@ export class ConfigService {
     this.config = value;
   }
 
-  public doConfig(customConfig?: ConfigModel): void {
+  public doConfig(): void {
     let height: number = 0, width: number = 0, bombs: number = 0;
 
     switch (this.config.getDificultyLevel()) {
@@ -41,10 +42,10 @@ export class ConfigService {
         break;
 
       default:
-        if (customConfig) {
-          height = customConfig.getColumns();
-          width = customConfig.getRows();
-          bombs = customConfig.getBombs();
+        if (this.getConfig()) {
+          height = this.getConfig().getColumns();
+          width = this.getConfig().getRows();
+          bombs = this.getConfig().getBombs();
         }
         else {
           height = 9;
@@ -57,4 +58,11 @@ export class ConfigService {
     this.config = new ConfigModel(this.config.getDificultyLevel(), height, width, bombs);
   }
 
+  public storeConfig() {
+    this.storageManagerService.setItem('config', this.config);
+  }
+
+  public restoreConfig() {
+    this.setConfig(Object.assign(new ConfigModel(), this.storageManagerService.getItem('config') as ConfigModel));
+  }
 }

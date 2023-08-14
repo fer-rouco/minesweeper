@@ -9,9 +9,9 @@ export enum DificultyLevel {
 export class ConfigModel {
   constructor (
     private dificultyLevel: DificultyLevel = DificultyLevel.CUSTOM,
-    private columns: number = 4,
-    private rows: number = 4,
-    private bombs: number = 4
+    private columns: number = 9,
+    private rows: number = 9,
+    private bombs: number = 10
   ) {}
 
   public getDificultyLevel(): DificultyLevel {
