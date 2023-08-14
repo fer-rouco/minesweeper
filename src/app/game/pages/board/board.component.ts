@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { ConfigService } from '../../services/config.service';
 import { ConfigModel } from '../../models/config.model';
 import { Tile, TileType } from '../../models/tile.model';
@@ -15,16 +15,27 @@ export class BoardComponent {
 
   public config: ConfigModel;
 
-  constructor(@Inject(ConfigService) private configService: ConfigService, @Inject(BoardService) private boardService: BoardService, private cdr: ChangeDetectorRef) {
+  constructor(
+    @Inject(ConfigService) private configService: ConfigService,
+    @Inject(BoardService) private boardService: BoardService
+  ) {
     this.config = this.configService.getConfig();
 
-    this.initGrid();
-    this.updateGridWithRandomBombs();
-    this.updateGridWithNumbers();
+    this.newGame();
+
+    this.boardService.getResetGameObservable().subscribe(() => {
+      this.newGame();
+    });
 
     this.boardService.getTileChangesObservable().subscribe((tileType: TileType) => {
       this.onTileChange(tileType);
     });
+  }
+
+  private newGame(): void {
+    this.initGrid();
+    this.updateGridWithRandomBombs();
+    this.updateGridWithNumbers();
   }
 
   private initGrid(): void {
@@ -86,27 +97,22 @@ export class BoardComponent {
 
   onTileChange(tileType: TileType): void {
     if (tileType === TileType.EXPLOSION) {
-      let grid = [...this.grid];
-      
-      grid.flat().forEach((tile: Tile) => {
-        if (!tile.getShow()) {
-          tile.setShow(true);
+      this.boardService.looseGame();
+      this.grid.flat().forEach((tile: Tile) => {
+        if (!tile.getShow() && tile.isBomb()) {
+          tile.setType(TileType.BOMB);
         }
       });
-
-      // for (let rowIndex = 0; rowIndex < this.config.getRows(); rowIndex++) {
-      //   for (let columnIndex = 0; columnIndex < this.config.getColumns(); columnIndex++) {
-      //     if (!grid[rowIndex][columnIndex].getShow()) {
-      //       grid[rowIndex][columnIndex].setShow(true);
-      //     }
-      //   }
-      // }
-
-      this.grid.splice(0, this.grid.length, ...grid);
-      this.grid = grid;
-
-      this.cdr.detectChanges();
-
+    }
+    else if (tileType === TileType.FLAG) {
+      const flagsQuantity = this.grid.flat().filter((tile: Tile) => tile.getType() === TileType.FLAG).length;
+      this.boardService.updateFlagCounter(flagsQuantity);
+    }
+    else {
+      const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.getType() === TileType.FILLED).length;
+      if (filledTilesQuantity === this.config.getCells() - 1) {
+        this.boardService.startNewGame();
+      }
     }
   }
 }

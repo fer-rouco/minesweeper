@@ -1,24 +1,24 @@
-<div
+<span
   class="tile" 
   [ngClass]="{
-    'filled': type === TileTypes.FILLED,
-    'bomb': type === TileTypes.BOMB,
-    'explosion': type === TileTypes.EXPLOSION,
-    'flag': type === TileTypes.FLAG
+    'filled': isTileType(TileTypes.FILLED),
+    'bomb': isTileType(TileTypes.BOMB),
+    'explosion': isTileType(TileTypes.EXPLOSION),
+    'flag': isTileType(TileTypes.FLAG)
   }"
   (click)="onClick($event)"
   (contextmenu)="onContextMenuClick($event)">
-  <div 
-    *ngIf="(tile.getNumber() > 0) && revealed"
+  <span
+    *ngIf="(tile && tile.getNumber() > 0) && tile.getShow()"
     class="tile__number"
     [ngClass]="{
-      'one': tile.getNumber() === 1,
-      'two': tile.getNumber() === 2,
-      'three': tile.getNumber() === 3,
-      'four': tile.getNumber() === 4,
-      'five': tile.getNumber() === 5,
-      'six': tile.getNumber() === 6
+      'one': isTileNumber(1),
+      'two': isTileNumber(2),
+      'three': isTileNumber(3),
+      'four': isTileNumber(4),
+      'five': isTileNumber(5),
+      'six': isTileNumber(6)
     }">
     {{ tile.getNumber() }}
-  </div>
-</div>
+  </span>
+</span>

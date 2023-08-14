@@ -1,7 +1,8 @@
 <div class="board-header">
   <span class="board-header__display"> {{flagCounter}}</span>
-  <custom-button (click)='restartGame()' >
-    Restart
+  <custom-button (click)='restartGame()' class="board-header__button">
+    <img *ngIf="!loose" class="board-header__face" src="../../../../../assets/images/face_unpressed.svg" title="Face unpressed"/>
+    <img *ngIf="loose" class="board-header__face" src="../../../../../assets/images/face_loose.svg" title="Face unpressed"/>
   </custom-button>
   <span class="board-header__display">{{timer}}</span>
 </div>

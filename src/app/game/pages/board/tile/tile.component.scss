@@ -1,5 +1,4 @@
 .tile {
-  // background-color: #BDBDBD;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -11,11 +10,11 @@
   width: 2rem;
 
   &.filled {
-    background-image: url('../../../../../assets/svg/filled-tile.svg');
+    background-image: url('../../../../../assets/images/filled-tile.svg');
   }
 
   &.flag {
-    background-image: url('../../../../../assets/svg/flag.svg');
+    background-image: url('../../../../../assets/images/flag.svg');
   }
 
   &.bomb {
@@ -29,7 +28,6 @@
   &__number {
     font-size: 1.2rem;
     font-weight: bolder;
-    cursor: pointer;
     
     &.one {
       color: rgb(0, 0, 255);

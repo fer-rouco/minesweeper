@@ -38,6 +38,10 @@ export class ConfigModel {
     this.rows = value;
   }
   
+  public getCells(): number {
+    return this.rows * this.columns;
+  }
+
   public getBombs(): number {
     return this.bombs;
   }

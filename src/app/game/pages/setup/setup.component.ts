@@ -17,10 +17,10 @@ export class SetupComponent implements OnInit {
     { label: DificultyLevel[DificultyLevel.HARD], value: DificultyLevel.HARD.toString() }
   ];
 
-  public config: ConfigModel;
+  public config: ConfigModel | undefined;
 
   constructor(protected router: Router, @Inject(ConfigService) private configService: ConfigService) {
-    this.config = {} as ConfigModel;
+    this.config = undefined;
   }
   
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class SetupComponent implements OnInit {
   }
 
   public isCustomDificultyLevel(): boolean {
-    return this.config.getDificultyLevel() === DificultyLevel.CUSTOM;
+    return (this.config && this.config.getDificultyLevel()) === DificultyLevel.CUSTOM;
   }
 
 }

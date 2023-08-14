@@ -7,4 +7,16 @@
     margin: 0 1rem 1rem 1rem;
     font-size: 1.5rem;
   }
+  
+  & ::ng-deep .custom-button {
+    border: none;
+    margin-bottom: 0.75rem;
+
+    .board-header__face {
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 3rem;
+      width: 3rem;
+    }
+  }
 }

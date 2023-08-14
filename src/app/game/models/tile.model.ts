@@ -1,9 +1,18 @@
 
 export class Tile {
+  private type: TileType = TileType.FILLED;
   private show: boolean = false;
   private bomb: boolean = false;
   private flag: boolean = false;
   private number: number = 0;
+
+  public getType(): TileType {
+    return this.type;
+  }
+
+  public setType(value: TileType) {
+    this.type = value;
+  }
 
   public getShow(): boolean {
     return this.show;
