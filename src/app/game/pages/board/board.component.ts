@@ -4,6 +4,9 @@ import { ConfigModel } from '../../models/config.model';
 import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
 
+type RowColumn = { row: number, column: number };
+type RowColumnOrNull = RowColumn | null;
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -117,6 +120,10 @@ export class BoardComponent {
         }
       });
     }
+    else if (tileType === TileType.EMPTY) {
+      this.updateAdjacentTilesShowFlagWhenAEmptyTileWasClicked(tile);
+    }
+    
     // else {
     //   const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.getShow()).length;
     //   if (filledTilesQuantity === this.config.getCells() - 1) {
@@ -129,7 +136,7 @@ export class BoardComponent {
     } 
   }
 
-  findRowAndColumn(tile: Tile): { row: number, column: number } | null {
+  findRowAndColumn(tile: Tile): RowColumn {
     let row = -1;
     let column = -1;
   
@@ -147,6 +154,72 @@ export class BoardComponent {
       return { row, column };
     }
 
-    return null;
+    return { row: -1, column: -1 };
+  }
+
+  updateAdjacentTilesShowFlagWhenAEmptyTileWasClicked(tile: Tile) {
+    const rowAndColumn: RowColumnOrNull = this.findRowAndColumn(tile);
+    const rowIndex: number = rowAndColumn?.row;
+    const columnIndex: number = rowAndColumn?.column;
+
+    let excludeList: Array<RowColumn> = [];
+
+    const buildAdjacent: (rowIndex: number, columnIndex: number) => RowColumnOrNull =
+      (rowIndex: number, columnIndex: number): RowColumnOrNull => {
+        if (rowIndex > -1 && columnIndex > -1 &&
+          rowIndex < this.config.getRows() && columnIndex < this.config.getColumns()) {
+            if (!excludeList.some((excludeItem: RowColumn) => excludeItem.column === columnIndex && excludeItem.row === rowIndex)) {
+              return { row: rowIndex, column: columnIndex };
+            }
+        }
+
+        return null;
+      };
+
+
+    const buildAdjacentList: (rowIndex: number, columnIndex: number) => Array<RowColumn> =
+      (rowIndex: number, columnIndex: number): Array<RowColumn> => {
+        let adjacentListAux: Array<RowColumnOrNull> = [];
+
+        adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex - 1));
+        adjacentListAux.push(buildAdjacent(rowIndex,     columnIndex - 1));
+        adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex - 1));
+        adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex    ));
+        adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex    ));
+        adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex + 1));
+        adjacentListAux.push(buildAdjacent(rowIndex,     columnIndex + 1));
+        adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex + 1));
+
+        return adjacentListAux.filter((adjacent) => adjacent !== null) as Array<RowColumn>;
+      }
+
+
+    const findNextAdjacents: (adjacents: Array<RowColumn>) => void =
+      (adjacents: Array<RowColumn>): void => {
+        adjacents.forEach((adjacent: RowColumn) => {
+          const rowIndex: number = adjacent.row;
+          const columnIndex: number = adjacent.column;
+
+          if (this.grid[rowIndex]) {
+            let tile: Tile = this.grid[rowIndex][columnIndex];
+            if (tile) {
+              if (tile.isTypeEmpty() || tile.isTypeNumber()) {
+                tile.setShow(true);
+              }
+
+              if (tile.isTypeEmpty()) {
+                let adjacentList: Array<RowColumn> = buildAdjacentList(rowIndex, columnIndex);
+                excludeList.push(...adjacentList);
+                findNextAdjacents(adjacentList);
+              }
+            }
+          }
+        });
+      }
+
+
+    let adjacentList: Array<RowColumn> = buildAdjacentList(rowIndex, columnIndex);
+    excludeList.push(...adjacentList);
+    findNextAdjacents(adjacentList);
   }
 }
