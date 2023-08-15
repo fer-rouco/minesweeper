@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ConfigModel, DificultyLevel } from '../models/config.model';
+import { ConfigModel, DifficultyLevel } from '../models/config.model';
 import { StorageManagerService } from './storage/storage-manager.service';
 
 @Injectable({
@@ -22,20 +22,20 @@ export class ConfigService {
   public doConfig(): void {
     let height: number = 0, width: number = 0, bombs: number = 0;
 
-    switch (this.config.getDificultyLevel()) {
-      case DificultyLevel.EASY:
+    switch (this.config.getDifficultyLevel()) {
+      case DifficultyLevel.EASY:
         height = 9;
         width = 9;
         bombs = 10;
         break;
 
-      case DificultyLevel.MEDIUM:
+      case DifficultyLevel.MEDIUM:
         height = 16;
         width = 16;
         bombs = 40;
         break;
 
-      case DificultyLevel.HARD:
+      case DifficultyLevel.HARD:
         height = 30;
         width = 16;
         bombs = 99;
@@ -55,7 +55,7 @@ export class ConfigService {
         break;
     }
 
-    this.config = new ConfigModel(this.config.getDificultyLevel(), height, width, bombs);
+    this.config = new ConfigModel(this.config.getDifficultyLevel(), height, width, bombs);
   }
 
   public storeConfig() {

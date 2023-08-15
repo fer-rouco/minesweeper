@@ -1,4 +1,4 @@
-export enum DificultyLevel {
+export enum DifficultyLevel {
   CUSTOM = 0,
   EASY = 1,
   MEDIUM = 2,
@@ -8,18 +8,18 @@ export enum DificultyLevel {
 
 export class ConfigModel {
   constructor (
-    private dificultyLevel: DificultyLevel = DificultyLevel.CUSTOM,
+    private difficultyLevel: DifficultyLevel = DifficultyLevel.CUSTOM,
     private columns: number = 9,
     private rows: number = 9,
     private bombs: number = 10
   ) {}
 
-  public getDificultyLevel(): DificultyLevel {
-    return this.dificultyLevel;
+  public getDifficultyLevel(): DifficultyLevel {
+    return this.difficultyLevel;
   }
 
-  public setDificultylevel(value: DificultyLevel): void {
-    this.dificultyLevel = value;
+  public setDifficultyLevel(value: DifficultyLevel): void {
+    this.difficultyLevel = value;
   }
 
   public getColumns(): number {

@@ -8,6 +8,7 @@ import { FieldComponent } from './controls/fields/field/field.component';
 import { NumericFieldComponent } from './controls/fields/numeric-field/numeric-field.component';
 import { BaseFieldComponent } from './controls/base-field.component';
 import { CustomButtonComponent } from './controls/button/button.component';
+import { TableComponent } from './controls/table/table.component';
 
 @NgModule({
   declarations: [
@@ -17,14 +18,16 @@ import { CustomButtonComponent } from './controls/button/button.component';
     InputFieldComponent,
     SelectFieldComponent,
     NumericFieldComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
+    TableComponent
   ],
   exports: [
     PanelComponent,
     InputFieldComponent,
     NumericFieldComponent,
     SelectFieldComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

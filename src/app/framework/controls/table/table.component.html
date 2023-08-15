@@ -1,0 +1,8 @@
+<table class="custom-table">
+  <tr>
+    <th class="custom-table__header" *ngFor="let columnDefinition of columnDefinitions">{{columnDefinition.label}}</th>
+  </tr>
+  <tr *ngFor="let rowObject of rowObjects">
+    <td class="custom-table__cell"  *ngFor="let columnDefinition of columnDefinitions">{{rowObject[columnDefinition.attr]}}</td>
+  </tr>
+</table>
