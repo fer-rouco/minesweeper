@@ -1,8 +1,7 @@
 
 export class Tile {
-  private type: TileType = TileType.FILLED;
+  private type: TileType = TileType.EMPTY;
   private show: boolean = false;
-  private bomb: boolean = false;
   private flag: boolean = false;
   private number: number = 0;
 
@@ -25,32 +24,47 @@ export class Tile {
   public getNumber(): number {
     return this.number;
   }
+
   public setNumber(value: number) {
     this.number = value;
   }
 
-  public isBomb(): boolean {
-    return this.bomb;
+  public setFlag(value: boolean): void {
+    this.flag = value;
   }
 
-  public setBomb(value: boolean) {
-    this.bomb = value;
-  }
-    
   public isFlag(): boolean {
     return this.flag;
   }
 
-  public setFlag(value: boolean) {
-    this.flag = value;
+  private isType(tileType: TileType): boolean {
+    return (this.getType() === tileType);
   }
 
+  public isTypeEmpty(): boolean {
+    return this.isType(TileType.EMPTY);
+  }
+
+  public isTypeNumber(): boolean {
+    return this.isType(TileType.NUMBER);
+  }
+
+  public isTypeBomb(): boolean {
+    return this.isType(TileType.BOMB);
+  }
+
+  public isTypeExplosion(): boolean {
+    return this.isType(TileType.EXPLOSION);
+  }
+
+  public isNumber(tileNumber: number): boolean {
+    return (this.getNumber() === tileNumber);
+  } 
 }
 
 export enum TileType {
   EMPTY = 0,
-  FILLED = 1,
+  NUMBER = 1,
   BOMB = 2,
-  EXPLOSION = 3,
-  FLAG = 4
+  EXPLOSION = 4
 }

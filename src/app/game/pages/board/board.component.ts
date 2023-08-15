@@ -15,6 +15,8 @@ export class BoardComponent {
 
   public config: ConfigModel;
 
+  private gameOver: boolean = false;
+
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService
@@ -28,8 +30,8 @@ export class BoardComponent {
       this.newGame();
     });
 
-    this.boardService.getTileChangesObservable().subscribe((tileType: TileType) => {
-      this.onTileChange(tileType);
+    this.boardService.getTileChangesObservable().subscribe((tile: Tile) => {
+      this.onTileChange(tile);
     });
   }
 
@@ -37,6 +39,7 @@ export class BoardComponent {
     this.initGrid();
     this.updateGridWithRandomBombs();
     this.updateGridWithNumbers();
+    this.gameOver = false;
   }
 
   private initGrid(): void {
@@ -54,8 +57,8 @@ export class BoardComponent {
       const randomRow = Math.floor(Math.random() * this.config.getRows());
       const randomCol = Math.floor(Math.random() * this.config.getColumns());
 
-      if (!this.grid[randomRow][randomCol].isBomb()) {
-        this.grid[randomRow][randomCol].setBomb(true);
+      if (!this.grid[randomRow][randomCol].isTypeBomb()) {
+        this.grid[randomRow][randomCol].setType(TileType.BOMB);
         bombsPlaced++;
       }
     }
@@ -68,8 +71,9 @@ export class BoardComponent {
       if (tileRow) {
         const tile: Tile = tileRow[columnIndex] as Tile;
   
-        if (tile && !tile.isBomb()) {
+        if (tile && !tile.isTypeBomb()) {
           tile.setNumber(tile.getNumber() + 1);
+          tile.setType(TileType.NUMBER);
         }
       }
 
@@ -77,7 +81,7 @@ export class BoardComponent {
 
     for (let rowIndex = 0; rowIndex < this.config.getRows(); rowIndex++) {
       for (let columnIndex = 0; columnIndex < this.config.getColumns(); columnIndex++) {
-        if (!this.grid[rowIndex][columnIndex].isBomb()) {
+        if (!this.grid[rowIndex][columnIndex].isTypeBomb()) {
           continue;
         }      
 
@@ -96,24 +100,53 @@ export class BoardComponent {
     }
   }
 
-  onTileChange(tileType: TileType): void {
+  updateFlagCounter() {
+    const flagsQuantity = this.grid.flat().filter((tile: Tile) => tile.isFlag()).length;
+    this.boardService.updateFlagCounter(flagsQuantity);
+  }
+  
+  onTileChange(tile: Tile): void {
+    const tileType: TileType = tile.getType();
+
     if (tileType === TileType.EXPLOSION) {
-      this.boardService.looseGame();
+      this.boardService.gameOver();
+      this.gameOver = true;
       this.grid.flat().forEach((tile: Tile) => {
-        if (!tile.getShow() && tile.isBomb()) {
-          tile.setType(TileType.BOMB);
+        if (!tile.getShow() && tile.isTypeBomb()) {
+          tile.setShow(true);
         }
       });
     }
-    else if (tileType === TileType.FLAG) {
-      const flagsQuantity = this.grid.flat().filter((tile: Tile) => tile.getType() === TileType.FLAG).length;
-      this.boardService.updateFlagCounter(flagsQuantity);
-    }
-    else {
-      const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.getType() === TileType.FILLED).length;
-      if (filledTilesQuantity === this.config.getCells() - 1) {
-        this.boardService.startNewGame();
+    // else {
+    //   const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.getShow()).length;
+    //   if (filledTilesQuantity === this.config.getCells() - 1) {
+    //     this.boardService.startNewGame();
+    //   }
+    // }
+
+    if (!this.gameOver) {
+      this.updateFlagCounter();
+    } 
+  }
+
+  findRowAndColumn(tile: Tile): { row: number, column: number } | null {
+    let row = -1;
+    let column = -1;
+  
+    this.grid.findIndex((currentRow, rowIndex) => {
+      const columnIndex = currentRow.findIndex(object => object === tile);
+      if (columnIndex !== -1) {
+        row = rowIndex;
+        column = columnIndex;
+        return true;
       }
+      return false;
+    });
+  
+    if (row !== -1 && column !== -1) {
+      return { row, column };
     }
+
+    return null;
   }
 }

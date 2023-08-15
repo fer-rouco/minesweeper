@@ -12,18 +12,18 @@ export class TileComponent implements OnInit {
   
   @Input() public tile: Tile | undefined = undefined;
 
-  private loose: boolean = false;
+  private gameOver: boolean = false;
 
   constructor(@Inject(BoardService) private boardService: BoardService) {}
   
-  ngOnInit(): void {
-    this.boardService.getLooseGameObservable().subscribe(() => {
-      this.loose = true;
+  public ngOnInit(): void {
+    this.boardService.getGameOverObservable().subscribe(() => {
+      this.gameOver = true;
     });
   }
 
-  private updateType(contextMenuClick?: boolean): void {
-    if (this.loose) {
+  private updateType(): void {
+    if (this.gameOver) {
       return;
     }
     
@@ -34,49 +34,49 @@ export class TileComponent implements OnInit {
     if (this.tile.getShow()) {
       return;
     }
+
+    if (this.tile.isFlag()) {
+      return;
+    }
     
-    this.tile.setType((contextMenuClick) ? this.TileTypes.FILLED : this.TileTypes.EMPTY);
-    
-    if (this.tile.isBomb() && !contextMenuClick) {
+    if (this.tile.isTypeBomb()) {
       this.tile.setType(this.TileTypes.EXPLOSION);
       this.tile.setShow(true);
     }
 
-    if (this.tile.isFlag()) {
-      this.tile.setType(this.TileTypes.FLAG);
-    }
-
-    if (this.tile.getType() === this.TileTypes.EMPTY) {
+    if (this.tile.isTypeBomb() || this.tile.isTypeEmpty() || this.tile.isTypeNumber()) {
       this.tile.setShow(true);
-    }    
+    }
   }
 
-  onClick(event: Event): void {
+  public onClick(event: Event): void {
     if (!this.tile) {
       return;
     }
 
     this.updateType();
-    this.boardService.tileChange(this.tile.getType());
+    this.boardService.tileChange(this.tile);
   }
 
-  onContextMenuClick(event: Event): void {
+  public onContextMenuClick(event: Event): void {
+    event.preventDefault();
+    
+    if (this.gameOver) {
+      return;
+    }
+    
     if (!this.tile) {
       return;
     }
 
-    event.preventDefault();
+    if (this.tile.getShow()) {
+      return;
+    }
+
     this.tile.setFlag(!this.tile.isFlag());
-    this.updateType(true);
-    this.boardService.tileChange(this.tile.getType());
+    this.boardService.tileChange(this.tile);
   }
 
-  isTileType(tileType: TileType): boolean {
-    return (!!this.tile && this.tile.getType() === tileType);
-  }
 
-  isTileNumber(tileNumber: number): boolean {
-    return (!!this.tile && this.tile.getNumber() === tileNumber);
-  }
 }
 

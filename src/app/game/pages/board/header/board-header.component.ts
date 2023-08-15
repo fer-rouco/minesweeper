@@ -23,12 +23,12 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {  
     this.resetFlagCounter();
 
-    this.boardService.getStartNewGameObservable().subscribe(() => {
-      this.startGame();
-      this.startTimer();
-    });
+    // this.boardService.getStartNewGameObservable().subscribe(() => {
+    //   this.startGame();
+    //   this.startTimer();
+    // });
 
-    this.boardService.getLooseGameObservable().subscribe(() => {
+    this.boardService.getGameOverObservable().subscribe(() => {
       this.loose = true;
       this.stopTimer();
     });
