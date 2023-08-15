@@ -6,16 +6,16 @@
   justify-content: center;
   position: absolute;
   right: 1rem;
+ 
+  & .link {
+    color: rgb(8, 82, 1);
+    cursor: pointer;
+  }
 
   &__game-over {
     background-color: rgb(255, 183, 183);
     border-radius: var(--border-radius);
     padding: 1rem;
-
-    & .link {
-      color: rgb(8, 82, 1);
-      cursor: pointer;
-    }
   }
 
   &__game-won {

@@ -35,7 +35,11 @@
       align-items: flex-end;
   
       & ::ng-deep .custom-button {
-        margin: 0 0 0 1rem;
+        margin: 0 0 0 .5rem;
+
+        .icon {
+          height: 1rem;
+        }
       }
     }
   }

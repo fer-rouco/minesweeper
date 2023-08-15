@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfigModel } from '../../models/config.model';
 import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
@@ -21,6 +22,7 @@ export class BoardComponent {
   public gameWon: boolean = false;
 
   constructor(
+    protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService
   ) {
@@ -36,6 +38,10 @@ export class BoardComponent {
     this.boardService.getTileChangesObservable().subscribe((tile: Tile) => {
       this.onTileChange(tile);
     });
+  }
+
+  public navigateToFinishedGameList(): void {
+    this.router.navigateByUrl('/finished-games-list');
   }
 
   public newGame(): void {

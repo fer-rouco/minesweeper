@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 interface Action {
-  label: string;
+  icon?: string;
+  label?: string;
   to: string;
 }
 

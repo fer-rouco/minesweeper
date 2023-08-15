@@ -16,7 +16,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
-    @Inject(BoardService) private boardService: BoardService, 
+    @Inject(BoardService) private boardService: BoardService,
     private cdr: ChangeDetectorRef
   ) {}
 
