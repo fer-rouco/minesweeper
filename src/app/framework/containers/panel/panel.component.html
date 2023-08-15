@@ -2,12 +2,14 @@
   <div>
     <div class="panel-container__title" >
       <h3>{{title}}</h3>
-      <custom-button
-        *ngFor="let action of actions"
-        (click)="onActionClick(action)"
-        >
-        {{action.label}}
-      </custom-button>
+      <div class="actions">
+        <custom-button
+          *ngFor="let action of actions"
+          (click)="onActionClick(action)"
+          >
+          {{action.label}}
+        </custom-button>
+      </div>
     </div>
   </div>
   <div class="panel-container__content">

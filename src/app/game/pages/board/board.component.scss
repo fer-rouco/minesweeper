@@ -1,3 +1,30 @@
+@import '../../../variables';
+
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+
+  &__game-over {
+    background-color: rgb(255, 183, 183);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+
+    & .link {
+      color: rgb(8, 82, 1);
+      cursor: pointer;
+    }
+  }
+
+  &__game-won {
+    background-color: rgb(173, 255, 173);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+  }
+}
+
 .board {
   &__grid {
     display: flex;

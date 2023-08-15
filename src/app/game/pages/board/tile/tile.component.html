@@ -1,15 +1,15 @@
 <span
   class="tile" 
   [ngClass]="{
-    'filled': !tile?.getShow() && (tile?.isTypeEmpty() || tile?.isTypeNumber() || tile?.isTypeBomb()),
-    'bomb': tile?.getShow() && tile?.isTypeBomb(),
-    'explosion': tile?.getShow() && tile?.isTypeExplosion(),
-    'flag': !tile?.getShow() && tile?.isFlag()
+    'filled': !tile?.isDiscovered() && (tile?.isTypeEmpty() || tile?.isTypeNumber() || tile?.isTypeBomb()),
+    'bomb': tile?.isDiscovered() && tile?.isTypeBomb(),
+    'explosion': tile?.isDiscovered() && tile?.isTypeExplosion(),
+    'flag': !tile?.isDiscovered() && tile?.isFlag()
   }"
   (click)="onClick($event)"
   (contextmenu)="onContextMenuClick($event)">
   <span
-    *ngIf="(tile && tile.getNumber() > 0) && tile.getShow()"
+    *ngIf="(tile && tile.getNumber() > 0) && tile.isDiscovered()"
     class="tile__number"
     [ngClass]="{
       'one': tile.isNumber(1),

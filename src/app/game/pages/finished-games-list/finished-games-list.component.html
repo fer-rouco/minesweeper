@@ -1,4 +1,4 @@
-<panel title="Finished Games List">
+<panel title="Finished Games List" [actions]="[{ label: 'Go To Board', to: '/board' }, { label: 'Go To Setup', to: '/setup' }]">
   <custom-table  [rowObjects]="rowObjects"  [columnDefinitions]="columnDefinitions"></custom-table>
 </panel>
 

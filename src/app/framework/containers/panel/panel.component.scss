@@ -29,9 +29,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-      
-    & ::ng-deep .custom-button {
-      margin: 0 0 0 1rem;
+    
+    & .actions {
+      display: flex;
+      align-items: flex-end;
+  
+      & ::ng-deep .custom-button {
+        margin: 0 0 0 1rem;
+      }
     }
   }
 

@@ -9,7 +9,8 @@ export class BoardService {
   private $resetGame = new Subject<null>();
   private $tileChange = new Subject<Tile>();
   private $startingNewGame = new Subject<null>();
-  private $gameOver = new Subject<null>();
+  private $startTimer = new Subject<null>();
+  private $gameOver = new Subject<boolean>();
   private $updateFlagCounter = new Subject<number>();
 
   constructor() { }
@@ -30,21 +31,29 @@ export class BoardService {
     return this.$resetGame.asObservable();
   }
 
-  public gameOver() {
-    this.$gameOver.next(null);
+  public gameOver(gameOver: boolean) {
+    this.$gameOver.next(gameOver);
   }
 
-  public getGameOverObservable(): Observable<null> {
+  public getGameOverObservable(): Observable<boolean> {
     return this.$gameOver.asObservable();
   }
 
-  // public startNewGame() {
-  //   this.$startingNewGame.next(null);
-  // }
+  public startNewGame() {
+    this.$startingNewGame.next(null);
+  }
 
-  // public getStartNewGameObservable(): Observable<null> {
-  //   return this.$startingNewGame.asObservable();
-  // }
+  public getStartNewGameObservable(): Observable<null> {
+    return this.$startingNewGame.asObservable();
+  }
+
+  public startTimer() {
+    this.$startTimer.next(null);
+  }
+
+  public getStartTimerObservable(): Observable<null> {
+    return this.$startTimer.asObservable();
+  }
 
   public updateFlagCounter(flagCounter: number) {
     this.$updateFlagCounter.next(flagCounter);

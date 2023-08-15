@@ -31,7 +31,7 @@ export class TileComponent implements OnInit {
       return;
     }
 
-    if (this.tile.getShow()) {
+    if (this.tile.isDiscovered()) {
       return;
     }
 
@@ -41,11 +41,11 @@ export class TileComponent implements OnInit {
     
     if (this.tile.isTypeBomb()) {
       this.tile.setType(this.TileTypes.EXPLOSION);
-      this.tile.setShow(true);
+      this.tile.setDiscovered(true);
     }
 
     if (this.tile.isTypeBomb() || this.tile.isTypeEmpty() || this.tile.isTypeNumber()) {
-      this.tile.setShow(true);
+      this.tile.setDiscovered(true);
     }
   }
 
@@ -69,7 +69,7 @@ export class TileComponent implements OnInit {
       return;
     }
 
-    if (this.tile.getShow()) {
+    if (this.tile.isDiscovered()) {
       return;
     }
 

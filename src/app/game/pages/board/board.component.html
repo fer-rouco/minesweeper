@@ -1,4 +1,8 @@
-<panel class="board" title="Board" [actions]="[{ label: 'Go To Finished Games List', to: '/finished-games-list' }]">
+<div class="notification" >
+  <span *ngIf="gameOver" class="notification__game-over" >Game Over! <a class="link" (click)="newGame()" >Try again.</a></span>
+  <span *ngIf="gameWon" class="notification__game-won" >Game Won!</span>
+</div>
+<panel class="board" title="Board" [actions]="[{ label: 'Go To Finished Games List', to: '/finished-games-list' }, { label: 'Go To Setup', to: '/setup' }]">
   <board-header></board-header>
   <div class="board__grid" >
     <table>

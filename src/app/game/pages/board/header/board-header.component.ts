@@ -12,7 +12,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   public timerIntervalRef: any = undefined;
   public timer: number = 0;
   public flagCounter: number = 0;
-  public loose: boolean = false;
+  public gameOver: boolean = false;
 
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
@@ -23,13 +23,16 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {  
     this.resetFlagCounter();
 
-    // this.boardService.getStartNewGameObservable().subscribe(() => {
-    //   this.startGame();
-    //   this.startTimer();
-    // });
+    this.boardService.getStartNewGameObservable().subscribe(() => {
+      this.startGame();
+    });
+    
+    this.boardService.getStartTimerObservable().subscribe(()=>{
+      this.startTimer();
+    });
 
-    this.boardService.getGameOverObservable().subscribe(() => {
-      this.loose = true;
+    this.boardService.getGameOverObservable().subscribe((gameOver: boolean) => {
+      this.gameOver = gameOver;
       this.stopTimer();
     });
 
@@ -43,14 +46,12 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   }
 
   startTimer(): void {
-    if (this.timerIntervalRef !== undefined) {
-      this.stopTimer();
+    if (!this.timerIntervalRef) {
+      this.timerIntervalRef = setInterval(() => {
+        this.timer += 1;
+        this.cdr.detectChanges();
+      }, 1000);
     }
-
-    this.timerIntervalRef = setInterval(() => {
-      this.timer += 1;
-      this.cdr.detectChanges();
-    }, 1000);
   }
   
   stopTimer(): void {
@@ -59,10 +60,9 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   }
 
   public startGame(): void {
-    this.loose = false;
+    this.gameOver = false;
     this.timer = 0;
     this.resetFlagCounter();
-
   }
 
   public restartGame(): void {

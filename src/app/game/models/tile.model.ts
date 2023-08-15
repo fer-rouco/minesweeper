@@ -1,7 +1,7 @@
 
 export class Tile {
   private type: TileType = TileType.EMPTY;
-  private show: boolean = false;
+  private discovered: boolean = false;
   private flag: boolean = false;
   private number: number = 0;
 
@@ -13,12 +13,12 @@ export class Tile {
     this.type = value;
   }
 
-  public getShow(): boolean {
-    return this.show;
+  public isDiscovered(): boolean {
+    return this.discovered;
   }
 
-  public setShow(value: boolean) {
-    this.show = value;
+  public setDiscovered(value: boolean) {
+    this.discovered = value;
   }
 
   public getNumber(): number {

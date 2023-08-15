@@ -17,7 +17,8 @@ export class BoardComponent {
 
   public config: ConfigModel;
 
-  private gameOver: boolean = false;
+  public gameOver: boolean = false;
+  public gameWon: boolean = false;
 
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
@@ -37,11 +38,13 @@ export class BoardComponent {
     });
   }
 
-  private newGame(): void {
+  public newGame(): void {
     this.initGrid();
     this.updateGridWithRandomBombs();
     this.updateGridWithNumbers();
     this.gameOver = false;
+    this.gameWon = false;
+    this.boardService.startNewGame();
   }
 
   private initGrid(): void {
@@ -111,26 +114,32 @@ export class BoardComponent {
     const tileType: TileType = tile.getType();
 
     if (tileType === TileType.EXPLOSION) {
-      this.boardService.gameOver();
+      this.boardService.gameOver(true);
       this.gameOver = true;
       this.grid.flat().forEach((tile: Tile) => {
-        if (!tile.getShow() && tile.isTypeBomb()) {
-          tile.setShow(true);
+        if (!tile.isDiscovered() && tile.isTypeBomb()) {
+          tile.setDiscovered(true);
         }
       });
     }
-    else if (tileType === TileType.EMPTY) {
+    else if (tileType === TileType.EMPTY && !tile.isFlag()) {
       this.updateAdjacentTilesShowFlagWhenAEmptyTileWasClicked(tile);
     }
-    
-    // else {
-    //   const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.getShow()).length;
-    //   if (filledTilesQuantity === this.config.getCells() - 1) {
-    //     this.boardService.startNewGame();
-    //   }
-    // }
 
     if (!this.gameOver) {
+      
+      const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.isDiscovered() && !tile.isTypeBomb()).length;
+
+      if (filledTilesQuantity > 0) {
+        // this.boardService.startNewGame();
+        this.boardService.startTimer();
+      }
+
+      if (filledTilesQuantity === this.config.getCells() - this.config.getBombs()) {
+        this.gameWon = true;
+        this.boardService.gameOver(false);
+      }
+
       this.updateFlagCounter();
     } 
   }
@@ -204,8 +213,8 @@ export class BoardComponent {
           if (this.grid[rowIndex]) {
             let tile: Tile = this.grid[rowIndex][columnIndex];
             if (tile) {
-              if (tile.isTypeEmpty() || tile.isTypeNumber()) {
-                tile.setShow(true);
+              if (tile.isTypeEmpty() || tile.isTypeNumber() && !tile.isFlag()) {
+                tile.setDiscovered(true);
               }
 
               if (tile.isTypeEmpty()) {
