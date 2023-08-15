@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { ConfigService } from '../../services/config.service';
+import { Component, Inject } from '@angular/core';
 import { ConfigModel } from '../../models/config.model';
 import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
+import { ConfigService } from '../../services/config.service';
 
 type RowColumn = { row: number, column: number };
 type RowColumnOrNull = RowColumn | null;
@@ -10,8 +10,7 @@ type RowColumnOrNull = RowColumn | null;
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
   public grid: Array<Array<Tile>> = [];
@@ -184,8 +183,10 @@ export class BoardComponent {
         adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex - 1));
         adjacentListAux.push(buildAdjacent(rowIndex,     columnIndex - 1));
         adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex - 1));
+
         adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex    ));
         adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex    ));
+        
         adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex + 1));
         adjacentListAux.push(buildAdjacent(rowIndex,     columnIndex + 1));
         adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex + 1));

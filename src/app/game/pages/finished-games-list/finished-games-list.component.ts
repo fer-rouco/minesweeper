@@ -12,7 +12,7 @@ interface FinishedGamesListInterface {
 }
 
 @Component({
-  selector: 'app-finished-list',
+  selector: 'app-finished-games-list',
   templateUrl: './finished-games-list.component.html',
   styleUrls: ['./finished-games-list.component.scss']
 })

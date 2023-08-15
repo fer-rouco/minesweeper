@@ -15,4 +15,4 @@ import { FrameworkModule } from 'src/app/framework/framework.module';
     FrameworkModule
   ]
 })
-export class FinishedListModule { }
+export class FinishedGamesListModule { }
