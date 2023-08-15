@@ -13,8 +13,8 @@ export const routes: Routes = [
      "loadChildren": () => import('./game/pages/board/board.module').then(m => m.BoardModule)
   },
   {
-     "path": "finished-list",
-     "loadChildren": () => import('./game/pages/finished-list/finished-list.module').then(m => m.FinishedListModule)
+     "path": "finished-games-list",
+     "loadChildren": () => import('./game/pages/finished-games-list/finished-games-list.module').then(m => m.FinishedListModule)
   },
   { "path": '**', "component": PageNotFoundComponent }
 ];
