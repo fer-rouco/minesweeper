@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ConfigModel, DifficultyLevel } from '../models/config.model';
-import { StorageManagerService } from './storage/storage-manager.service';
+import { StorageManagerService } from '../../framework/generic/storage-manager.service';
 
 @Injectable({
   providedIn: 'root'

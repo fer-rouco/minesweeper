@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { FinishedGameItemInterface, GameStatus } from '../models/finished-game-item.model';
-import { StorageManagerService } from './storage/storage-manager.service';
+import { StorageManagerService } from '../../framework/generic/storage-manager.service';
 
 type FinishedGameItemToPersistType = {startTime: string, endTime: string, difficulty: string, totalTimeSpent: number, status: GameStatus};
 @Injectable({

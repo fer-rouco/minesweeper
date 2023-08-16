@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 
 interface StorageManagerInterface {
    useSessionStorage: boolean;
@@ -13,6 +13,14 @@ export class StorageManagerService {
    private config: StorageManagerInterface = {useSessionStorage: false, prefix: 'Minesweeper', separator: '.' } as StorageManagerInterface;
 
    private storeObject = (this.config.useSessionStorage) ? window.sessionStorage : window.localStorage;
+
+   public constructor() {
+      this.storeObject = localStorage;
+   }
+
+   public setStoreObject(storage: Storage):void {
+      this.storeObject = storage;
+   }
 
    public ensureKey(key: string): string {
       let split = key.split('.');
