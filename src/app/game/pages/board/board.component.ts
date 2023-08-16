@@ -5,6 +5,7 @@ import { GameStatus } from '../../models/finished-game-item.model';
 import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
 import { ConfigService } from '../../services/config.service';
+import { NotificationService } from 'src/app/framework/generic/notification.service';
 
 type RowColumn = { row: number, column: number };
 type RowColumnOrNull = RowColumn | null;
@@ -27,13 +28,15 @@ export class BoardComponent implements OnInit {
   constructor(
     protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
-    @Inject(BoardService) private boardService: BoardService
+    @Inject(BoardService) private boardService: BoardService,
+    @Inject(NotificationService) private notificationService: NotificationService,
   ) {
     this.config = this.configService.getConfig();
   }
 
   ngOnInit(): void {
     this.configService.restoreConfig();
+    this.config = this.configService.getConfig();
 
     this.newGame();
 
@@ -126,6 +129,7 @@ export class BoardComponent implements OnInit {
       this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.LOOSE);
       this.boardService.gameOver(true);
       this.gameOver = true;
+      this.notificationService.addError("Game Over!", { label: "Try Again.", to: '/board' });
       this.grid.flat().forEach((tile: Tile) => {
         if (!tile.isDiscovered() && tile.isTypeBomb()) {
           tile.setDiscovered(true);
@@ -150,6 +154,7 @@ export class BoardComponent implements OnInit {
         this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.WIN);
         this.boardService.gameOver(false);
         this.gameWon = true;
+        this.notificationService.addSuccess("Game Won!", { label: "Check your results.", to: '/finished-games-list' });
       }
 
       this.updateFlagCounter();
