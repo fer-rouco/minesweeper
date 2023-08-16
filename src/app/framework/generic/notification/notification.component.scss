@@ -1,0 +1,35 @@
+@import '../../../variables';
+
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+ 
+  & .link {
+    color: rgb(8, 82, 1);
+    cursor: pointer;
+  }
+
+  &__message {
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    
+    &.success {
+      background-color: rgb(173, 255, 173);
+    }
+
+    &.info {
+      background-color: rgb(158, 159, 255);
+    }
+
+    &.warning {
+      background-color: rgb(253, 255, 158);
+    }
+
+    &.error {
+      background-color: rgb(255, 183, 183);
+    }
+  }
+}

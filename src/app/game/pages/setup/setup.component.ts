@@ -3,6 +3,7 @@ import { Option } from 'src/app/framework/controls/fields/select-field/select-fi
 import { ConfigService } from '../../services/config.service';
 import { ConfigModel, DifficultyLevel } from '../../models/config.model';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/framework/generic/notification.service';
 
 @Component({
   selector: 'app-setup',
@@ -19,7 +20,11 @@ export class SetupComponent implements OnInit {
 
   public config: ConfigModel | undefined;
 
-  constructor(protected router: Router, @Inject(ConfigService) private configService: ConfigService) {
+  constructor(
+    protected router: Router, 
+    @Inject(ConfigService) private configService: ConfigService,
+    @Inject(NotificationService) private notificationService: NotificationService
+    ) {
     this.config = undefined;
   }
   
@@ -29,6 +34,12 @@ export class SetupComponent implements OnInit {
   }
 
   public onGoToBoardClick(): void {
+    
+    if (!this.configService.validateBombsQuantity()) {
+      this.notificationService.addError(`Maximum number of bombs exceeded. Please set a number less than ${this.configService.getMaxQuantityOfBombs()} bombs.`);
+      return;
+    }
+
     this.configService.storeConfig();
     this.navigateToBoard();
   }

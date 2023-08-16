@@ -1,7 +1,3 @@
-<div class="notification" >
-  <span *ngIf="gameOver" class="notification__game-over" >Game Over! <a class="link" (click)="newGame()" >Try again.</a></span>
-  <span *ngIf="gameWon" class="notification__game-won" >Game Won! <a class="link" (click)="navigateToFinishedGameList()" >Check your results.</a></span>
-</div>
 <panel class="board" title="Board" [actions]="[{ icon: 'list.svg' , to: '/finished-games-list' }, { icon: 'settings.svg', to: '/setup' }]">
   <board-header></board-header>
   <div class="board__grid" >

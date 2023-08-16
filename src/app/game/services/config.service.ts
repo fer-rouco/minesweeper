@@ -65,4 +65,18 @@ export class ConfigService {
   public restoreConfig() {
     this.setConfig(Object.assign(new ConfigModel(), this.storageManagerService.getItem('config') as ConfigModel));
   }
+
+  public getMaxQuantityOfBombs(): number {
+    const calPercnt = (number: number, percentage: number) => {
+      const result = number * (percentage / 100);
+      return parseFloat(result.toFixed(2));
+    }
+    const maxQuantityOfBombs: number = calPercnt(this.config.getCells(), 75);
+    
+    return maxQuantityOfBombs;
+  }
+
+  public validateBombsQuantity(): boolean {
+    return this.config.getBombs() <= this.getMaxQuantityOfBombs();
+  }
 }
