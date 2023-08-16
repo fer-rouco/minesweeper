@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigModel } from '../../models/config.model';
+import { GameStatus } from '../../models/finished-game-item.model';
 import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
 import { ConfigService } from '../../services/config.service';
@@ -13,7 +14,7 @@ type RowColumnOrNull = RowColumn | null;
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
   public grid: Array<Array<Tile>> = [];
 
   public config: ConfigModel;
@@ -21,23 +22,24 @@ export class BoardComponent {
   public gameOver: boolean = false;
   public gameWon: boolean = false;
 
+  private gameStart: Date | null = null;
+
   constructor(
     protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService
   ) {
-    this.configService.restoreConfig();
     this.config = this.configService.getConfig();
+  }
+
+  ngOnInit(): void {
+    this.configService.restoreConfig();
 
     this.newGame();
 
     this.boardService.getResetGameObservable().subscribe(() => {
       this.newGame();
-    });
-
-    this.boardService.getTileChangesObservable().subscribe((tile: Tile) => {
-      this.onTileChange(tile);
-    });
+    });   
   }
 
   public navigateToFinishedGameList(): void {
@@ -50,6 +52,7 @@ export class BoardComponent {
     this.updateGridWithNumbers();
     this.gameOver = false;
     this.gameWon = false;
+    this.gameStart = null;
     this.boardService.startNewGame();
   }
 
@@ -119,7 +122,8 @@ export class BoardComponent {
   onTileChange(tile: Tile): void {
     const tileType: TileType = tile.getType();
 
-    if (tileType === TileType.EXPLOSION) {
+    if (tileType === TileType.EXPLOSION && !this.gameOver) {
+      this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.LOOSE);
       this.boardService.gameOver(true);
       this.gameOver = true;
       this.grid.flat().forEach((tile: Tile) => {
@@ -136,14 +140,16 @@ export class BoardComponent {
       
       const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.isDiscovered() && !tile.isTypeBomb()).length;
 
-      if (filledTilesQuantity > 0) {
-        // this.boardService.startNewGame();
+      // Game starts here when you click in the first tile
+      if (filledTilesQuantity > 0 && !this.gameStart) {
+        this.gameStart = new Date();
         this.boardService.startTimer();
       }
 
       if (filledTilesQuantity === this.config.getCells() - this.config.getBombs()) {
-        this.gameWon = true;
+        this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.WIN);
         this.boardService.gameOver(false);
+        this.gameWon = true;
       }
 
       this.updateFlagCounter();

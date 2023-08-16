@@ -1,26 +1,20 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Tile, TileType } from '../../../models/tile.model';
-import { BoardService } from 'src/app/game/services/board.service';
 
 @Component({
   selector: 'tile',
   templateUrl: './tile.component.html',
   styleUrls: ['./tile.component.scss']
 })
-export class TileComponent implements OnInit {
+export class TileComponent {
   public readonly TileTypes: typeof TileType = TileType;
   
   @Input() public tile: Tile | undefined = undefined;
+  @Output() public change = new EventEmitter<Tile>();
 
-  private gameOver: boolean = false;
+  @Input() public gameOver: boolean = false;
 
-  constructor(@Inject(BoardService) private boardService: BoardService) {}
-  
-  public ngOnInit(): void {
-    this.boardService.getGameOverObservable().subscribe(() => {
-      this.gameOver = true;
-    });
-  }
+  constructor() {}
 
   private updateType(): void {
     if (this.gameOver) {
@@ -55,7 +49,7 @@ export class TileComponent implements OnInit {
     }
 
     this.updateType();
-    this.boardService.tileChange(this.tile);
+    this.change.next(this.tile);
   }
 
   public onContextMenuClick(event: Event): void {
@@ -74,9 +68,6 @@ export class TileComponent implements OnInit {
     }
 
     this.tile.setFlag(!this.tile.isFlag());
-    this.boardService.tileChange(this.tile);
+    this.change.next(this.tile);
   }
-
-
 }
-

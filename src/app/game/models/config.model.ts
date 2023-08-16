@@ -18,6 +18,10 @@ export class ConfigModel {
     return this.difficultyLevel;
   }
 
+  public getDifficultyLevelAsString(): string {
+    return DifficultyLevel[this.difficultyLevel];
+  }
+
   public setDifficultyLevel(value: DifficultyLevel): void {
     this.difficultyLevel = value;
   }

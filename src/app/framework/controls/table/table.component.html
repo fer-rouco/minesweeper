@@ -1,8 +1,11 @@
-<table class="custom-table">
+<table class="custom-table flex" [ngClass]="{ 'flex': !rowObjects || rowObjects.length === 0 }">
   <tr>
     <th class="custom-table__header" *ngFor="let columnDefinition of columnDefinitions">{{columnDefinition.label}}</th>
   </tr>
   <tr *ngFor="let rowObject of rowObjects">
-    <td class="custom-table__cell"  *ngFor="let columnDefinition of columnDefinitions">{{rowObject[columnDefinition.attr]}}</td>
+    <td class="custom-table__cell" *ngFor="let columnDefinition of columnDefinitions">{{rowObject[columnDefinition.attr]}}</td>
+  </tr>
+  <tr>
+    <span class="custom-table__no-items-found" *ngIf="!rowObjects || rowObjects.length === 0">No items found.</span>
   </tr>
 </table>

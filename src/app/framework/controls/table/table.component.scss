@@ -1,4 +1,11 @@
 .custom-table {
+
+  &.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__header {
     &:first-of-type {
       border-top-left-radius: var(--border-radius);
@@ -15,6 +22,21 @@
   }
 
   &__cell {
+    padding: 0.5rem;
+  }
+
+  &__no-items-found {
+    &:first-of-type {
+      border-top-left-radius: var(--border-radius);
+      border-end-start-radius: var(--border-radius);
+    }
+
+    &:last-of-type {
+      border-top-right-radius: var(--border-radius);
+      border-end-end-radius: var(--border-radius);
+    }
+
+    background-color: #ffffff;
     padding: 0.5rem;
   }
 }

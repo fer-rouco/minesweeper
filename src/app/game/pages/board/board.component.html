@@ -8,7 +8,7 @@
     <table>
       <tr *ngFor="let col of grid" class="row">
         <td *ngFor="let tile of col" class="col">
-          <tile [tile]="tile"></tile>
+          <tile [tile]="tile" [gameOver]="gameOver" (change)="onTileChange($event)"></tile>
         </td>
       </tr>
     </table>
