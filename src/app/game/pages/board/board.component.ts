@@ -58,10 +58,13 @@ export class BoardComponent implements OnInit {
   }
 
   private initGrid(): void {
+    let id: number = 0;
     for (let rowIndex = 0; rowIndex < this.config.getRows(); rowIndex++) {
       this.grid[rowIndex] = [];
       for (let columnIndex = 0; columnIndex < this.config.getColumns(); columnIndex++) {
-        this.grid[rowIndex][columnIndex] = new Tile();
+        let tile: Tile = new Tile();
+        tile.setId(++id);
+        this.grid[rowIndex][columnIndex] = tile;
       }
     }
   }

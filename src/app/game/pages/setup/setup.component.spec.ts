@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
+import { TestRequirementsModule } from 'src/test/test-requirements.module';
 import { SetupComponent } from './setup.component';
 
 describe('SetupComponent', () => {
@@ -8,7 +10,8 @@ describe('SetupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SetupComponent ]
+      imports: [TestRequirementsModule],
+      declarations: [ PanelComponent, SetupComponent ]
     })
     .compileComponents();
 

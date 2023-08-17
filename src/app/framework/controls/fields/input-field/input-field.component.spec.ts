@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputFieldComponent } from './input-field.component';
+import { FieldComponent } from '../field/field.component';
+import { FormsModule } from '@angular/forms';
+import { TestRequirementsModule } from 'src/test/test-requirements.module';
 
 describe('InputFieldComponent', () => {
   let component: InputFieldComponent;
@@ -8,7 +11,7 @@ describe('InputFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InputFieldComponent ]
+      imports: [TestRequirementsModule]
     })
     .compileComponents();
 

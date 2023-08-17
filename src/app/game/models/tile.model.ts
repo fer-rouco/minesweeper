@@ -1,9 +1,18 @@
 
 export class Tile {
+  private id: number = 0;
   private type: TileType = TileType.EMPTY;
   private discovered: boolean = false;
   private flag: boolean = false;
   private number: number = 0;
+
+  public getId(): number {
+    return this.id;
+  }
+
+  public setId(value: number) {
+    this.id = value;
+  }
 
   public getType(): TileType {
     return this.type;

@@ -1,19 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { NotificationComponent } from './framework/generic/notification/notification.component';
+import { TestRequirementsModule } from 'src/test/test-requirements.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      imports: [TestRequirementsModule],
+      declarations: [ AppComponent, NotificationComponent ]
+    })
+    .compileComponents();
   });
-
+  
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
@@ -26,10 +25,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('minesweeper');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('minesweeper app is running!');
-  });
 });

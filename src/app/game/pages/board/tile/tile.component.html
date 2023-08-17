@@ -1,4 +1,5 @@
 <span
+  [id]="'tile-' + tile?.getId()"
   class="tile" 
   [ngClass]="{
     'filled': !tile?.isDiscovered() && (tile?.isTypeEmpty() || tile?.isTypeNumber() || tile?.isTypeBomb()),

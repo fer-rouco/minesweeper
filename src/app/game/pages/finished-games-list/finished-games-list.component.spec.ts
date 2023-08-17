@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FinishedGamesListComponent } from './finished-games-list.component';
+import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
+import { TableComponent } from 'src/app/framework/controls/table/table.component';
+import { CustomButtonComponent } from 'src/app/framework/controls/button/button.component';
 
 describe('FinishedGamesListComponent', () => {
   let component: FinishedGamesListComponent;
@@ -8,7 +11,7 @@ describe('FinishedGamesListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FinishedGamesListComponent ]
+      declarations: [ PanelComponent, FinishedGamesListComponent, TableComponent, CustomButtonComponent ]
     })
     .compileComponents();
 
