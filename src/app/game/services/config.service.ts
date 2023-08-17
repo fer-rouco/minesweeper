@@ -71,7 +71,7 @@ export class ConfigService {
       const result = number * (percentage / 100);
       return parseFloat(result.toFixed(2));
     }
-    const maxQuantityOfBombs: number = calPercnt(this.config.getCells(), 75);
+    const maxQuantityOfBombs: number = calPercnt(this.config.getCells(), 50);
     
     return maxQuantityOfBombs;
   }

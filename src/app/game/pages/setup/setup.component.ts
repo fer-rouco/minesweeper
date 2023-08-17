@@ -19,6 +19,7 @@ export class SetupComponent implements OnInit {
   ];
 
   public config: ConfigModel | undefined;
+  public difficultyLevelEnabled: boolean = false;
 
   constructor(
     protected router: Router, 
@@ -31,17 +32,59 @@ export class SetupComponent implements OnInit {
   ngOnInit(): void {
     this.configService.restoreConfig();
     this.config = this.configService.getConfig();
+    this.difficultyLevelEnabled = this.isCustomDifficultyLevel();
+  }
+
+  private validateFields(): boolean {
+
+    const minMaxMessage: (minMax: string, object: string, moreLess: string, value: number) => string =
+      (minMax: string, object: string, moreLess: string, value: number) => {
+        return `${minMax} number of ${object} exceeded. Please set a number ${moreLess} than or equal to ${value}.`;
+      }
+
+    let minBombs: number = 2;
+    if (this.config && this.config?.getBombs() < minBombs) {
+      this.notificationService.addError(minMaxMessage("Minimum", "bombs", "greater", minBombs));
+      return false;
+    }
+    
+    if (!this.configService.validateBombsQuantity()) {
+      this.notificationService.addError(minMaxMessage("Maximum", "bombs", "lower", this.configService.getMaxQuantityOfBombs()));
+      return false;
+    }
+
+    let minColumns: number = 4;
+    if (this.config && this.config?.getColumns() < minColumns) {
+      this.notificationService.addError(minMaxMessage("Minimum", "columns", "greater", minColumns));
+      return false;
+    }
+
+    let maxColumns: number = 50;
+    if (this.config && this.config?.getColumns() > maxColumns) {
+      this.notificationService.addError(minMaxMessage("Maximum", "columns", "lower", maxColumns));
+      return false;
+    }
+    
+    let minRows: number = 4;
+    if (this.config && this.config?.getRows() < minRows) {
+      this.notificationService.addError(minMaxMessage("Minimum", "rows", "greater", minRows));
+      return false;
+    }
+
+    let maxRows: number = 25;
+    if (this.config && this.config?.getRows() > maxRows) {
+      this.notificationService.addError(minMaxMessage("Maximum", "rows", "lower", maxRows));
+      return false;
+    }
+
+    return true;
   }
 
   public onGoToBoardClick(): void {
-    
-    if (!this.configService.validateBombsQuantity()) {
-      this.notificationService.addError(`Maximum number of bombs exceeded. Please set a number less than ${this.configService.getMaxQuantityOfBombs()} bombs.`);
-      return;
+    if (this.validateFields()) {
+        this.configService.storeConfig();
+        this.navigateToBoard();
     }
-
-    this.configService.storeConfig();
-    this.navigateToBoard();
   }
 
   public navigateToBoard(): void {
@@ -51,6 +94,7 @@ export class SetupComponent implements OnInit {
   public onDifficultyLevelChange(event?: Event): void {
     this.configService.doConfig();
     this.config = this.configService.getConfig();
+    this.difficultyLevelEnabled = this.isCustomDifficultyLevel();
   }
 
   public isCustomDifficultyLevel(): boolean {
