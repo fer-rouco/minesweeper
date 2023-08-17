@@ -21,7 +21,6 @@ export class BoardComponent implements OnInit {
   public config: ConfigModel;
 
   public gameOver: boolean = false;
-  public gameWon: boolean = false;
 
   private gameStart: Date | null = null;
 
@@ -54,7 +53,6 @@ export class BoardComponent implements OnInit {
     this.updateGridWithRandomBombs();
     this.updateGridWithNumbers();
     this.gameOver = false;
-    this.gameWon = false;
     this.gameStart = null;
     this.boardService.startNewGame();
   }
@@ -153,7 +151,6 @@ export class BoardComponent implements OnInit {
       if (filledTilesQuantity === this.config.getCells() - this.config.getBombs()) {
         this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.WIN);
         this.boardService.gameOver(false);
-        this.gameWon = true;
         this.notificationService.addSuccess("Game Won!", { label: "Check your results.", to: '/finished-games-list' });
       }
 
