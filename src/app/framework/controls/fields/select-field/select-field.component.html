@@ -6,8 +6,8 @@
     placeholder=""
     title="asd"
     name="select_"
-    (change)="onInputChange($event)"
-    (keyup.enter)="onInputChange($event)"
+    (change)="onInputChange()"
+    (keyup.enter)="onInputChange()"
   >
     <option *ngFor="let option of options" [value]="option.value">{{option.label}}</option>
   </select>

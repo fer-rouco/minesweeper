@@ -2,16 +2,15 @@ export enum DifficultyLevel {
   CUSTOM = 0,
   EASY = 1,
   MEDIUM = 2,
-  HARD = 3
+  HARD = 3,
 }
 
-
 export class ConfigModel {
-  constructor (
+  constructor(
     private difficultyLevel: DifficultyLevel = DifficultyLevel.CUSTOM,
     private columns: number = 9,
     private rows: number = 9,
-    private bombs: number = 10
+    private bombs: number = 10,
   ) {}
 
   public getDifficultyLevel(): DifficultyLevel {
@@ -41,7 +40,7 @@ export class ConfigModel {
   public setRows(value: number): void {
     this.rows = value;
   }
-  
+
   public getCells(): number {
     return this.rows * this.columns;
   }
@@ -49,7 +48,7 @@ export class ConfigModel {
   public getBombs(): number {
     return this.bombs;
   }
-  
+
   public setBombs(value: number): void {
     this.bombs = value;
   }

@@ -5,13 +5,7 @@ import { SetupRoutingModule } from './setup-routing.module';
 import { FrameworkModule } from 'src/app/framework/framework.module';
 
 @NgModule({
-  declarations: [
-    SetupComponent
-  ],
-  imports: [
-    CommonModule,
-    SetupRoutingModule,
-    FrameworkModule
-  ]
+  declarations: [SetupComponent],
+  imports: [CommonModule, SetupRoutingModule, FrameworkModule],
 })
-export class SetupModule { }
+export class SetupModule {}

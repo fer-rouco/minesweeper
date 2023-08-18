@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NumericFieldComponent } from './numeric-field.component';
-import { InputFieldComponent } from '../input-field/input-field.component';
 import { TestRequirementsModule } from 'src/test/test-requirements.module';
 
 describe('NumericFieldComponent', () => {
@@ -10,9 +9,8 @@ describe('NumericFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestRequirementsModule]
-    })
-    .compileComponents();
+      imports: [TestRequirementsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NumericFieldComponent);
     component = fixture.componentInstance;

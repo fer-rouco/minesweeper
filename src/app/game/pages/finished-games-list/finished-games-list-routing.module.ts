@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { FinishedGamesListComponent } from './finished-games-list.component';
 
 export const routes: Routes = [
-  { "path": '', 'component': FinishedGamesListComponent },
+  { path: '', component: FinishedGamesListComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FinishedGamesListRoutingModule { }
+export class FinishedGamesListRoutingModule {}

@@ -1,4 +1,3 @@
-
 export class Tile {
   private id: number = 0;
   private type: TileType = TileType.EMPTY;
@@ -47,7 +46,7 @@ export class Tile {
   }
 
   private isType(tileType: TileType): boolean {
-    return (this.getType() === tileType);
+    return this.getType() === tileType;
   }
 
   public isTypeEmpty(): boolean {
@@ -67,13 +66,13 @@ export class Tile {
   }
 
   public isNumber(tileNumber: number): boolean {
-    return (this.getNumber() === tileNumber);
-  } 
+    return this.getNumber() === tileNumber;
+  }
 }
 
 export enum TileType {
   EMPTY = 0,
   NUMBER = 1,
   BOMB = 2,
-  EXPLOSION = 4
+  EXPLOSION = 4,
 }

@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tile, TileType } from '../../../models/tile.model';
 
 @Component({
   selector: 'tile',
   templateUrl: './tile.component.html',
-  styleUrls: ['./tile.component.scss']
+  styleUrls: ['./tile.component.scss'],
 })
 export class TileComponent {
   public readonly TileTypes: typeof TileType = TileType;
-  
+
   @Input() public tile: Tile | undefined = undefined;
   @Output() public change = new EventEmitter<Tile>();
 
@@ -20,7 +20,7 @@ export class TileComponent {
     if (this.gameOver) {
       return;
     }
-    
+
     if (!this.tile) {
       return;
     }
@@ -32,18 +32,22 @@ export class TileComponent {
     if (this.tile.isFlag()) {
       return;
     }
-    
+
     if (this.tile.isTypeBomb()) {
       this.tile.setType(this.TileTypes.EXPLOSION);
       this.tile.setDiscovered(true);
     }
 
-    if (this.tile.isTypeBomb() || this.tile.isTypeEmpty() || this.tile.isTypeNumber()) {
+    if (
+      this.tile.isTypeBomb() ||
+      this.tile.isTypeEmpty() ||
+      this.tile.isTypeNumber()
+    ) {
       this.tile.setDiscovered(true);
     }
   }
 
-  public onClick(event: Event): void {
+  public onClick(): void {
     if (!this.tile) {
       return;
     }
@@ -54,11 +58,11 @@ export class TileComponent {
 
   public onContextMenuClick(event: Event): void {
     event.preventDefault();
-    
+
     if (this.gameOver) {
       return;
     }
-    
+
     if (!this.tile) {
       return;
     }

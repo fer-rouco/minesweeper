@@ -8,17 +8,9 @@ import { FrameworkModule } from './framework/framework.module';
 import { PageNotFoundComponent } from './game/pages/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent
-  ],
-  imports: [
-    RouterModule,
-    BrowserModule,
-    AppRoutingModule,
-    FrameworkModule
-  ],
+  declarations: [AppComponent, PageNotFoundComponent],
+  imports: [RouterModule, BrowserModule, AppRoutingModule, FrameworkModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -9,9 +9,8 @@ describe('PageNotFoundComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageNotFoundComponent, CustomButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [PageNotFoundComponent, CustomButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PageNotFoundComponent);
     component = fixture.componentInstance;

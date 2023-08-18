@@ -7,11 +7,10 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestRequirementsModule],
-      declarations: [ AppComponent, NotificationComponent ]
-    })
-    .compileComponents();
+      declarations: [AppComponent, NotificationComponent],
+    }).compileComponents();
   });
-  
+
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
@@ -23,5 +22,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.title).toEqual('minesweeper');
   });
-
 });

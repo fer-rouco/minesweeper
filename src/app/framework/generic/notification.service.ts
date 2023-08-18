@@ -4,13 +4,13 @@ import { Notification, NotificationType } from './notification-interface';
 import { Link } from './link-interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService implements OnDestroy {
   private notification$ = new Subject<Notification>();
 
   ngOnDestroy(): void {
-    let unsubscribe$: Subject<void> = new Subject<void>();
+    const unsubscribe$: Subject<void> = new Subject<void>();
     this.notification$.pipe(takeUntil(unsubscribe$)).subscribe(() => {});
   }
 
@@ -21,11 +21,11 @@ export class NotificationService implements OnDestroy {
   public addSuccess(message: string, link?: Link) {
     this.notification$.next({ type: NotificationType.SUCCESS, message, link });
   }
-  
+
   public addInfo(message: string, link?: Link) {
     this.notification$.next({ type: NotificationType.INFO, message, link });
   }
-  
+
   public addWarning(message: string, link?: Link) {
     this.notification$.next({ type: NotificationType.WARNING, message, link });
   }

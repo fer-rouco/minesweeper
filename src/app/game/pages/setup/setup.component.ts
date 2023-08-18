@@ -8,27 +8,40 @@ import { NotificationService } from 'src/app/framework/generic/notification.serv
 @Component({
   selector: 'app-setup',
   templateUrl: './setup.component.html',
-  styleUrls: ['./setup.component.scss']
+  styleUrls: ['./setup.component.scss'],
 })
 export class SetupComponent implements OnInit {
   public difficultyLevels: Array<Option> = [
-    { label: DifficultyLevel[DifficultyLevel.CUSTOM], value: DifficultyLevel.CUSTOM.toString() },
-    { label: DifficultyLevel[DifficultyLevel.EASY], value: DifficultyLevel.EASY.toString() },
-    { label: DifficultyLevel[DifficultyLevel.MEDIUM], value: DifficultyLevel.MEDIUM.toString() },
-    { label: DifficultyLevel[DifficultyLevel.HARD], value: DifficultyLevel.HARD.toString() }
+    {
+      label: DifficultyLevel[DifficultyLevel.CUSTOM],
+      value: DifficultyLevel.CUSTOM.toString(),
+    },
+    {
+      label: DifficultyLevel[DifficultyLevel.EASY],
+      value: DifficultyLevel.EASY.toString(),
+    },
+    {
+      label: DifficultyLevel[DifficultyLevel.MEDIUM],
+      value: DifficultyLevel.MEDIUM.toString(),
+    },
+    {
+      label: DifficultyLevel[DifficultyLevel.HARD],
+      value: DifficultyLevel.HARD.toString(),
+    },
   ];
 
   public config: ConfigModel | undefined;
   public difficultyLevelEnabled: boolean = false;
 
   constructor(
-    protected router: Router, 
+    protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
-    @Inject(NotificationService) private notificationService: NotificationService
-    ) {
+    @Inject(NotificationService)
+    private notificationService: NotificationService,
+  ) {
     this.config = undefined;
   }
-  
+
   ngOnInit(): void {
     this.configService.restoreConfig();
     this.config = this.configService.getConfig();
@@ -36,44 +49,69 @@ export class SetupComponent implements OnInit {
   }
 
   private validateFields(): boolean {
+    const minMaxMessage: (
+      minMax: string,
+      object: string,
+      moreLess: string,
+      value: number,
+    ) => string = (
+      minMax: string,
+      object: string,
+      moreLess: string,
+      value: number,
+    ) => {
+      return `${minMax} number of ${object} exceeded. Please set a number ${moreLess} than or equal to ${value}.`;
+    };
 
-    const minMaxMessage: (minMax: string, object: string, moreLess: string, value: number) => string =
-      (minMax: string, object: string, moreLess: string, value: number) => {
-        return `${minMax} number of ${object} exceeded. Please set a number ${moreLess} than or equal to ${value}.`;
-      }
-
-    let minBombs: number = 2;
+    const minBombs: number = 2;
     if (this.config && this.config?.getBombs() < minBombs) {
-      this.notificationService.addError(minMaxMessage("Minimum", "bombs", "greater", minBombs));
+      this.notificationService.addError(
+        minMaxMessage('Minimum', 'bombs', 'greater', minBombs),
+      );
       return false;
     }
-    
+
     if (!this.configService.validateBombsQuantity()) {
-      this.notificationService.addError(minMaxMessage("Maximum", "bombs", "lower", this.configService.getMaxQuantityOfBombs()));
+      this.notificationService.addError(
+        minMaxMessage(
+          'Maximum',
+          'bombs',
+          'lower',
+          this.configService.getMaxQuantityOfBombs(),
+        ),
+      );
       return false;
     }
 
-    let minColumns: number = 4;
+    const minColumns: number = 4;
     if (this.config && this.config?.getColumns() < minColumns) {
-      this.notificationService.addError(minMaxMessage("Minimum", "columns", "greater", minColumns));
+      this.notificationService.addError(
+        minMaxMessage('Minimum', 'columns', 'greater', minColumns),
+      );
       return false;
     }
 
-    let maxColumns: number = 50;
+    const maxColumns: number = 50;
     if (this.config && this.config?.getColumns() > maxColumns) {
-      this.notificationService.addError(minMaxMessage("Maximum", "columns", "lower", maxColumns));
-      return false;
-    }
-    
-    let minRows: number = 4;
-    if (this.config && this.config?.getRows() < minRows) {
-      this.notificationService.addError(minMaxMessage("Minimum", "rows", "greater", minRows));
+      this.notificationService.addError(
+        minMaxMessage('Maximum', 'columns', 'lower', maxColumns),
+      );
       return false;
     }
 
-    let maxRows: number = 25;
+    const minRows: number = 4;
+    if (this.config && this.config?.getRows() < minRows) {
+      this.notificationService.addError(
+        minMaxMessage('Minimum', 'rows', 'greater', minRows),
+      );
+      return false;
+    }
+
+    const maxRows: number = 25;
     if (this.config && this.config?.getRows() > maxRows) {
-      this.notificationService.addError(minMaxMessage("Maximum", "rows", "lower", maxRows));
+      this.notificationService.addError(
+        minMaxMessage('Maximum', 'rows', 'lower', maxRows),
+      );
       return false;
     }
 
@@ -82,8 +120,8 @@ export class SetupComponent implements OnInit {
 
   public onGoToBoardClick(): void {
     if (this.validateFields()) {
-        this.configService.storeConfig();
-        this.navigateToBoard();
+      this.configService.storeConfig();
+      this.navigateToBoard();
     }
   }
 
@@ -91,15 +129,16 @@ export class SetupComponent implements OnInit {
     this.router.navigateByUrl('/board');
   }
 
-  public onDifficultyLevelChange(event?: Event): void {
+  public onDifficultyLevelChange(): void {
     this.configService.doConfig();
     this.config = this.configService.getConfig();
     this.difficultyLevelEnabled = this.isCustomDifficultyLevel();
   }
 
   public isCustomDifficultyLevel(): boolean {
-    return (this.config && this.config.getDifficultyLevel()) === DifficultyLevel.CUSTOM;
+    return (
+      (this.config && this.config.getDifficultyLevel()) ===
+      DifficultyLevel.CUSTOM
+    );
   }
-
 }
-

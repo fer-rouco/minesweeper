@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigModel } from '../../models/config.model';
 import { GameStatus } from '../../models/finished-game-item.model';
@@ -7,13 +7,13 @@ import { BoardService } from '../../services/board.service';
 import { ConfigService } from '../../services/config.service';
 import { NotificationService } from 'src/app/framework/generic/notification.service';
 
-type RowColumn = { row: number, column: number };
+type RowColumn = { row: number; column: number };
 type RowColumnOrNull = RowColumn | null;
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
   public grid: Array<Array<Tile>> = [];
@@ -28,7 +28,8 @@ export class BoardComponent implements OnInit {
     protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService,
-    @Inject(NotificationService) private notificationService: NotificationService,
+    @Inject(NotificationService)
+    private notificationService: NotificationService,
   ) {
     this.config = this.configService.getConfig();
   }
@@ -41,7 +42,7 @@ export class BoardComponent implements OnInit {
 
     this.boardService.getResetGameObservable().subscribe(() => {
       this.newGame();
-    });   
+    });
   }
 
   public navigateToFinishedGameList(): void {
@@ -61,8 +62,12 @@ export class BoardComponent implements OnInit {
     let id: number = 0;
     for (let rowIndex = 0; rowIndex < this.config.getRows(); rowIndex++) {
       this.grid[rowIndex] = [];
-      for (let columnIndex = 0; columnIndex < this.config.getColumns(); columnIndex++) {
-        let tile: Tile = new Tile();
+      for (
+        let columnIndex = 0;
+        columnIndex < this.config.getColumns();
+        columnIndex++
+      ) {
+        const tile: Tile = new Tile();
         tile.setId(++id);
         this.grid[rowIndex][columnIndex] = tile;
       }
@@ -85,23 +90,26 @@ export class BoardComponent implements OnInit {
   private updateGridWithNumbers(): void {
     const updateTileNumber = (rowIndex: number, columnIndex: number): void => {
       const tileRow: Array<Tile> = this.grid[rowIndex];
-      
+
       if (tileRow) {
         const tile: Tile = tileRow[columnIndex] as Tile;
-  
+
         if (tile && !tile.isTypeBomb()) {
           tile.setNumber(tile.getNumber() + 1);
           tile.setType(TileType.NUMBER);
         }
       }
-
     };
 
     for (let rowIndex = 0; rowIndex < this.config.getRows(); rowIndex++) {
-      for (let columnIndex = 0; columnIndex < this.config.getColumns(); columnIndex++) {
+      for (
+        let columnIndex = 0;
+        columnIndex < this.config.getColumns();
+        columnIndex++
+      ) {
         if (!this.grid[rowIndex][columnIndex].isTypeBomb()) {
           continue;
-        }      
+        }
 
         updateTileNumber(rowIndex - 1, columnIndex - 1);
         updateTileNumber(rowIndex, columnIndex - 1);
@@ -113,37 +121,48 @@ export class BoardComponent implements OnInit {
         updateTileNumber(rowIndex - 1, columnIndex + 1);
         updateTileNumber(rowIndex, columnIndex + 1);
         updateTileNumber(rowIndex + 1, columnIndex + 1);
-
       }
     }
   }
 
   updateFlagCounter() {
-    const flagsQuantity = this.grid.flat().filter((tile: Tile) => tile.isFlag()).length;
+    const flagsQuantity = this.grid
+      .flat()
+      .filter((tile: Tile) => tile.isFlag()).length;
     this.boardService.updateFlagCounter(flagsQuantity);
   }
-  
+
   onTileChange(tile: Tile): void {
     const tileType: TileType = tile.getType();
 
     if (tileType === TileType.EXPLOSION && !this.gameOver) {
-      this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.LOOSE);
+      this.boardService.registerFinishedGameItem(
+        this.gameStart,
+        new Date(),
+        this.config.getDifficultyLevelAsString(),
+        GameStatus.LOOSE,
+      );
       this.boardService.gameOver(true);
       this.gameOver = true;
-      this.notificationService.addError("Game Over!", { label: "Try Again.", to: '/board' });
+      this.notificationService.addError('Game Over!', {
+        label: 'Try Again.',
+        to: '/board',
+      });
       this.grid.flat().forEach((tile: Tile) => {
         if (!tile.isDiscovered() && tile.isTypeBomb()) {
           tile.setDiscovered(true);
         }
       });
-    }
-    else if (tileType === TileType.EMPTY && !tile.isFlag()) {
+    } else if (tileType === TileType.EMPTY && !tile.isFlag()) {
       this.updateAdjacentTilesShowFlagWhenAEmptyTileWasClicked(tile);
     }
 
     if (!this.gameOver) {
-      
-      const filledTilesQuantity = this.grid.flat().filter((tile: Tile) => tile.isDiscovered() && !tile.isTypeBomb()).length;
+      const filledTilesQuantity = this.grid
+        .flat()
+        .filter(
+          (tile: Tile) => tile.isDiscovered() && !tile.isTypeBomb(),
+        ).length;
 
       // Game starts here when you click in the first tile
       if (filledTilesQuantity > 0 && !this.gameStart) {
@@ -151,22 +170,33 @@ export class BoardComponent implements OnInit {
         this.boardService.startTimer();
       }
 
-      if (filledTilesQuantity === this.config.getCells() - this.config.getBombs()) {
-        this.boardService.registerFinishedGameItem(this.gameStart, new Date(), this.config.getDifficultyLevelAsString(), GameStatus.WIN);
+      if (
+        filledTilesQuantity ===
+        this.config.getCells() - this.config.getBombs()
+      ) {
+        this.boardService.registerFinishedGameItem(
+          this.gameStart,
+          new Date(),
+          this.config.getDifficultyLevelAsString(),
+          GameStatus.WIN,
+        );
         this.boardService.gameOver(false);
-        this.notificationService.addSuccess("Game Won!", { label: "Check your results.", to: '/finished-games-list' });
+        this.notificationService.addSuccess('Game Won!', {
+          label: 'Check your results.',
+          to: '/finished-games-list',
+        });
       }
 
       this.updateFlagCounter();
-    } 
+    }
   }
 
   findRowAndColumn(tile: Tile): RowColumn {
     let row = -1;
     let column = -1;
-  
+
     this.grid.findIndex((currentRow, rowIndex) => {
-      const columnIndex = currentRow.findIndex(object => object === tile);
+      const columnIndex = currentRow.findIndex((object) => object === tile);
       if (columnIndex !== -1) {
         row = rowIndex;
         column = columnIndex;
@@ -174,7 +204,7 @@ export class BoardComponent implements OnInit {
       }
       return false;
     });
-  
+
     if (row !== -1 && column !== -1) {
       return { row, column };
     }
@@ -187,65 +217,91 @@ export class BoardComponent implements OnInit {
     const rowIndex: number = rowAndColumn?.row;
     const columnIndex: number = rowAndColumn?.column;
 
-    let excludeList: Array<RowColumn> = [];
+    const excludeList: Array<RowColumn> = [];
 
-    const buildAdjacent: (rowIndex: number, columnIndex: number) => RowColumnOrNull =
-      (rowIndex: number, columnIndex: number): RowColumnOrNull => {
-        if (rowIndex > -1 && columnIndex > -1 &&
-          rowIndex < this.config.getRows() && columnIndex < this.config.getColumns()) {
-            if (!excludeList.some((excludeItem: RowColumn) => excludeItem.column === columnIndex && excludeItem.row === rowIndex)) {
-              return { row: rowIndex, column: columnIndex };
-            }
+    const buildAdjacent: (
+      rowIndex: number,
+      columnIndex: number,
+    ) => RowColumnOrNull = (
+      rowIndex: number,
+      columnIndex: number,
+    ): RowColumnOrNull => {
+      if (
+        rowIndex > -1 &&
+        columnIndex > -1 &&
+        rowIndex < this.config.getRows() &&
+        columnIndex < this.config.getColumns()
+      ) {
+        if (
+          !excludeList.some(
+            (excludeItem: RowColumn) =>
+              excludeItem.column === columnIndex &&
+              excludeItem.row === rowIndex,
+          )
+        ) {
+          return { row: rowIndex, column: columnIndex };
         }
-
-        return null;
-      };
-
-
-    const buildAdjacentList: (rowIndex: number, columnIndex: number) => Array<RowColumn> =
-      (rowIndex: number, columnIndex: number): Array<RowColumn> => {
-        let adjacentListAux: Array<RowColumnOrNull> = [];
-
-        adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex - 1));
-        adjacentListAux.push(buildAdjacent(rowIndex,     columnIndex - 1));
-        adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex - 1));
-
-        adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex    ));
-        adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex    ));
-        
-        adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex + 1));
-        adjacentListAux.push(buildAdjacent(rowIndex,     columnIndex + 1));
-        adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex + 1));
-
-        return adjacentListAux.filter((adjacent) => adjacent !== null) as Array<RowColumn>;
       }
 
+      return null;
+    };
 
-    const findNextAdjacents: (adjacents: Array<RowColumn>) => void =
-      (adjacents: Array<RowColumn>): void => {
-        adjacents.forEach((adjacent: RowColumn) => {
-          const rowIndex: number = adjacent.row;
-          const columnIndex: number = adjacent.column;
+    const buildAdjacentList: (
+      rowIndex: number,
+      columnIndex: number,
+    ) => Array<RowColumn> = (
+      rowIndex: number,
+      columnIndex: number,
+    ): Array<RowColumn> => {
+      const adjacentListAux: Array<RowColumnOrNull> = [];
 
-          if (this.grid[rowIndex]) {
-            let tile: Tile = this.grid[rowIndex][columnIndex];
-            if (tile) {
-              if (tile.isTypeEmpty() || tile.isTypeNumber() && !tile.isFlag()) {
-                tile.setDiscovered(true);
-              }
+      adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex - 1));
+      adjacentListAux.push(buildAdjacent(rowIndex, columnIndex - 1));
+      adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex - 1));
 
-              if (tile.isTypeEmpty()) {
-                let adjacentList: Array<RowColumn> = buildAdjacentList(rowIndex, columnIndex);
-                excludeList.push(...adjacentList);
-                findNextAdjacents(adjacentList);
-              }
+      adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex));
+      adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex));
+
+      adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex + 1));
+      adjacentListAux.push(buildAdjacent(rowIndex, columnIndex + 1));
+      adjacentListAux.push(buildAdjacent(rowIndex + 1, columnIndex + 1));
+
+      return adjacentListAux.filter(
+        (adjacent) => adjacent !== null,
+      ) as Array<RowColumn>;
+    };
+
+    const findNextAdjacents: (adjacents: Array<RowColumn>) => void = (
+      adjacents: Array<RowColumn>,
+    ): void => {
+      adjacents.forEach((adjacent: RowColumn) => {
+        const rowIndex: number = adjacent.row;
+        const columnIndex: number = adjacent.column;
+
+        if (this.grid[rowIndex]) {
+          const tile: Tile = this.grid[rowIndex][columnIndex];
+          if (tile) {
+            if (tile.isTypeEmpty() || (tile.isTypeNumber() && !tile.isFlag())) {
+              tile.setDiscovered(true);
+            }
+
+            if (tile.isTypeEmpty()) {
+              const adjacentList: Array<RowColumn> = buildAdjacentList(
+                rowIndex,
+                columnIndex,
+              );
+              excludeList.push(...adjacentList);
+              findNextAdjacents(adjacentList);
             }
           }
-        });
-      }
+        }
+      });
+    };
 
-
-    let adjacentList: Array<RowColumn> = buildAdjacentList(rowIndex, columnIndex);
+    const adjacentList: Array<RowColumn> = buildAdjacentList(
+      rowIndex,
+      columnIndex,
+    );
     excludeList.push(...adjacentList);
     findNextAdjacents(adjacentList);
   }

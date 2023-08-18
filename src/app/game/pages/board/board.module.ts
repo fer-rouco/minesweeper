@@ -7,15 +7,7 @@ import { BoardHeaderComponent } from './header/board-header.component';
 import { TileComponent } from './tile/tile.component';
 
 @NgModule({
-  declarations: [
-    BoardComponent,
-    BoardHeaderComponent,
-    TileComponent,
-  ],
-  imports: [
-    CommonModule,
-    BoardRoutingModule,
-    FrameworkModule
-  ]
+  declarations: [BoardComponent, BoardHeaderComponent, TileComponent],
+  imports: [CommonModule, BoardRoutingModule, FrameworkModule],
 })
-export class BoardModule { }
+export class BoardModule {}

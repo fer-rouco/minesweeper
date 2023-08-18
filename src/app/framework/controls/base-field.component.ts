@@ -1,14 +1,19 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
-import { OnModelChange } from "./fields/on-model-change";
-
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'base-field',
-  template: ''
+  template: '',
 })
 export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public label: string = '';
-  @Input() public model: any;
+  @Input() public model: any; // eslint-disable-line
   @Input() public attr: string = '';
   @Input() public enabled: boolean = true;
 
@@ -24,19 +29,19 @@ export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  public onInputChange(event: Event): void {
+  public onInputChange(): void {
     this.updateModel();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     // this.updateVisualModel();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateVisualModel();
+    if (changes['model']) {
+      this.updateVisualModel();
+    }
   }
-
 }

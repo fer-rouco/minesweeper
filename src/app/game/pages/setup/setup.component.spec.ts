@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  flush,
+  tick,
+} from '@angular/core/testing';
 
 import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
 import { SetupComponent } from './setup.component';
@@ -13,9 +19,8 @@ describe('SetupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestRequirementsModule, BoardModule, AppRoutingModule],
-      declarations: [ PanelComponent, SetupComponent ]
-    })
-    .compileComponents();
+      declarations: [PanelComponent, SetupComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SetupComponent);
     component = fixture.componentInstance;
@@ -25,11 +30,13 @@ describe('SetupComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-    
+
   it('should navigate to the board page when the board button is clicked', fakeAsync(() => {
     fixture.detectChanges();
 
-    const linkElement: HTMLButtonElement = fixture.nativeElement.querySelector('.custom-button') as HTMLButtonElement;
+    const linkElement: HTMLButtonElement = fixture.nativeElement.querySelector(
+      '.custom-button',
+    ) as HTMLButtonElement;
     linkElement.click();
 
     tick();

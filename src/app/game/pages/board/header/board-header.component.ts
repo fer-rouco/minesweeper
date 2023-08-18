@@ -1,15 +1,20 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { BoardService } from 'src/app/game/services/board.service';
 import { ConfigService } from 'src/app/game/services/config.service';
 
 @Component({
   selector: 'board-header',
   templateUrl: './board-header.component.html',
-  styleUrls: ['./board-header.component.scss']
+  styleUrls: ['./board-header.component.scss'],
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
-  // public timerIntervalRef: NodeJS.Timeout | undefined = undefined;
-  public timerIntervalRef: any = undefined;
+  public timerIntervalRef: any | undefined = undefined; // eslint-disable-line
   public timer: number = 0;
   public flagCounter: number = 0;
   public gameOver: boolean = false;
@@ -17,17 +22,17 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {  
+  ngOnInit() {
     this.resetFlagCounter();
 
     this.boardService.getStartNewGameObservable().subscribe(() => {
       this.startGame();
     });
-    
-    this.boardService.getStartTimerObservable().subscribe(()=>{
+
+    this.boardService.getStartTimerObservable().subscribe(() => {
       this.startTimer();
     });
 
@@ -36,11 +41,14 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
       this.stopTimer();
     });
 
-    this.boardService.getUpdateFlagCounterObservable().subscribe((flagsQuantity: number) => {
-      this.flagCounter = this.configService.getConfig().getBombs() - flagsQuantity;
-    });
+    this.boardService
+      .getUpdateFlagCounterObservable()
+      .subscribe((flagsQuantity: number) => {
+        this.flagCounter =
+          this.configService.getConfig().getBombs() - flagsQuantity;
+      });
   }
-  
+
   ngOnDestroy(): void {
     this.stopTimer();
   }
@@ -53,7 +61,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
       }, 1000);
     }
   }
-  
+
   stopTimer(): void {
     clearInterval(this.timerIntervalRef);
     this.timerIntervalRef = undefined;

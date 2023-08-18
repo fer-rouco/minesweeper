@@ -21,7 +21,7 @@ import { NotificationComponent } from './generic/notification/notification.compo
     NumericFieldComponent,
     CustomButtonComponent,
     TableComponent,
-    NotificationComponent
+    NotificationComponent,
   ],
   exports: [
     PanelComponent,
@@ -30,11 +30,8 @@ import { NotificationComponent } from './generic/notification/notification.compo
     SelectFieldComponent,
     CustomButtonComponent,
     TableComponent,
-    NotificationComponent
+    NotificationComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule
-  ]
+  imports: [CommonModule, FormsModule],
 })
-export class FrameworkModule { }
+export class FrameworkModule {}

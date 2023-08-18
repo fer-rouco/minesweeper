@@ -1,15 +1,10 @@
-module.exports = config => {
-   config.optimization.minimizer.filter (({constructor: {name}}) => name === 'TerserPlugin')
-      .forEach (terser => {
-         terser.options.terserOptions.keep_classnames = true;
-         terser.options.terserOptions.keep_fnames = true;
-         terser.options.terserOptions.mangle = false;
-      });
+const webpack = require('webpack');
 
-   config.optimization.minimizer.filter(({constructor: {name}}) => name === 'JavaScriptOptimizerPlugin')
-      .forEach((optimizerPlugin) => {
-         optimizerPlugin.options.keepNames = true;
-      });
-
-   return config;
-};
+module.exports = {
+   plugins: [
+     new webpack.DefinePlugin({
+       'STABLE_FEATURE': JSON.stringify(true),
+       'EXPERIMENTAL_FEATURE': JSON.stringify(false)
+     })
+   ]
+ };

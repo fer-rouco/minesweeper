@@ -1,11 +1,13 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { FinishedGameItemInterface, GameStatus } from '../models/finished-game-item.model';
+import {
+  FinishedGameItemInterface,
+  GameStatus,
+} from '../models/finished-game-item.model';
 import { StorageManagerService } from '../../framework/generic/storage-manager.service';
 
-type FinishedGameItemToPersistType = {startTime: string, endTime: string, difficulty: string, totalTimeSpent: number, status: GameStatus};
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardService implements OnDestroy {
   private resetGame$ = new Subject<null>();
@@ -14,10 +16,13 @@ export class BoardService implements OnDestroy {
   private gameOver$ = new Subject<boolean>();
   private updateFlagCounter$ = new Subject<number>();
 
-  constructor(@Inject(StorageManagerService) private storageManagerService: StorageManagerService) { }
+  constructor(
+    @Inject(StorageManagerService)
+    private storageManagerService: StorageManagerService,
+  ) {}
 
   ngOnDestroy(): void {
-    let unsubscribe$: Subject<void> = new Subject<void>();
+    const unsubscribe$: Subject<void> = new Subject<void>();
     this.resetGame$.pipe(takeUntil(unsubscribe$)).subscribe(() => {});
     this.startingNewGame$.pipe(takeUntil(unsubscribe$)).subscribe(() => {});
     this.startTimer$.pipe(takeUntil(unsubscribe$)).subscribe(() => {});
@@ -65,35 +70,54 @@ export class BoardService implements OnDestroy {
     return this.updateFlagCounter$.asObservable();
   }
 
-  public registerFinishedGameItem(startTimeParam: Date | null, endTime: Date | null, difficulty: string, status: GameStatus): void {
+  public registerFinishedGameItem(
+    startTimeParam: Date | null,
+    endTime: Date | null,
+    difficulty: string,
+    status: GameStatus,
+  ): void {
     let totalTimeSpent: string = '';
-    let startTime: Date | null = (!startTimeParam) ? endTime : startTimeParam;
+    const startTime: Date | null = !startTimeParam ? endTime : startTimeParam;
 
     if (startTime && endTime) {
-      const timeSpentInSeconds: number = Math.abs(endTime.getTime() - startTime.getTime())/1000;
+      const timeSpentInSeconds: number =
+        Math.abs(endTime.getTime() - startTime.getTime()) / 1000;
       const timeSpentInMinutes: number = Math.ceil(timeSpentInSeconds / 60);
-      let timeSpentSufix: string = 
-        (timeSpentInSeconds < 60) ? `second${(timeSpentInSeconds > 1 || timeSpentInSeconds === 0) ? 's' : ''}` : `minute${timeSpentInMinutes > 1 ? 's' : ''}`;
-      totalTimeSpent = `${(timeSpentInSeconds > 60) ? timeSpentInMinutes : timeSpentInSeconds} ${timeSpentSufix}`;
+      const timeSpentSufix: string =
+        timeSpentInSeconds < 60
+          ? `second${
+              timeSpentInSeconds > 1 || timeSpentInSeconds === 0 ? 's' : ''
+            }`
+          : `minute${timeSpentInMinutes > 1 ? 's' : ''}`;
+      totalTimeSpent = `${
+        timeSpentInSeconds > 60 ? timeSpentInMinutes : timeSpentInSeconds
+      } ${timeSpentSufix}`;
     }
-    let finishedGameItem: FinishedGameItemInterface = {
+    const finishedGameItem: FinishedGameItemInterface = {
       startTime: startTime?.toString() || '',
       endTime: endTime?.toString() || '',
       difficulty: difficulty,
       totalTimeSpent,
-      status: status
+      status: status,
     };
 
-    let finishedGameList: Array<FinishedGameItemInterface> = this.storageManagerService.getItem('list') as Array<FinishedGameItemInterface>;
+    let finishedGameList: Array<FinishedGameItemInterface> | null =
+      this.storageManagerService.getItem<Array<FinishedGameItemInterface>>(
+        'list',
+      );
     if (!finishedGameList) {
       finishedGameList = new Array<FinishedGameItemInterface>();
     }
     finishedGameList.push(finishedGameItem);
-    this.storageManagerService.setItem('list', finishedGameList);
+    this.storageManagerService.setItem<Array<FinishedGameItemInterface>>(
+      'list',
+      finishedGameList,
+    );
   }
 
   public getFinishedGameList(): Array<FinishedGameItemInterface> {
-    return this.storageManagerService.getItem('list') as Array<FinishedGameItemInterface>;
+    return this.storageManagerService.getItem(
+      'list',
+    ) as Array<FinishedGameItemInterface>;
   }
-  
 }

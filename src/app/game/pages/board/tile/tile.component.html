@@ -7,7 +7,7 @@
     'explosion': tile?.isDiscovered() && tile?.isTypeExplosion(),
     'flag': !tile?.isDiscovered() && tile?.isFlag()
   }"
-  (click)="onClick($event)"
+  (click)="onClick()"
   (contextmenu)="onContextMenuClick($event)">
   <span
     *ngIf="(tile && tile.getNumber() > 0) && tile.isDiscovered()"

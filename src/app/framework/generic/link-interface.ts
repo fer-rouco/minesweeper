@@ -1,1 +1,1 @@
-export type Link = { label: string, to: string };
+export type Link = { label: string; to: string };

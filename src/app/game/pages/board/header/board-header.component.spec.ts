@@ -10,9 +10,8 @@ describe('BoardHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestRequirementsModule],
-      declarations: [ BoardHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [BoardHeaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BoardHeaderComponent);
     component = fixture.componentInstance;

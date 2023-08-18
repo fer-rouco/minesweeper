@@ -8,8 +8,8 @@
     placeholder=""
     [title]="label"
     name="input_{{type}}_{{attr}}"
-    (change)="onInputChange($event)"
-    (keyup.enter)="onInputChange($event)"
+    (change)="onInputChange()"
+    (keyup.enter)="onInputChange()"
     [attr.disabled]="(enabled) ? null : true"
   />
 </field>
