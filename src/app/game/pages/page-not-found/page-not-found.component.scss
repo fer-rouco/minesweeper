@@ -1,6 +1,10 @@
 .page-not-found {
   text-align: center;
 
+  &__message {
+    font-size: 3rem;
+  }
+
   &__buttons {
     display: flex;
     justify-content: center; 

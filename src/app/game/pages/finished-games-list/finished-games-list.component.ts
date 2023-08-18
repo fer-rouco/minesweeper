@@ -50,8 +50,15 @@ export class FinishedGamesListComponent implements OnInit {
         },
       );
 
-      finishedGameList = finishedGameList.sort((a: FinishedGameItemInterface, b: FinishedGameItemInterface) => a.totalTimeSpent - b.totalTimeSpent);
-      finishedGameList = finishedGameList.sort((a: FinishedGameItemInterface, b: FinishedGameItemInterface) => a.difficulty - b.difficulty);
+      finishedGameList = finishedGameList.sort(
+        (a: FinishedGameItemInterface, b: FinishedGameItemInterface) =>
+          a.totalTimeSpent - b.totalTimeSpent
+      );
+
+      finishedGameList = finishedGameList.sort(
+        (a: FinishedGameItemInterface, b: FinishedGameItemInterface) =>
+          a.difficulty - b.difficulty
+      );
 
       this.rowObjects = finishedGameList.map(
         (finishedGameItem: FinishedGameItemInterface) => {
@@ -65,7 +72,9 @@ export class FinishedGamesListComponent implements OnInit {
               .replace(',', '');
           };
 
-          const formatSpentTime: (totalTimeSpent: number) => string = (totalTimeSpent: number) => {
+          const formatSpentTime: (totalTimeSpent: number) => string = (
+            totalTimeSpent: number
+          ) => {
             const timeSpentInMinutes: number = Math.ceil(totalTimeSpent / 60);
             const timeSpentSufix: string =
               totalTimeSpent < 60
