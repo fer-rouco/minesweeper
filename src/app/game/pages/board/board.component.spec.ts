@@ -12,6 +12,9 @@ import { ConfigService } from '../../services/config.service';
 import { BoardComponent } from './board.component';
 import { BoardHeaderComponent } from './header/board-header.component';
 import { TileComponent } from './tile/tile.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { SetupModule } from '../setup/setup.module';
+import { FinishedGamesListModule } from '../finished-games-list/finished-games-list.module';
 
 class ConfigServiceMock extends ConfigService {
   
@@ -27,6 +30,12 @@ describe('BoardComponent', () => {
 
   const getTilesWithBomb = () => {
     return component.grid.flat().filter((tile: Tile) => tile.isTypeBomb());
+  };
+
+  const findPanelElement = (): Element | null => {
+    const querySelectorId = `.panel-container`;
+    const componentInstance = fixture.debugElement.query(By.directive(PanelComponent));
+    return componentInstance.nativeElement.querySelector(querySelectorId);
   };
 
   const findBoardHeaderElement = (): Element | null => {
@@ -66,6 +75,7 @@ describe('BoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [SetupModule, FinishedGamesListModule, AppRoutingModule],
       declarations: [ PanelComponent, BoardComponent, BoardHeaderComponent, TileComponent, CustomButtonComponent ],
       providers: [{ provide: ConfigService, useClass: ConfigServiceMock }]
     })
@@ -85,8 +95,7 @@ describe('BoardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
-  
+    
   it('should fill the grid with random bombs', () => {
     expect(getTilesWithBomb().length).toBe(component.config.getBombs());
   });
@@ -184,5 +193,30 @@ describe('BoardComponent', () => {
 
     flush();
   }));
+  
+  it('should navigate to the setup page when the setup button is clicked', fakeAsync(() => {
+    fixture.detectChanges();
 
+    const linkElement: HTMLImageElement = findPanelElement()?.querySelector('#setup') as HTMLImageElement;
+    linkElement.click();
+
+    tick();
+
+    expect(location.pathname).toBe('/setup');
+
+    flush();
+  }));
+    
+  it('should navigate to the finished games list page when the finished games list button is clicked', fakeAsync(() => {
+    fixture.detectChanges();
+
+    const linkElement: HTMLImageElement = findPanelElement()?.querySelector('#finished-games-list') as HTMLImageElement;
+    linkElement.click();
+
+    tick();
+
+    expect(location.pathname).toBe('/finished-games-list');
+
+    flush();
+  }));
 });

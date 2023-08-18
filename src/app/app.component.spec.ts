@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { NotificationComponent } from './framework/generic/notification/notification.component';
 import { TestRequirementsModule } from 'src/test/test-requirements.module';

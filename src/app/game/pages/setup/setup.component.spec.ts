@@ -1,8 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 
 import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
-import { TestRequirementsModule } from 'src/test/test-requirements.module';
 import { SetupComponent } from './setup.component';
+import { BoardModule } from '../board/board.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { TestRequirementsModule } from 'src/test/test-requirements.module';
 
 describe('SetupComponent', () => {
   let component: SetupComponent;
@@ -10,7 +12,7 @@ describe('SetupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestRequirementsModule],
+      imports: [TestRequirementsModule, BoardModule, AppRoutingModule],
       declarations: [ PanelComponent, SetupComponent ]
     })
     .compileComponents();
@@ -23,4 +25,17 @@ describe('SetupComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+    
+  it('should navigate to the board page when the board button is clicked', fakeAsync(() => {
+    fixture.detectChanges();
+
+    const linkElement: HTMLButtonElement = fixture.nativeElement.querySelector('.custom-button') as HTMLButtonElement;
+    linkElement.click();
+
+    tick();
+
+    expect(location.pathname).toBe('/board');
+
+    flush();
+  }));
 });

@@ -21,8 +21,8 @@ export class FinishedGamesListComponent implements OnInit {
   public rowObjects: Array<FinishedGameItemForTableInterface> = [];
 
   constructor(@Inject(BoardService) private boardService: BoardService) {
-
   }
+  
   ngOnInit(): void {
     this.columnDefinitions = [
       { attr: 'startTime',  label: "Start Time" },
