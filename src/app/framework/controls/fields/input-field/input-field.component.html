@@ -10,6 +10,6 @@
     name="input_{{type}}_{{attr}}"
     (change)="onInputChange()"
     (keyup.enter)="onInputChange()"
-    [attr.disabled]="(enabled) ? null : true"
+    [disabled]="!enabled"
   />
 </field>
