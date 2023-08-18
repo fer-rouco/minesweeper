@@ -5,6 +5,7 @@ import {
   GameStatus,
 } from '../models/finished-game-item.model';
 import { StorageManagerService } from '../../framework/generic/storage-manager.service';
+import { DifficultyLevel } from '../models/config.model';
 
 @Injectable({
   providedIn: 'root',
@@ -73,31 +74,21 @@ export class BoardService implements OnDestroy {
   public registerFinishedGameItem(
     startTimeParam: Date | null,
     endTime: Date | null,
-    difficulty: string,
+    difficulty: DifficultyLevel,
     status: GameStatus,
   ): void {
-    let totalTimeSpent: string = '';
     const startTime: Date | null = !startTimeParam ? endTime : startTimeParam;
 
+    let timeSpentInSeconds: number = 0;
     if (startTime && endTime) {
-      const timeSpentInSeconds: number =
+      timeSpentInSeconds =
         Math.abs(endTime.getTime() - startTime.getTime()) / 1000;
-      const timeSpentInMinutes: number = Math.ceil(timeSpentInSeconds / 60);
-      const timeSpentSufix: string =
-        timeSpentInSeconds < 60
-          ? `second${
-              timeSpentInSeconds > 1 || timeSpentInSeconds === 0 ? 's' : ''
-            }`
-          : `minute${timeSpentInMinutes > 1 ? 's' : ''}`;
-      totalTimeSpent = `${
-        timeSpentInSeconds > 60 ? timeSpentInMinutes : timeSpentInSeconds
-      } ${timeSpentSufix}`;
     }
     const finishedGameItem: FinishedGameItemInterface = {
       startTime: startTime?.toString() || '',
       endTime: endTime?.toString() || '',
       difficulty: difficulty,
-      totalTimeSpent,
+      totalTimeSpent: timeSpentInSeconds,
       status: status,
     };
 

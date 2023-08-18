@@ -139,7 +139,7 @@ export class BoardComponent implements OnInit {
       this.boardService.registerFinishedGameItem(
         this.gameStart,
         new Date(),
-        this.config.getDifficultyLevelAsString(),
+        this.config.getDifficultyLevel(),
         GameStatus.LOOSE,
       );
       this.boardService.gameOver(true);
@@ -177,7 +177,7 @@ export class BoardComponent implements OnInit {
         this.boardService.registerFinishedGameItem(
           this.gameStart,
           new Date(),
-          this.config.getDifficultyLevelAsString(),
+          this.config.getDifficultyLevel(),
           GameStatus.WIN,
         );
         this.boardService.gameOver(false);

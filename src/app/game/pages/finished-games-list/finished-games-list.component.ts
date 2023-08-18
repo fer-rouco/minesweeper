@@ -5,6 +5,7 @@ import {
   GameStatus,
 } from '../../models/finished-game-item.model';
 import { BoardService } from '../../services/board.service';
+import { DifficultyLevel } from '../../models/config.model';
 
 export interface FinishedGameItemForTableInterface {
   startTime: string;
@@ -33,7 +34,7 @@ export class FinishedGamesListComponent implements OnInit {
       { attr: 'status', label: 'Status' },
     ];
 
-    const finishedGameList: Array<FinishedGameItemInterface> =
+    let finishedGameList: Array<FinishedGameItemInterface> =
       this.boardService.getFinishedGameList();
 
     if (finishedGameList) {
@@ -49,6 +50,9 @@ export class FinishedGamesListComponent implements OnInit {
         },
       );
 
+      finishedGameList = finishedGameList.sort((a: FinishedGameItemInterface, b: FinishedGameItemInterface) => a.totalTimeSpent - b.totalTimeSpent);
+      finishedGameList = finishedGameList.sort((a: FinishedGameItemInterface, b: FinishedGameItemInterface) => a.difficulty - b.difficulty);
+
       this.rowObjects = finishedGameList.map(
         (finishedGameItem: FinishedGameItemInterface) => {
           const formatDate: (date: string) => string = (date: string) => {
@@ -60,11 +64,25 @@ export class FinishedGamesListComponent implements OnInit {
               .replaceAll('/', '-')
               .replace(',', '');
           };
+
+          const formatSpentTime: (totalTimeSpent: number) => string = (totalTimeSpent: number) => {
+            const timeSpentInMinutes: number = Math.ceil(totalTimeSpent / 60);
+            const timeSpentSufix: string =
+              totalTimeSpent < 60
+                ? `second${
+                    totalTimeSpent > 1 || totalTimeSpent === 0 ? 's' : ''
+                  }`
+                : `minute${timeSpentInMinutes > 1 ? 's' : ''}`;
+            return `${
+              totalTimeSpent > 60 ? timeSpentInMinutes : totalTimeSpent
+            } ${timeSpentSufix}`;
+          };
+
           return {
             startTime: formatDate(finishedGameItem.startTime),
             endTime: formatDate(finishedGameItem.endTime),
-            difficulty: finishedGameItem.difficulty,
-            totalTimeSpent: finishedGameItem.totalTimeSpent,
+            difficulty: DifficultyLevel[finishedGameItem.difficulty],
+            totalTimeSpent: formatSpentTime(finishedGameItem.totalTimeSpent),
             status: GameStatus[finishedGameItem.status],
           } as FinishedGameItemForTableInterface;
         },
