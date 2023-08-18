@@ -21,7 +21,7 @@
               "path": "./custom-webpack.config.js",
               "replaceDuplicatePlugins": true
             },
-            "outputPath": "docs/",
+            "outputPath": "dist/minesweeper",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
