@@ -1,12 +1,13 @@
-<field for="input_{{type}}" label="{{label}}">
+<field for="input_{{type}}_{{attr}}" label="{{label}}">
   <input
+    id="input-{{attr}}"
     type="{{type}}"
     [(ngModel)]="visualModel"
     autocomplete="off"
     class="form-control input-field"
     placeholder=""
-    title="asd"
-    name="input_{{type}}"
+    [title]="label"
+    name="input_{{type}}_{{attr}}"
     (change)="onInputChange($event)"
     (keyup.enter)="onInputChange($event)"
     [attr.disabled]="(enabled) ? null : true"
