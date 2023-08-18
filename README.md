@@ -4,8 +4,6 @@
 If a square containing a mine is revealed, the player loses the game.
 Otherwise, a digit is revealed in the square, indicating the number of adjacent squares that contain mines.
 
-Available live [here](https://fernet87.github.io/drum-machine/) 
-
 ## About the Project
 
 <p align="center">
