@@ -1,27 +1,39 @@
-# Minesweeper
+# **Minesweeper**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+> Puzzle game with the aim of clear an abstract minefield without detonating a mine.
+If a square containing a mine is revealed, the player loses the game.
+Otherwise, a digit is revealed in the square, indicating the number of adjacent squares that contain mines.
 
-## Development server
+Available live [here](https://fernet87.github.io/drum-machine/) 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## About the Project
 
-## Code scaffolding
+<p align="center">
+  <img src="./src/assets/images/Setup.png" />
+  <img src="./src/assets/images/Board.png" />
+</p>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This is an Angular based app to build the famous [minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) puzzle game 
 
-## Build
+## **Technologies used for this project.**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+[<img src='https://img.icons8.com/color/96/000000/html-5--v1.png' alt='HTML' width='50px'/>](https://html.spec.whatwg.org/multipage/)
+[<img src='https://img.icons8.com/color/96/000000/css3.png' alt='CSS' width='50px'/>](https://www.css3.com/)
+[<img src='https://img.icons8.com/color/96/000000/javascript--v1.png' alt='JS' width='50px'/>](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[<img src='https://img.icons8.com/?size=512&id=nCj4PvnCO0tZ&format=png' alt='JS' width='50px'/>](https://www.typescriptlang.org/)
+[<img src='https://img.icons8.com/?size=512&id=71257&format=png' alt='Angular' width='50px'/>](https://angular.io/)
+[<img src='https://img.icons8.com/color/96/000000/sass.png' alt='SASS' width='50px'/>](https://sass-lang.com/)
 
-## Running unit tests
+### **How to start project**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Install project dependecies:
 
-## Running end-to-end tests
+```
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Start the web server
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+npm start
+```
