@@ -7,7 +7,7 @@
           *ngFor="let action of actions"
           (click)="onActionClick(action)"
           >
-          <i *ngIf="action.icon" ><img class="icon" [id]="action.to.replace('/', '')" src="../../../../assets/images/{{action.icon}}"></i>
+          <i *ngIf="action.icon" ><img class="icon" [id]="action.to.replace('/', '')" src="../../../../assets/icons/{{action.icon}}"></i>
           {{action.label}}
         </custom-button>
       </div>
