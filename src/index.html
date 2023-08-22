@@ -1,13 +1,34 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Minesweeper</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Minesweeper</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1 class="title" >Minesweeper</h1>
+      </header>
+      <app-root></app-root>
+    </main>
+    <footer>
+      <div class="social-links" >
+        <a class='linkedin' target='_blank' href="https://www.linkedin.com/in/fernando-nicolás-rouco-a1066262/" name="profile-link" aria-label="LinkedIn" >
+          <i class='linkedin__icon' beatFade={true} tabIndex="0" href='assets/icons/linkedin.svg' ></i>
+        </a>
+        <a class='github' target='_blank' href="https://github.com/fernet87" name="profile-link" aria-label="GitHub" >
+          <i class='github__icon' beatFade={true} tabIndex="0" ></i>
+        </a>
+        <a class='envelope' target='_blank' href="mailto:rouco.fernando@gmail.com" name="profile-link" aria-label="Mail" >
+          <i class='envelope__icon' beatFade={true} tabIndex="0" ></i>
+        </a>
+      </div>
+      <div class='copyrights' >
+        <span>&#169; Fernando Nicolás Rouco</span>
+      </div>
+    </footer>
+  </body>
 </html>
