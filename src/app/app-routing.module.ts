@@ -6,20 +6,15 @@ export const routes: Routes = [
   { path: '', redirectTo: '/setup', pathMatch: 'full' },
   {
     path: 'setup',
-    loadChildren: () =>
-      import('./game/pages/setup/setup.module').then((m) => m.SetupModule),
+    loadComponent: () => import('./game/pages/setup/setup.component').then((m) => m.SetupComponent)
   },
   {
     path: 'board',
-    loadChildren: () =>
-      import('./game/pages/board/board.module').then((m) => m.BoardModule),
+    loadComponent: () => import('./game/pages/board/board.component').then((m) => m.BoardComponent)
   },
   {
     path: 'finished-games-list',
-    loadChildren: () =>
-      import(
-        './game/pages/finished-games-list/finished-games-list.module'
-      ).then((m) => m.FinishedGamesListModule),
+    loadComponent: () => import('./game/pages/finished-games-list/finished-games-list.component').then((m) => m.FinishedGamesListComponent)
   },
   { path: '**', component: PageNotFoundComponent },
 ];

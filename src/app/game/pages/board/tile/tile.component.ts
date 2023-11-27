@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tile, TileType } from '../../../models/tile.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tile',
   templateUrl: './tile.component.html',
   styleUrls: ['./tile.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class TileComponent {
   public readonly TileTypes: typeof TileType = TileType;

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -5,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { FrameworkModule } from 'src/app/framework/framework.module';
 import { BoardService } from 'src/app/game/services/board.service';
 import { ConfigService } from 'src/app/game/services/config.service';
 
@@ -12,6 +14,8 @@ import { ConfigService } from 'src/app/game/services/config.service';
   selector: 'board-header',
   templateUrl: './board-header.component.html',
   styleUrls: ['./board-header.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FrameworkModule]
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
   public timerIntervalRef: any | undefined = undefined; // eslint-disable-line

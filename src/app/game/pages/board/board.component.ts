@@ -6,6 +6,10 @@ import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
 import { ConfigService } from '../../services/config.service';
 import { NotificationService } from 'src/app/framework/generic/notification.service';
+import { CommonModule } from '@angular/common';
+import { FrameworkModule } from 'src/app/framework/framework.module';
+import { BoardHeaderComponent } from './header/board-header.component';
+import { TileComponent } from './tile/tile.component';
 
 type RowColumn = { row: number; column: number };
 type RowColumnOrNull = RowColumn | null;
@@ -14,6 +18,8 @@ type RowColumnOrNull = RowColumn | null;
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FrameworkModule, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
   public grid: Array<Array<Tile>> = [];

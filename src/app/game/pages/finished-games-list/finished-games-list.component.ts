@@ -6,6 +6,8 @@ import {
 } from '../../models/finished-game-item.model';
 import { BoardService } from '../../services/board.service';
 import { DifficultyLevel } from '../../models/config.model';
+import { CommonModule } from '@angular/common';
+import { FrameworkModule } from 'src/app/framework/framework.module';
 
 export interface FinishedGameItemForTableInterface {
   startTime: string;
@@ -18,6 +20,8 @@ export interface FinishedGameItemForTableInterface {
   selector: 'app-finished-games-list',
   templateUrl: './finished-games-list.component.html',
   styleUrls: ['./finished-games-list.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FrameworkModule]
 })
 export class FinishedGamesListComponent implements OnInit {
   public columnDefinitions: Array<ColumnDefinition> = [];

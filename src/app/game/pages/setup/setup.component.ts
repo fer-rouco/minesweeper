@@ -4,11 +4,15 @@ import { ConfigService } from '../../services/config.service';
 import { ConfigModel, DifficultyLevel } from '../../models/config.model';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/framework/generic/notification.service';
+import { CommonModule } from '@angular/common';
+import { FrameworkModule } from 'src/app/framework/framework.module';
 
 @Component({
   selector: 'app-setup',
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FrameworkModule]
 })
 export class SetupComponent implements OnInit {
   public difficultyLevels: Array<Option> = [
