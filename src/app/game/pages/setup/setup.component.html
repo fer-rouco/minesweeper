@@ -1,9 +1,9 @@
 <div class="panel">
   <panel title='Setup' >
-    <select-field [model]="config" attr="difficultyLevel" label='Difficulty Level' [options]='difficultyLevels' (change)="onDifficultyLevelChange()" ></select-field>
-    <numeric-field [model]="config" attr="columns" label='Columns' [enabled]="difficultyLevelEnabled" ></numeric-field>
-    <numeric-field [model]="config" attr="rows" label='Rows' [enabled]="difficultyLevelEnabled" ></numeric-field>
-    <numeric-field [model]="config" attr="bombs" label='Bombs' [enabled]="difficultyLevelEnabled" ></numeric-field>
+    <select-field [model]="config()" attr="difficultyLevel" label='Difficulty Level' [options]='difficultyLevels' (change)="onDifficultyLevelChange()" ></select-field>
+    <numeric-field [model]="config()" attr="columns" label='Columns' [enabled]="customDifficultyEnabled()" ></numeric-field>
+    <numeric-field [model]="config()" attr="rows" label='Rows' [enabled]="customDifficultyEnabled()" ></numeric-field>
+    <numeric-field [model]="config()" attr="bombs" label='Bombs' [enabled]="customDifficultyEnabled()" ></numeric-field>
     <custom-button (click)='onGoToBoardClick()' class='panel__to-board-button' >
       Go to Board
     </custom-button>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, WritableSignal, signal } from '@angular/core';
 import { Option } from 'src/app/framework/controls/fields/select-field/select-field.component';
 import { ConfigService } from '../../services/config.service';
 import { ConfigModel, DifficultyLevel } from '../../models/config.model';
@@ -30,8 +30,8 @@ export class SetupComponent implements OnInit {
     },
   ];
 
-  public config: ConfigModel | undefined;
-  public difficultyLevelEnabled: boolean = false;
+  public config: WritableSignal<ConfigModel | undefined> = signal(undefined);
+  public customDifficultyEnabled: WritableSignal<boolean> = signal(false);
 
   constructor(
     protected router: Router,
@@ -39,13 +39,13 @@ export class SetupComponent implements OnInit {
     @Inject(NotificationService)
     private notificationService: NotificationService,
   ) {
-    this.config = undefined;
+    this.config.set(undefined);
   }
 
   ngOnInit(): void {
     this.configService.restoreConfig();
-    this.config = this.configService.getConfig();
-    this.difficultyLevelEnabled = this.isCustomDifficultyLevel();
+    this.config.set(this.configService.getConfig());
+    this.customDifficultyEnabled.set(this.isCustomDifficultyLevel());
   }
 
   private validateFields(): boolean {
@@ -63,8 +63,13 @@ export class SetupComponent implements OnInit {
       return `${minMax} number of ${object} exceeded. Please set a number ${moreLess} than or equal to ${value}.`;
     };
 
+    if (!this.config()) {
+      return false;
+    }
+
+    const config: ConfigModel = this.config() as ConfigModel;
     const minBombs: number = 2;
-    if (this.config && this.config?.getBombs() < minBombs) {
+    if (config.getBombs() < minBombs) {
       this.notificationService.addError(
         minMaxMessage('Minimum', 'bombs', 'greater', minBombs),
       );
@@ -84,7 +89,7 @@ export class SetupComponent implements OnInit {
     }
 
     const minColumns: number = 4;
-    if (this.config && this.config?.getColumns() < minColumns) {
+    if (config.getColumns() < minColumns) {
       this.notificationService.addError(
         minMaxMessage('Minimum', 'columns', 'greater', minColumns),
       );
@@ -92,7 +97,7 @@ export class SetupComponent implements OnInit {
     }
 
     const maxColumns: number = 50;
-    if (this.config && this.config?.getColumns() > maxColumns) {
+    if (config.getColumns() > maxColumns) {
       this.notificationService.addError(
         minMaxMessage('Maximum', 'columns', 'lower', maxColumns),
       );
@@ -100,7 +105,7 @@ export class SetupComponent implements OnInit {
     }
 
     const minRows: number = 4;
-    if (this.config && this.config?.getRows() < minRows) {
+    if (config.getRows() < minRows) {
       this.notificationService.addError(
         minMaxMessage('Minimum', 'rows', 'greater', minRows),
       );
@@ -108,7 +113,7 @@ export class SetupComponent implements OnInit {
     }
 
     const maxRows: number = 25;
-    if (this.config && this.config?.getRows() > maxRows) {
+    if (config.getRows() > maxRows) {
       this.notificationService.addError(
         minMaxMessage('Maximum', 'rows', 'lower', maxRows),
       );
@@ -131,14 +136,13 @@ export class SetupComponent implements OnInit {
 
   public onDifficultyLevelChange(): void {
     this.configService.doConfig();
-    this.config = this.configService.getConfig();
-    this.difficultyLevelEnabled = this.isCustomDifficultyLevel();
+    this.config.set(this.configService.getConfig());
+    this.customDifficultyEnabled.set(this.isCustomDifficultyLevel());
   }
 
   public isCustomDifficultyLevel(): boolean {
     return (
-      (this.config && this.config.getDifficultyLevel()) ===
-      DifficultyLevel.CUSTOM
+      (this.config() && (this.config() as ConfigModel).getDifficultyLevel()) === DifficultyLevel.CUSTOM
     );
   }
 }
