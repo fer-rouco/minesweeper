@@ -9,17 +9,19 @@
   }"
   (click)="onClick()"
   (contextmenu)="onContextMenuClick($event)">
-  <span
-    *ngIf="(tile && tile.getNumber() > 0) && tile.isDiscovered()"
-    class="tile__number"
-    [ngClass]="{
-      'one': tile.isNumber(1),
-      'two': tile.isNumber(2),
-      'three': tile.isNumber(3),
-      'four': tile.isNumber(4),
-      'five': tile.isNumber(5),
-      'six': tile.isNumber(6)
-    }">
-    {{ tile.getNumber() }}
-  </span>
+  @if ((tile && tile.getNumber() > 0) && tile.isDiscovered()) 
+  {
+    <span
+      class="tile__number"
+      [ngClass]="{
+        'one': tile.isNumber(1),
+        'two': tile.isNumber(2),
+        'three': tile.isNumber(3),
+        'four': tile.isNumber(4),
+        'five': tile.isNumber(5),
+        'six': tile.isNumber(6)
+      }">
+      {{ tile.getNumber() }}
+    </span>
+  } 
 </span>

@@ -2,12 +2,23 @@
   <board-header></board-header>
   <div class="board__grid" >
     <table>
-      <tr *ngFor="let col of grid" class="row">
-        <td *ngFor="let tile of col" class="col">
-          <tile [tile]="tile" [gameOver]="gameOver" (change)="onTileChange($event)"></tile>
-        </td>
-      </tr>
+      @for (col of grid; track col) 
+      {
+        <tr class="row">
+          @for (tile of col; track tile.getId()) 
+          {
+            <td class="col">
+              <tile [tile]="tile" [gameOver]="gameOver" (change)="onTileChange($event)"></tile>
+            </td>
+          }  
+        </tr>
+      } 
+      @empty 
+      {
+        There were no items in the list.
+      }
     </table>
   </div>
+
 </panel>
 
