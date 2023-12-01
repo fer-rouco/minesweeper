@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Tile, TileType } from '../../../models/tile.model';
+import type { Tile } from '../../../models/tile.model';
+import { TileType } from '../../../models/tile.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -11,6 +11,6 @@ export interface ColumnDefinition {
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-  @Input() public columnDefinitions: Array<ColumnDefinition> = [];
+  @Input() public columnDefinitions: ColumnDefinition[] = [];
   @Input() public rowObjects: Array<any> = []; // eslint-disable-line
 }

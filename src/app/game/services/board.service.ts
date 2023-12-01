@@ -1,11 +1,13 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import {
+import type { OnDestroy } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import type { Observable} from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import type {
   FinishedGameItemInterface,
   GameStatus,
 } from '../models/finished-game-item.model';
 import { StorageManagerService } from '../../framework/generic/storage-manager.service';
-import { DifficultyLevel } from '../models/config.model';
+import type { DifficultyLevel } from '../models/config.model';
 
 @Injectable({
   providedIn: 'root',
@@ -92,23 +94,23 @@ export class BoardService implements OnDestroy {
       status: status,
     };
 
-    let finishedGameList: Array<FinishedGameItemInterface> | null =
-      this.storageManagerService.getItem<Array<FinishedGameItemInterface>>(
+    let finishedGameList: FinishedGameItemInterface[] | null =
+      this.storageManagerService.getItem<FinishedGameItemInterface[]>(
         'list',
       );
     if (!finishedGameList) {
       finishedGameList = new Array<FinishedGameItemInterface>();
     }
     finishedGameList.push(finishedGameItem);
-    this.storageManagerService.setItem<Array<FinishedGameItemInterface>>(
+    this.storageManagerService.setItem<FinishedGameItemInterface[]>(
       'list',
       finishedGameList,
     );
   }
 
-  public getFinishedGameList(): Array<FinishedGameItemInterface> {
+  public getFinishedGameList(): FinishedGameItemInterface[] {
     return this.storageManagerService.getItem(
       'list',
-    ) as Array<FinishedGameItemInterface>;
+    ) as FinishedGameItemInterface[];
   }
 }

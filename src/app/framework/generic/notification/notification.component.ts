@@ -1,6 +1,8 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import type { OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NotificationService } from '../notification.service';
-import { Notification, NotificationType } from '../notification-interface';
+import type { Notification} from '../notification-interface';
+import { NotificationType } from '../notification-interface';
 
 @Component({
   selector: 'notification',

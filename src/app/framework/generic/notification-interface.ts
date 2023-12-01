@@ -1,4 +1,4 @@
-import { Link } from './link-interface';
+import type { Link } from './link-interface';
 
 export enum NotificationType {
   SUCCESS = 0,

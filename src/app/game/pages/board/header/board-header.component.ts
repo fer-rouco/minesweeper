@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
+import type {
+  OnDestroy,
+  OnInit} from '@angular/core';
 import {
   ChangeDetectorRef,
   Component,
-  Inject,
-  OnDestroy,
-  OnInit,
+  Inject
 } from '@angular/core';
 import { FrameworkModule } from 'src/app/framework/framework.module';
 import { BoardService } from 'src/app/game/services/board.service';
@@ -26,7 +27,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService,
-    private cdr: ChangeDetectorRef,
+    @Inject(ChangeDetectorRef) private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {

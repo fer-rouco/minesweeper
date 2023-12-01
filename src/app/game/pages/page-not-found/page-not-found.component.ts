@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./page-not-found.component.scss'],
 })
 export class PageNotFoundComponent {
-  constructor(protected router: Router) {}
+  constructor(@Inject(Router) protected router: Router) {}
 
   public navigateToBoard(): void {
     this.router.navigateByUrl('/board');

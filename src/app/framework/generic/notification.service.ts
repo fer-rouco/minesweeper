@@ -1,7 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { Notification, NotificationType } from './notification-interface';
-import { Link } from './link-interface';
+import type { OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
+import type { Observable} from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import type { Notification} from './notification-interface';
+import { NotificationType } from './notification-interface';
+import type { Link } from './link-interface';
 
 @Injectable({
   providedIn: 'root',

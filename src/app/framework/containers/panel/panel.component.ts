@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 interface Action {
@@ -14,9 +14,9 @@ interface Action {
 })
 export class PanelComponent {
   @Input() public title: string = '';
-  @Input() public actions: Array<Action> = [];
+  @Input() public actions: Action[] = [];
 
-  constructor(protected router: Router) {}
+  constructor(@Inject(Router) protected router: Router) {}
 
   public onActionClick(action: Action) {
     this.router.navigateByUrl(action.to);

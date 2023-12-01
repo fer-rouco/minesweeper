@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './game/pages/page-not-found/page-not-found.component';
 
 export const routes: Routes = [

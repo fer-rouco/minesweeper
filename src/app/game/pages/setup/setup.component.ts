@@ -1,11 +1,20 @@
-import { Component, Inject, OnInit, WritableSignal, signal } from '@angular/core';
-import { Option } from 'src/app/framework/controls/fields/select-field/select-field.component';
-import { ConfigService } from '../../services/config.service';
-import { ConfigModel, DifficultyLevel } from '../../models/config.model';
-import { Router } from '@angular/router';
-import { NotificationService } from 'src/app/framework/generic/notification.service';
 import { CommonModule } from '@angular/common';
+import type {
+  OnInit,
+  WritableSignal
+} from '@angular/core';
+import {
+  Component,
+  Inject,
+  signal
+} from '@angular/core';
+import { Router } from '@angular/router';
+import type { Option } from 'src/app/framework/controls/fields/select-field/select-field.component';
 import { FrameworkModule } from 'src/app/framework/framework.module';
+import { NotificationService } from 'src/app/framework/generic/notification.service';
+import type { ConfigModel } from '../../models/config.model';
+import { DifficultyLevel } from '../../models/config.model';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-setup',
@@ -15,7 +24,7 @@ import { FrameworkModule } from 'src/app/framework/framework.module';
   imports: [CommonModule, FrameworkModule]
 })
 export class SetupComponent implements OnInit {
-  public difficultyLevels: Array<Option> = [
+  public difficultyLevels: Option[] = [
     {
       label: DifficultyLevel[DifficultyLevel.CUSTOM],
       value: DifficultyLevel.CUSTOM.toString(),
@@ -38,7 +47,7 @@ export class SetupComponent implements OnInit {
   public customDifficultyEnabled: WritableSignal<boolean> = signal(false);
 
   constructor(
-    protected router: Router,
+    @Inject(Router) protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(NotificationService)
     private notificationService: NotificationService,

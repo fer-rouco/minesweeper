@@ -1,13 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import type { OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigModel } from '../../models/config.model';
+import { FrameworkModule } from 'src/app/framework/framework.module';
+import { NotificationService } from 'src/app/framework/generic/notification.service';
+import type { ConfigModel } from '../../models/config.model';
 import { GameStatus } from '../../models/finished-game-item.model';
 import { Tile, TileType } from '../../models/tile.model';
 import { BoardService } from '../../services/board.service';
 import { ConfigService } from '../../services/config.service';
-import { NotificationService } from 'src/app/framework/generic/notification.service';
-import { CommonModule } from '@angular/common';
-import { FrameworkModule } from 'src/app/framework/framework.module';
 import { BoardHeaderComponent } from './header/board-header.component';
 import { TileComponent } from './tile/tile.component';
 
@@ -22,7 +23,7 @@ type RowColumnOrNull = RowColumn | null;
   imports: [CommonModule, FrameworkModule, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
-  public grid: Array<Array<Tile>> = [];
+  public grid: Tile[][] = [];
 
   public config: ConfigModel;
 
@@ -31,7 +32,7 @@ export class BoardComponent implements OnInit {
   private gameStart: Date | null = null;
 
   constructor(
-    protected router: Router,
+    @Inject(Router) protected router: Router,
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(BoardService) private boardService: BoardService,
     @Inject(NotificationService)
@@ -95,7 +96,7 @@ export class BoardComponent implements OnInit {
 
   private updateGridWithNumbers(): void {
     const updateTileNumber = (rowIndex: number, columnIndex: number): void => {
-      const tileRow: Array<Tile> = this.grid[rowIndex];
+      const tileRow: Tile[] = this.grid[rowIndex];
 
       if (tileRow) {
         const tile: Tile = tileRow[columnIndex] as Tile;
@@ -223,7 +224,7 @@ export class BoardComponent implements OnInit {
     const rowIndex: number = rowAndColumn?.row;
     const columnIndex: number = rowAndColumn?.column;
 
-    const excludeList: Array<RowColumn> = [];
+    const excludeList: RowColumn[] = [];
 
     const buildAdjacent: (
       rowIndex: number,
@@ -255,11 +256,11 @@ export class BoardComponent implements OnInit {
     const buildAdjacentList: (
       rowIndex: number,
       columnIndex: number,
-    ) => Array<RowColumn> = (
+    ) => RowColumn[] = (
       rowIndex: number,
       columnIndex: number,
-    ): Array<RowColumn> => {
-      const adjacentListAux: Array<RowColumnOrNull> = [];
+    ): RowColumn[] => {
+      const adjacentListAux: RowColumnOrNull[] = [];
 
       adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex - 1));
       adjacentListAux.push(buildAdjacent(rowIndex, columnIndex - 1));
@@ -274,11 +275,11 @@ export class BoardComponent implements OnInit {
 
       return adjacentListAux.filter(
         (adjacent) => adjacent !== null,
-      ) as Array<RowColumn>;
+      ) as RowColumn[];
     };
 
-    const findNextAdjacents: (adjacents: Array<RowColumn>) => void = (
-      adjacents: Array<RowColumn>,
+    const findNextAdjacents: (adjacents: RowColumn[]) => void = (
+      adjacents: RowColumn[],
     ): void => {
       adjacents.forEach((adjacent: RowColumn) => {
         const rowIndex: number = adjacent.row;
@@ -292,7 +293,7 @@ export class BoardComponent implements OnInit {
             }
 
             if (tile.isTypeEmpty()) {
-              const adjacentList: Array<RowColumn> = buildAdjacentList(
+              const adjacentList: RowColumn[] = buildAdjacentList(
                 rowIndex,
                 columnIndex,
               );
@@ -304,7 +305,7 @@ export class BoardComponent implements OnInit {
       });
     };
 
-    const adjacentList: Array<RowColumn> = buildAdjacentList(
+    const adjacentList: RowColumn[] = buildAdjacentList(
       rowIndex,
       columnIndex,
     );
