@@ -3,12 +3,12 @@
     *ngIf="notificationObject" 
     class="notification__message" 
     [ngClass]="{
-      'success': notificationObject.type === NotificationType.SUCCESS,
-      'info': notificationObject.type === NotificationType.INFO,
-      'warning': notificationObject.type === NotificationType.WARNING,
-      'error': notificationObject.type === NotificationType.ERROR
+      'success': isType(NotificationType.SUCCESS),
+      'info': isType(NotificationType.INFO),
+      'warning': isType(NotificationType.WARNING),
+      'error': isType(NotificationType.ERROR)
     }">
-    {{notificationObject.message}} 
-    <a *ngIf="notificationObject.link" class="link" [href]="notificationObject.link.to" >{{notificationObject.link.label}}</a>
+    {{notificationObject()?.message}} 
+    <a *ngIf="notificationObject()?.link" class="link" [href]="notificationObject()?.link?.to" >{{notificationObject()?.link?.label}}</a>
   </span>
 </div>

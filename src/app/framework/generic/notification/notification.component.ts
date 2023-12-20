@@ -1,8 +1,9 @@
-import type { OnDestroy, OnInit } from '@angular/core';
-import { Component, Inject } from '@angular/core';
+import type { OnDestroy, OnInit, WritableSignal } from '@angular/core';
+import { Component, Inject, signal } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import type { Notification} from '../notification-interface';
 import { NotificationType } from '../notification-interface';
+import { Subscription, mergeMap, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'notification',
@@ -12,35 +13,38 @@ import { NotificationType } from '../notification-interface';
 export class NotificationComponent implements OnInit, OnDestroy {
   public readonly NotificationType: typeof NotificationType = NotificationType;
 
-  public notificationObject: Notification | null;
+  public notificationObject: WritableSignal<Notification | null> = signal(null);
 
-  private timeOutRef: any = undefined; // eslint-disable-line
+  public notificationSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
     @Inject(NotificationService)
     private notificationService: NotificationService,
   ) {
-    this.notificationObject = null;
+    this.notificationObject.set(null);
   }
 
   ngOnInit(): void {
-    this.notificationService
-      .observable()
-      .subscribe((notificationObject: Notification) => {
-        this.notificationObject = notificationObject;
-        this.timeOutRef = setTimeout(() => {
-          this.notificationObject = null;
-          this.clearNotificationTimeout();
-        }, 5000);
-      });
+    this.notificationSubscription = this.notificationService
+      .observable().pipe(
+        tap((notificationObject: Notification) => {
+          this.notificationObject.set(notificationObject);
+        }),
+        mergeMap(() => {
+          return timer(5000);
+        }),
+        tap(() => {
+          this.notificationObject.set(null);
+        }),
+      ).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.clearNotificationTimeout();
+    this.notificationSubscription.unsubscribe();
   }
 
-  private clearNotificationTimeout() {
-    clearTimeout(this.timeOutRef);
-    this.timeOutRef = undefined;
+  isType(type: NotificationType): boolean {
+    return this.notificationObject()?.type === type;
   }
+
 }
