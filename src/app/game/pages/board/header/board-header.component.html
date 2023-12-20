@@ -1,10 +1,10 @@
 <div class="board-header">
   <div class="board-header-display-container">
     <i class="board-header-display-container__icon icon-bomb" ></i>
-    <span id="flag-counter" class="board-header-display-container__label"> {{flagCounter}}</span>
+    <span id="flag-counter" class="board-header-display-container__label"> {{flagsCounter()}}</span>
   </div>
   <custom-button (click)='restartGame()' class="board-header__button">
-    @if (!gameOver) 
+    @if (!gameOver()) 
     {
       <img class="board-header__face" src="../../../../../assets/icons/face_unpressed.svg" title="Restart Game"/>
     }
@@ -15,6 +15,6 @@
   </custom-button>
   <div class="board-header-display-container">
     <i class="board-header-display-container__icon icon-clock" ></i>
-    <span id="timer" class="board-header-display-container__label"> {{timer}}</span>
+    <span id="timer" class="board-header-display-container__label"> {{elapsedTime()}}</span>
   </div>
 </div>

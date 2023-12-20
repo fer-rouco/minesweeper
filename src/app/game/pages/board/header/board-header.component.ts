@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import type {
   OnDestroy,
-  OnInit} from '@angular/core';
+  OnInit,
+  WritableSignal} from '@angular/core';
 import {
   ChangeDetectorRef,
   Component,
-  Inject
+  Inject,
+  signal
 } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { interval } from 'rxjs';
 import { FrameworkModule } from 'src/app/framework/framework.module';
 import { BoardService } from 'src/app/game/services/board.service';
 import { ConfigService } from 'src/app/game/services/config.service';
@@ -19,10 +23,11 @@ import { ConfigService } from 'src/app/game/services/config.service';
   imports: [CommonModule, FrameworkModule]
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
-  public timerIntervalRef: any | undefined = undefined; // eslint-disable-line
-  public timer: number = 0;
-  public flagCounter: number = 0;
-  public gameOver: boolean = false;
+  public timerIntervalSubscription: Subscription = Subscription.EMPTY;
+
+  public elapsedTime: WritableSignal<number> = signal(0);
+  public flagsCounter: WritableSignal<number> = signal(0);
+  public gameOver: WritableSignal<boolean> = signal(false);
 
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
@@ -42,15 +47,14 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     });
 
     this.boardService.getGameOverObservable().subscribe((gameOver: boolean) => {
-      this.gameOver = gameOver;
+      this.gameOver.set(gameOver);
       this.stopTimer();
     });
 
     this.boardService
       .getUpdateFlagCounterObservable()
       .subscribe((flagsQuantity: number) => {
-        this.flagCounter =
-          this.configService.getConfig().getBombs() - flagsQuantity;
+        this.flagsCounter.set(this.configService.getConfig().getBombs() - flagsQuantity);
       });
   }
 
@@ -59,22 +63,19 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   }
 
   startTimer(): void {
-    if (!this.timerIntervalRef) {
-      this.timerIntervalRef = setInterval(() => {
-        this.timer += 1;
-        this.cdr.detectChanges();
-      }, 1000);
-    }
+    this.timerIntervalSubscription = interval(1000).subscribe(() => {
+      this.elapsedTime.set(this.elapsedTime() + 1);
+      this.cdr.detectChanges();
+    });
   }
 
   stopTimer(): void {
-    clearInterval(this.timerIntervalRef);
-    this.timerIntervalRef = undefined;
+    this.timerIntervalSubscription.unsubscribe();
   }
 
   public startGame(): void {
-    this.gameOver = false;
-    this.timer = 0;
+    this.gameOver.set(false);
+    this.elapsedTime.set(0);
     this.resetFlagCounter();
   }
 
@@ -85,6 +86,6 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
   }
 
   public resetFlagCounter(): void {
-    this.flagCounter = this.configService.getConfig().getBombs();
+    this.flagsCounter.set(this.configService.getConfig().getBombs());
   }
 }
