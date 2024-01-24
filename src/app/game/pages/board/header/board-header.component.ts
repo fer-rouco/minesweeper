@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import type {
   OnDestroy,
   OnInit,
@@ -20,7 +19,7 @@ import { ConfigService } from 'src/app/game/services/config.service';
   templateUrl: './board-header.component.html',
   styleUrls: ['./board-header.component.scss'],
   standalone: true,
-  imports: [CommonModule, FrameworkModule]
+  imports: [FrameworkModule]
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
   public timerIntervalSubscription: Subscription = Subscription.EMPTY;

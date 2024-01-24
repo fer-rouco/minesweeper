@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ColumnDefinition } from 'src/app/framework/controls/table/table.component';
+import { Component, Inject, type OnInit } from '@angular/core';
+import { type ColumnDefinition } from 'src/app/framework/controls/table/table.component';
 import {
-  FinishedGameItemInterface,
+  type FinishedGameItemInterface,
   GameStatus,
 } from '../../models/finished-game-item.model';
 import { BoardService } from '../../services/board.service';

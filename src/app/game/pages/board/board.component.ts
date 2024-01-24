@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,10 +19,10 @@ type RowColumnOrNull = RowColumn | null;
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
   standalone: true,
-  imports: [CommonModule, FrameworkModule, BoardHeaderComponent, TileComponent]
+  imports: [FrameworkModule, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
-  public grid: Tile[][] = [];
+  public grid: Array<Array<Tile>> = [];
 
   public config: ConfigModel;
 
@@ -96,7 +95,7 @@ export class BoardComponent implements OnInit {
 
   private updateGridWithNumbers(): void {
     const updateTileNumber = (rowIndex: number, columnIndex: number): void => {
-      const tileRow: Tile[] = this.grid[rowIndex];
+      const tileRow: Array<Tile> = this.grid[rowIndex];
 
       if (tileRow) {
         const tile: Tile = tileRow[columnIndex] as Tile;
@@ -224,7 +223,7 @@ export class BoardComponent implements OnInit {
     const rowIndex: number = rowAndColumn?.row;
     const columnIndex: number = rowAndColumn?.column;
 
-    const excludeList: RowColumn[] = [];
+    const excludeList: Array<RowColumn> = [];
 
     const buildAdjacent: (
       rowIndex: number,
@@ -256,11 +255,11 @@ export class BoardComponent implements OnInit {
     const buildAdjacentList: (
       rowIndex: number,
       columnIndex: number,
-    ) => RowColumn[] = (
+    ) => Array<RowColumn> = (
       rowIndex: number,
       columnIndex: number,
-    ): RowColumn[] => {
-      const adjacentListAux: RowColumnOrNull[] = [];
+    ): Array<RowColumn> => {
+      const adjacentListAux: Array<RowColumnOrNull> = [];
 
       adjacentListAux.push(buildAdjacent(rowIndex - 1, columnIndex - 1));
       adjacentListAux.push(buildAdjacent(rowIndex, columnIndex - 1));
@@ -275,11 +274,11 @@ export class BoardComponent implements OnInit {
 
       return adjacentListAux.filter(
         (adjacent) => adjacent !== null,
-      ) as RowColumn[];
+      ) as Array<RowColumn>;
     };
 
-    const findNextAdjacents: (adjacents: RowColumn[]) => void = (
-      adjacents: RowColumn[],
+    const findNextAdjacents: (adjacents: Array<RowColumn>) => void = (
+      adjacents: Array<RowColumn>,
     ): void => {
       adjacents.forEach((adjacent: RowColumn) => {
         const rowIndex: number = adjacent.row;
@@ -293,7 +292,7 @@ export class BoardComponent implements OnInit {
             }
 
             if (tile.isTypeEmpty()) {
-              const adjacentList: RowColumn[] = buildAdjacentList(
+              const adjacentList: Array<RowColumn> = buildAdjacentList(
                 rowIndex,
                 columnIndex,
               );
@@ -305,7 +304,7 @@ export class BoardComponent implements OnInit {
       });
     };
 
-    const adjacentList: RowColumn[] = buildAdjacentList(
+    const adjacentList: Array<RowColumn> = buildAdjacentList(
       rowIndex,
       columnIndex,
     );
