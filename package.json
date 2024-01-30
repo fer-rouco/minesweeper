@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href https://fer-rouco.github.io/minesweeper/",
+    "build": "ng build --base-href /minesweeper/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "eslint src/**/*.ts src/**/*.html --fix",
