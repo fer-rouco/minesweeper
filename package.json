@@ -1,15 +1,16 @@
 {
-  "homepage": "http://fer-rouco.github.io/minesweeper",
+  "homepage": "https://fer-rouco.github.io/minesweeper/",
   "name": "minesweeper",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href https://fer-rouco.github.io/minesweeper/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "eslint src/**/*.ts src/**/*.html --fix",
     "predeploy": "npm run build",
+    "clean": "rm -rf ./dist",
     "deploy": "gh-pages -d dist/browser"
   },
   "private": true,
@@ -28,10 +29,10 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^17.0.0",
-    "@angular-devkit/build-angular": "^17.1.0",
+    "@angular-devkit/build-angular": "^17.1.1",
     "@angular-eslint/eslint-plugin": "^17.1.0",
     "@angular-eslint/eslint-plugin-template": "^17.1.0",
-    "@angular/cli": "~17.1.0",
+    "@angular/cli": "~17.1.1",
     "@angular/compiler-cli": "^17.1.0",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
