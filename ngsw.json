@@ -1,0 +1,141 @@
+{
+  "configVersion": 1,
+  "timestamp": 1706709092940,
+  "index": "/minesweeper/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/minesweeper/chunk-7ZRZCEXL.js",
+        "/minesweeper/chunk-IOFI2DA2.js",
+        "/minesweeper/chunk-IS7UHNAX.js",
+        "/minesweeper/chunk-LZTFHIOT.js",
+        "/minesweeper/chunk-M2BYQGR7.js",
+        "/minesweeper/chunk-NNBPAJ3M.js",
+        "/minesweeper/chunk-ZKYREIS4.js",
+        "/minesweeper/favicon.ico",
+        "/minesweeper/index.html",
+        "/minesweeper/main-L6JH7JJS.js",
+        "/minesweeper/manifest.webmanifest",
+        "/minesweeper/polyfills-RX4V3J3S.js",
+        "/minesweeper/styles-3VQ4VU6T.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/minesweeper/assets/icons/bomb.png",
+        "/minesweeper/assets/icons/clock.svg",
+        "/minesweeper/assets/icons/down-arrow.png",
+        "/minesweeper/assets/icons/envelope.svg",
+        "/minesweeper/assets/icons/explosion.png",
+        "/minesweeper/assets/icons/face_loose.svg",
+        "/minesweeper/assets/icons/face_unpressed.svg",
+        "/minesweeper/assets/icons/filled-tile.svg",
+        "/minesweeper/assets/icons/flag.svg",
+        "/minesweeper/assets/icons/github.svg",
+        "/minesweeper/assets/icons/icon-128x128.png",
+        "/minesweeper/assets/icons/icon-144x144.png",
+        "/minesweeper/assets/icons/icon-152x152.png",
+        "/minesweeper/assets/icons/icon-192x192.png",
+        "/minesweeper/assets/icons/icon-384x384.png",
+        "/minesweeper/assets/icons/icon-512x512.png",
+        "/minesweeper/assets/icons/icon-72x72.png",
+        "/minesweeper/assets/icons/icon-96x96.png",
+        "/minesweeper/assets/icons/linkedin.svg",
+        "/minesweeper/assets/icons/list.svg",
+        "/minesweeper/assets/icons/settings.svg",
+        "/minesweeper/assets/images/Board.png",
+        "/minesweeper/assets/images/Setup.png",
+        "/minesweeper/media/bomb-WMLRRMWI.png",
+        "/minesweeper/media/clock-6HG5APAF.svg",
+        "/minesweeper/media/down-arrow-LS2ZVNHP.png",
+        "/minesweeper/media/envelope-FE657673.svg",
+        "/minesweeper/media/explosion-2VWXHTOR.png",
+        "/minesweeper/media/filled-tile-RZHQON4O.svg",
+        "/minesweeper/media/flag-HK7GP6BV.svg",
+        "/minesweeper/media/github-MYCHULGD.svg",
+        "/minesweeper/media/linkedin-CPCDJWJI.svg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/minesweeper/assets/icons/bomb.png": "8ccc80512fe2248f332619f8c927db3c773e83d9",
+    "/minesweeper/assets/icons/clock.svg": "cc0c0072951f7ead650c36a6128388673ddf3e10",
+    "/minesweeper/assets/icons/down-arrow.png": "bd6c84546a1f74027dd7cd7e8ae8a85d8c657f11",
+    "/minesweeper/assets/icons/envelope.svg": "de37279557f8c0286856667ab40a83fcc4679e8a",
+    "/minesweeper/assets/icons/explosion.png": "8e9022e03ec71555971d1bee08a924b3eddec0d0",
+    "/minesweeper/assets/icons/face_loose.svg": "5e4825327df9f768b5ef931b4e014e0ee560fe3a",
+    "/minesweeper/assets/icons/face_unpressed.svg": "ecfae87ff93e60351a3a0b3960621420bb645ed9",
+    "/minesweeper/assets/icons/filled-tile.svg": "3b0e862e4401808a38f50f13403dc1ff60db361e",
+    "/minesweeper/assets/icons/flag.svg": "b48b5e4f7f4321ac113fc385c813e0fdbd4bf023",
+    "/minesweeper/assets/icons/github.svg": "af0b0f8b236d4451a4cfdb9871e8c97d5110a0c6",
+    "/minesweeper/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/minesweeper/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/minesweeper/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/minesweeper/assets/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/minesweeper/assets/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/minesweeper/assets/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/minesweeper/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/minesweeper/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/minesweeper/assets/icons/linkedin.svg": "c76cfddb726019e5347c0e55b1cca785ca30e545",
+    "/minesweeper/assets/icons/list.svg": "1b082cd8a3291fb2634127652f870709dd3569b2",
+    "/minesweeper/assets/icons/settings.svg": "f9af96d3e8b76f1cda0bac8376b20b1c2f5ce8b7",
+    "/minesweeper/assets/images/Board.png": "2927253923abd1f356f4fdb7265cf0a18bd21a60",
+    "/minesweeper/assets/images/Setup.png": "105a455a84cbe1f8df8cea23a49400beae46a5af",
+    "/minesweeper/chunk-7ZRZCEXL.js": "7ecb80c069e4ba17f5faf91d45969b901e8e548b",
+    "/minesweeper/chunk-IOFI2DA2.js": "6bdac0fabf9e104271b9bdc3bcd771321ebe14ae",
+    "/minesweeper/chunk-IS7UHNAX.js": "c41478c60caef6fe103c98e59fe368679241a582",
+    "/minesweeper/chunk-LZTFHIOT.js": "3b6efd608eff17fce5fdf6d1ecdb6612d4a1ffff",
+    "/minesweeper/chunk-M2BYQGR7.js": "f9f8da7464c281de56b3a3048c5ae5f611bdce9f",
+    "/minesweeper/chunk-NNBPAJ3M.js": "77745e20e89c7b4c326197769a4b3f7e187f9284",
+    "/minesweeper/chunk-ZKYREIS4.js": "99c8c51121f3aa2bec7db2d1ea758ab643dcd829",
+    "/minesweeper/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/minesweeper/index.html": "bb39861ffbf5c6bd34862e37bf6e639c1795bb1a",
+    "/minesweeper/main-L6JH7JJS.js": "341c9ccd9e1bd6a04974cb9553219b759c983034",
+    "/minesweeper/manifest.webmanifest": "0c1a3344ae79db64118bf347827749400a033e8e",
+    "/minesweeper/media/bomb-WMLRRMWI.png": "8ccc80512fe2248f332619f8c927db3c773e83d9",
+    "/minesweeper/media/clock-6HG5APAF.svg": "cc0c0072951f7ead650c36a6128388673ddf3e10",
+    "/minesweeper/media/down-arrow-LS2ZVNHP.png": "bd6c84546a1f74027dd7cd7e8ae8a85d8c657f11",
+    "/minesweeper/media/envelope-FE657673.svg": "de37279557f8c0286856667ab40a83fcc4679e8a",
+    "/minesweeper/media/explosion-2VWXHTOR.png": "8e9022e03ec71555971d1bee08a924b3eddec0d0",
+    "/minesweeper/media/filled-tile-RZHQON4O.svg": "3b0e862e4401808a38f50f13403dc1ff60db361e",
+    "/minesweeper/media/flag-HK7GP6BV.svg": "b48b5e4f7f4321ac113fc385c813e0fdbd4bf023",
+    "/minesweeper/media/github-MYCHULGD.svg": "af0b0f8b236d4451a4cfdb9871e8c97d5110a0c6",
+    "/minesweeper/media/linkedin-CPCDJWJI.svg": "c76cfddb726019e5347c0e55b1cca785ca30e545",
+    "/minesweeper/polyfills-RX4V3J3S.js": "6b4c4ea33aa92bce0b91df442a680ed73e4303db",
+    "/minesweeper/styles-3VQ4VU6T.css": "f5cf8ad5acac86321c9023cccb165402b22717b5"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
