@@ -1,4 +1,4 @@
-<panel class="board" title="Board" [actions]="[{ icon: 'list.svg' , to: '/finished-games-list' }, { icon: 'settings.svg', to: '/setup' }]">
+<panel class="board" title="Board" [actions]="ActionHelper.buildBoardActions()">
   <board-header></board-header>
   <div class="board__grid" >
     <table>

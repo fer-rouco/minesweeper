@@ -9,6 +9,7 @@ import { NumericFieldComponent } from './controls/fields/numeric-field/numeric-f
 import { BaseFieldComponent } from './controls/base-field.component';
 import { CustomButtonComponent } from './controls/button/button.component';
 import { TableComponent } from './controls/table/table.component';
+import { ActionComponent } from './generic/action/action.component';
 import { NotificationComponent } from './generic/notification/notification.component';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { NotificationComponent } from './generic/notification/notification.compo
     CustomButtonComponent,
     TableComponent,
     NotificationComponent,
+    ActionComponent
   ],
   exports: [
     PanelComponent,

@@ -1,5 +1,6 @@
 import { Component, Inject, type OnInit } from '@angular/core';
 import { type ColumnDefinition } from 'src/app/framework/controls/table/table.component';
+import { ActionHelper } from 'src/app/framework/helpers/action-helper';
 import {
   type FinishedGameItemInterface,
   GameStatus,
@@ -24,6 +25,8 @@ export interface FinishedGameItemForTableInterface {
   imports: [CommonModule, FrameworkModule]
 })
 export class FinishedGamesListComponent implements OnInit {
+  public readonly ActionHelper: typeof ActionHelper = ActionHelper;
+
   public columnDefinitions: Array<ColumnDefinition> = [];
   public rowObjects: Array<FinishedGameItemForTableInterface> = [];
 

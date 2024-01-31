@@ -6,11 +6,6 @@
   justify-content: center;
   position: absolute;
   right: 1rem;
- 
-  & .link {
-    color: rgb(8, 82, 1);
-    cursor: pointer;
-  }
 
   &__message {
     border-radius: var(--border-radius);

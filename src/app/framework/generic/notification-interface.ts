@@ -1,4 +1,4 @@
-import type { Link } from './link-interface';
+import type { Action } from './generic-interface';
 
 export enum NotificationType {
   SUCCESS = 0,
@@ -10,5 +10,5 @@ export enum NotificationType {
 export type Notification = {
   type: NotificationType;
   message: string;
-  link?: Link;
+  action?: Action;
 };

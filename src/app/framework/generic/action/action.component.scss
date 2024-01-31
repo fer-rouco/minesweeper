@@ -1,0 +1,10 @@
+ 
+.action {
+  display: inline;
+
+  & .link {
+    text-decoration: underline;
+    color: rgb(8, 82, 1);
+    cursor: pointer;
+  }
+}

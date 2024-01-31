@@ -9,6 +9,6 @@
       'error': isType(NotificationType.ERROR)
     }">
     {{notificationObject()?.message}} 
-    <a *ngIf="notificationObject()?.link" class="link" [href]="notificationObject()?.link?.to" >{{notificationObject()?.link?.label}}</a>
+    <action [object]="notificationObject()?.action"></action>
   </span>
 </div>

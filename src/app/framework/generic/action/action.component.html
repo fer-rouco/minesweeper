@@ -1,0 +1,25 @@
+@if (object) {
+  @if (isTypeButton(object)) {
+    <custom-button (click)="onActionClick(object)">
+      <ng-container *ngTemplateOutlet="action"></ng-container>
+    </custom-button>  
+  }
+  @else if (isTypeLink(object)) {
+    <ng-container *ngTemplateOutlet="action"></ng-container>
+  }
+}
+
+<ng-template #action>
+  <div class="action">
+    @if (object) {
+      @if (isIcon(object)) {
+        <i>
+          <img class="icon" [src]="'assets/icons/' + object.icon">
+        </i>
+      }
+      @if (isLabel(object)) {
+        <span class="link" (click)="onActionClick(object)">{{ object.label }}</span>
+      }
+    }
+  </div>
+</ng-template>

@@ -3,7 +3,7 @@ import { Component, Inject, signal } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import type { Notification} from '../notification-interface';
 import { NotificationType } from '../notification-interface';
-import { Subscription, mergeMap, tap, timer } from 'rxjs';
+import { Subscription, mergeMap, map, tap, timer, of } from 'rxjs';
 
 @Component({
   selector: 'notification',
@@ -27,10 +27,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.notificationSubscription = this.notificationService
       .observable().pipe(
-        tap((notificationObject: Notification) => {
+        map((notificationObject: Notification | null) => {
           this.notificationObject.set(notificationObject);
+          return notificationObject;
         }),
-        mergeMap(() => {
+        mergeMap((notificationObject: Notification | null) => {
+          if (!notificationObject) {
+            return of(null);
+          }
           return timer(5000);
         }),
         tap(() => {

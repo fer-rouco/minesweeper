@@ -3,6 +3,8 @@ import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FrameworkModule } from 'src/app/framework/framework.module';
 import { NotificationService } from 'src/app/framework/generic/notification.service';
+import { ActionHelper } from 'src/app/framework/helpers/action-helper';
+import { ActionType } from 'src/app/framework/generic/generic-interface';
 import type { ConfigModel } from '../../models/config.model';
 import { GameStatus } from '../../models/finished-game-item.model';
 import { Tile, TileType } from '../../models/tile.model';
@@ -22,6 +24,8 @@ type RowColumnOrNull = RowColumn | null;
   imports: [FrameworkModule, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
+  public readonly ActionHelper: typeof ActionHelper = ActionHelper;
+   
   public grid: Array<Array<Tile>> = [];
 
   public config: ConfigModel;
@@ -56,6 +60,7 @@ export class BoardComponent implements OnInit {
   }
 
   public newGame(): void {
+    this.notificationService.clear();
     this.initGrid();
     this.updateGridWithRandomBombs();
     this.updateGridWithNumbers();
@@ -150,10 +155,15 @@ export class BoardComponent implements OnInit {
       );
       this.boardService.gameOver(true);
       this.gameOver = true;
-      this.notificationService.addError('Game Over!', {
-        label: 'Try Again.',
-        to: '/board',
-      });
+      this.notificationService.addError(
+        'Game Over!', 
+        ActionHelper.buildFuctionAction({
+          id: 'try-again',
+          label: 'Try Again.',
+          fn: () => { this.newGame() },
+          type: ActionType.LINK
+        })
+      );
       this.grid.flat().forEach((tile: Tile) => {
         if (!tile.isDiscovered() && tile.isTypeBomb()) {
           tile.setDiscovered(true);
@@ -187,10 +197,13 @@ export class BoardComponent implements OnInit {
           GameStatus.WIN,
         );
         this.boardService.gameOver(false);
-        this.notificationService.addSuccess('Game Won!', {
-          label: 'Check your results.',
-          to: '/finished-games-list',
-        });
+        this.notificationService.addSuccess(
+          'Game Won!', 
+          ActionHelper.buildFinishedGameListAction({
+            label: 'Check your results.',
+            type: ActionType.LINK
+          })
+        );
       }
 
       this.updateFlagCounter();
