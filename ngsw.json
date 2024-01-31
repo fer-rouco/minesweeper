@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1706710012972,
+  "timestamp": 1706711341649,
   "index": "/minesweeper/index.html",
   "assetGroups": [
     {
@@ -57,6 +57,7 @@
         "/minesweeper/assets/icons/list.svg",
         "/minesweeper/assets/icons/settings.svg",
         "/minesweeper/assets/images/Board.png",
+        "/minesweeper/assets/images/Finished Game List.png",
         "/minesweeper/assets/images/Setup.png",
         "/minesweeper/media/bomb-WMLRRMWI.png",
         "/minesweeper/media/clock-6HG5APAF.svg",
@@ -95,6 +96,7 @@
     "/minesweeper/assets/icons/list.svg": "1b082cd8a3291fb2634127652f870709dd3569b2",
     "/minesweeper/assets/icons/settings.svg": "f9af96d3e8b76f1cda0bac8376b20b1c2f5ce8b7",
     "/minesweeper/assets/images/Board.png": "2927253923abd1f356f4fdb7265cf0a18bd21a60",
+    "/minesweeper/assets/images/Finished Game List.png": "8b2bd06379d0b1ff0746bbb09acbd48ae1ff2f84",
     "/minesweeper/assets/images/Setup.png": "105a455a84cbe1f8df8cea23a49400beae46a5af",
     "/minesweeper/chunk-7ZRZCEXL.js": "7ecb80c069e4ba17f5faf91d45969b901e8e548b",
     "/minesweeper/chunk-IOFI2DA2.js": "6bdac0fabf9e104271b9bdc3bcd771321ebe14ae",
@@ -104,7 +106,7 @@
     "/minesweeper/chunk-NNBPAJ3M.js": "77745e20e89c7b4c326197769a4b3f7e187f9284",
     "/minesweeper/chunk-ZKYREIS4.js": "99c8c51121f3aa2bec7db2d1ea758ab643dcd829",
     "/minesweeper/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/minesweeper/index.html": "bb39861ffbf5c6bd34862e37bf6e639c1795bb1a",
+    "/minesweeper/index.html": "abe1a302e898d6451d141de7b275bbd8fa1b1db4",
     "/minesweeper/main-L6JH7JJS.js": "341c9ccd9e1bd6a04974cb9553219b759c983034",
     "/minesweeper/manifest.webmanifest": "0c1a3344ae79db64118bf347827749400a033e8e",
     "/minesweeper/media/bomb-WMLRRMWI.png": "8ccc80512fe2248f332619f8c927db3c773e83d9",
