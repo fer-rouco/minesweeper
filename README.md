@@ -4,14 +4,17 @@
 If a square containing a mine is revealed, the player loses the game.
 Otherwise, a digit is revealed in the square, indicating the number of adjacent squares that contain mines.
 
+Available live [here](https://fer-rouco.github.io/minesweeper/) 
+
 ## About the Project
 
 <p align="center">
   <img src="./src/assets/images/Setup.png" />
   <img src="./src/assets/images/Board.png" />
+  <img src="./src/assets/images/Finished Game List.png" />
 </p>
 
-This is an Angular based app to build the famous [minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) puzzle game 
+This is an Angular based PWA app to build the famous [minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) puzzle game 
 
 ## **Technologies used for this project.**
 
