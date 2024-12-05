@@ -11,6 +11,10 @@ export interface ColumnDefinition {
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-  @Input() public columnDefinitions: ColumnDefinition[] = [];
+  @Input() public columnDefinitions: Array<ColumnDefinition> = [];
   @Input() public rowObjects: Array<any> = []; // eslint-disable-line
+
+  protected isEmptyRowObjects(): boolean {
+    return !this.rowObjects || this.rowObjects.length === 0;
+  }
 }

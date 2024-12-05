@@ -1,14 +1,14 @@
 <div class="notification" >
-  <span 
-    *ngIf="notificationObject" 
-    class="notification__message" 
-    [ngClass]="{
-      'success': isType(NotificationType.SUCCESS),
-      'info': isType(NotificationType.INFO),
-      'warning': isType(NotificationType.WARNING),
-      'error': isType(NotificationType.ERROR)
-    }">
-    {{notificationObject()?.message}} 
-    <action [object]="notificationObject()?.action"></action>
-  </span>
+  @if (notificationObject()) {
+    <span 
+      class="notification__message" 
+      [class.success]="isType(NotificationType.SUCCESS)"
+      [class.info]="isType(NotificationType.INFO)"
+      [class.warning]="isType(NotificationType.WARNING)"
+      [class.error]="isType(NotificationType.ERROR)"
+    >
+      {{notificationObject()?.message}} 
+      <action [object]="notificationObject()?.action"></action>
+    </span> 
+  }
 </div>

@@ -1,16 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, type OnInit } from '@angular/core';
 import { type ColumnDefinition } from 'src/app/framework/controls/table/table.component';
+import { FrameworkModule } from 'src/app/framework/framework.module';
 import { ActionHelper } from 'src/app/framework/helpers/action-helper';
+import { DifficultyLevel } from '../../models/config.model';
 import {
   type FinishedGameItemInterface,
   GameStatus,
 } from '../../models/finished-game-item.model';
 import { BoardService } from '../../services/board.service';
-import { DifficultyLevel } from '../../models/config.model';
-import { CommonModule } from '@angular/common';
-import { FrameworkModule } from 'src/app/framework/framework.module';
 
 export interface FinishedGameItemForTableInterface {
+  id: string,
   startTime: string;
   endTime: string;
   difficulty: string;
@@ -94,13 +95,16 @@ export class FinishedGamesListComponent implements OnInit {
             } ${timeSpentSufix}`;
           };
 
-          return {
+          const finishedGameItemForTable: FinishedGameItemForTableInterface = {
             startTime: formatDate(finishedGameItem.startTime),
             endTime: formatDate(finishedGameItem.endTime),
             difficulty: DifficultyLevel[finishedGameItem.difficulty],
             totalTimeSpent: formatSpentTime(finishedGameItem.totalTimeSpent),
             status: GameStatus[finishedGameItem.status],
           } as FinishedGameItemForTableInterface;
+          finishedGameItemForTable.id = `${finishedGameItemForTable.status}_${finishedGameItemForTable.difficulty}_${finishedGameItemForTable.startTime.replace(' ', '_')}`;
+
+          return finishedGameItemForTable;
         },
       );
     }

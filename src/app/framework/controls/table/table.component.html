@@ -1,11 +1,19 @@
-<table class="custom-table flex" [ngClass]="{ 'flex': !rowObjects || rowObjects.length === 0 }">
+<table class="custom-table" [class.flex]="isEmptyRowObjects()">
   <tr>
-    <th class="custom-table__header" *ngFor="let columnDefinition of columnDefinitions">{{columnDefinition.label}}</th>
+    @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
+      <th class="custom-table__header">{{columnDefinition.label}}</th>
+    }
   </tr>
-  <tr *ngFor="let rowObject of rowObjects">
-    <td class="custom-table__cell" *ngFor="let columnDefinition of columnDefinitions">{{rowObject[columnDefinition.attr]}}</td>
-  </tr>
+  @for (rowObject of rowObjects; track rowObject.id) {
+    <tr>
+      @for (columnDefinition of columnDefinitions; track columnDefinition.attr) {
+        <td class="custom-table__cell">{{rowObject[columnDefinition.attr]}}</td>
+      }
+    </tr>  
+  }
   <tr>
-    <span class="custom-table__no-items-found" *ngIf="!rowObjects || rowObjects.length === 0">No items found.</span>
+    @if (isEmptyRowObjects()) {
+      <span class="custom-table__no-items-found">No items found.</span>
+    }
   </tr>
 </table>

@@ -9,7 +9,9 @@
     (change)="onInputChange()"
     (keyup.enter)="onInputChange()"
   >
-    <option *ngFor="let option of options" [value]="option.value">{{option.label}}</option>
+    @for (option of options; track (option.label + '_' + option.value)) {
+      <option [value]="option.value">{{option.label}}</option>
+    }
   </select>
 </field>
 

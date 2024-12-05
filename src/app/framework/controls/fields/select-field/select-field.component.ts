@@ -12,7 +12,7 @@ export interface Option {
   styleUrls: ['./select-field.component.scss'],
 })
 export class SelectFieldComponent extends BaseFieldComponent {
-  @Input() public options: Option[] = [];
+  @Input() public options: Array<Option> = [];
 
   public override updateModel(): void {
     this.model[this.attr] = Number.parseInt(this.visualModel);

@@ -24,7 +24,7 @@ import { ConfigService } from '../../services/config.service';
   imports: [CommonModule, FrameworkModule]
 })
 export class SetupComponent implements OnInit {
-  public difficultyLevels: Option[] = [
+  public difficultyLevels: Array<Option> = [
     {
       label: DifficultyLevel[DifficultyLevel.CUSTOM],
       value: DifficultyLevel.CUSTOM.toString(),
