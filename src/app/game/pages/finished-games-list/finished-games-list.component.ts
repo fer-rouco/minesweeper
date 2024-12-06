@@ -94,6 +94,7 @@ export class FinishedGamesListComponent implements OnInit {
             } ${timeSpentSufix}`;
           };
 
+          const randomInteger: number = Math.floor(Math.random() * 999 + 100);
           const finishedGameItemForTable: FinishedGameItemForTableInterface = {
             startTime: formatDate(finishedGameItem.startTime),
             endTime: formatDate(finishedGameItem.endTime),
@@ -101,7 +102,7 @@ export class FinishedGamesListComponent implements OnInit {
             totalTimeSpent: formatSpentTime(finishedGameItem.totalTimeSpent),
             status: GameStatus[finishedGameItem.status],
           } as FinishedGameItemForTableInterface;
-          finishedGameItemForTable.id = `${finishedGameItemForTable.status}_${finishedGameItemForTable.difficulty}_${finishedGameItemForTable.startTime.replace(' ', '_')}`;
+          finishedGameItemForTable.id = `${finishedGameItemForTable.status}_${finishedGameItemForTable.difficulty}_${finishedGameItemForTable.startTime.replace(' ', '_')}_${randomInteger}`;
 
           return finishedGameItemForTable;
         },
