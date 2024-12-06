@@ -1,13 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Action, FunctionAction, LinkAction, Icon, Label, ActionType } from '../../generic/generic-interface';
+import { CustomButtonComponent } from '../../controls/button/button.component';
+import type { Action, FunctionAction, Icon, Label, LinkAction } from '../../generic/generic-interface';
+import { ActionType } from '../../generic/generic-interface';
 
 
 @Component({
     selector: 'action',
     templateUrl: './action.component.html',
     styleUrl: './action.component.scss',
-    standalone: false
+    imports: [CommonModule, CustomButtonComponent]
 })
 export class ActionComponent {
   @Input() public object: Action | undefined = {} as Action;

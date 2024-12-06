@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BaseFieldComponent } from '../../base-field.component';
+import { FieldComponent } from '../field/field.component';
 
 export interface Option {
   label: string;
@@ -10,7 +12,7 @@ export interface Option {
     selector: 'select-field',
     templateUrl: './select-field.component.html',
     styleUrls: ['./select-field.component.scss'],
-    standalone: false
+    imports: [FormsModule, FieldComponent]
 })
 export class SelectFieldComponent extends BaseFieldComponent {
   @Input() public options: Array<Option> = [];

@@ -1,11 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { CustomButtonComponent } from '../../../framework/controls/button/button.component';
 
 @Component({
     selector: 'app-page-not-found',
     templateUrl: './page-not-found.component.html',
     styleUrls: ['./page-not-found.component.scss'],
-    standalone: false
+    imports: [CustomButtonComponent]
 })
 export class PageNotFoundComponent {
   constructor(@Inject(Router) protected router: Router) {}

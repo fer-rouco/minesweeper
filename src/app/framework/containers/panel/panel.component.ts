@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { Action } from '../../generic/generic-interface';
+import { ActionComponent } from '../../generic/action/action.component';
+import type { Action } from '../../generic/generic-interface';
 
 @Component({
     selector: 'panel',
     templateUrl: './panel.component.html',
     styleUrls: ['./panel.component.scss'],
-    standalone: false
+    imports: [ActionComponent]
 })
 export class PanelComponent {
   @Input() public title: string = '';
-  @Input() public actions: Action[] = [];
+  @Input() public actions: Array<Action> = [];
 }

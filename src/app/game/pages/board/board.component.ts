@@ -1,10 +1,10 @@
 import type { OnInit } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FrameworkModule } from 'src/app/framework/framework.module';
+import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
+import { ActionType } from 'src/app/framework/generic/generic-interface';
 import { NotificationService } from 'src/app/framework/generic/notification.service';
 import { ActionHelper } from 'src/app/framework/helpers/action-helper';
-import { ActionType } from 'src/app/framework/generic/generic-interface';
 import type { ConfigModel } from '../../models/config.model';
 import { GameStatus } from '../../models/finished-game-item.model';
 import { Tile, TileType } from '../../models/tile.model';
@@ -20,7 +20,7 @@ type RowColumnOrNull = RowColumn | null;
     selector: 'app-board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss'],
-    imports: [FrameworkModule, BoardHeaderComponent, TileComponent]
+    imports: [PanelComponent, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
   public readonly ActionHelper: typeof ActionHelper = ActionHelper;

@@ -8,8 +8,7 @@ export interface ColumnDefinition {
 @Component({
     selector: 'custom-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss'],
-    standalone: false
+    styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
   @Input() public columnDefinitions: Array<ColumnDefinition> = [];

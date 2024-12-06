@@ -11,8 +11,7 @@ import {
 
 @Component({
     selector: 'base-field',
-    template: '',
-    standalone: false
+    template: ''
 })
 export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public label: string = '';

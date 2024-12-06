@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import type {
   OnInit,
   WritableSignal
@@ -9,8 +8,11 @@ import {
   signal
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
+import { CustomButtonComponent } from 'src/app/framework/controls/button/button.component';
+import { NumericFieldComponent } from 'src/app/framework/controls/fields/numeric-field/numeric-field.component';
 import type { Option } from 'src/app/framework/controls/fields/select-field/select-field.component';
-import { FrameworkModule } from 'src/app/framework/framework.module';
+import { SelectFieldComponent } from 'src/app/framework/controls/fields/select-field/select-field.component';
 import { NotificationService } from 'src/app/framework/generic/notification.service';
 import type { ConfigModel } from '../../models/config.model';
 import { DifficultyLevel } from '../../models/config.model';
@@ -20,7 +22,7 @@ import { ConfigService } from '../../services/config.service';
     selector: 'app-setup',
     templateUrl: './setup.component.html',
     styleUrls: ['./setup.component.scss'],
-    imports: [CommonModule, FrameworkModule]
+    imports: [PanelComponent, SelectFieldComponent, NumericFieldComponent, CustomButtonComponent]
 })
 export class SetupComponent implements OnInit {
   public difficultyLevels: Array<Option> = [

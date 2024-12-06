@@ -1,15 +1,16 @@
 import type { OnDestroy, OnInit, WritableSignal } from '@angular/core';
 import { Component, Inject, signal } from '@angular/core';
-import { NotificationService } from '../notification.service';
-import type { Notification} from '../notification-interface';
+import { Subscription, map, mergeMap, of, tap, timer } from 'rxjs';
+import { ActionComponent } from '../../generic/action/action.component';
+import type { Notification } from '../notification-interface';
 import { NotificationType } from '../notification-interface';
-import { Subscription, mergeMap, map, tap, timer, of } from 'rxjs';
+import { NotificationService } from '../notification.service';
 
 @Component({
     selector: 'notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
-    standalone: false
+    imports: [ActionComponent]
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   public readonly NotificationType: typeof NotificationType = NotificationType;

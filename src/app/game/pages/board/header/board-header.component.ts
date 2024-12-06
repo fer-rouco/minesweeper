@@ -1,16 +1,16 @@
 import type {
   OnDestroy,
   OnInit,
-  WritableSignal} from '@angular/core';
+  WritableSignal
+} from '@angular/core';
 import {
   ChangeDetectorRef,
   Component,
   Inject,
   signal
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { interval } from 'rxjs';
-import { FrameworkModule } from 'src/app/framework/framework.module';
+import { interval, Subscription } from 'rxjs';
+import { CustomButtonComponent } from 'src/app/framework/controls/button/button.component';
 import { BoardService } from 'src/app/game/services/board.service';
 import { ConfigService } from 'src/app/game/services/config.service';
 
@@ -18,7 +18,7 @@ import { ConfigService } from 'src/app/game/services/config.service';
     selector: 'board-header',
     templateUrl: './board-header.component.html',
     styleUrls: ['./board-header.component.scss'],
-    imports: [FrameworkModule]
+    imports: [CustomButtonComponent]
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
   public timerIntervalSubscription: Subscription = Subscription.EMPTY;

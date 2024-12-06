@@ -3,8 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
     selector: 'custom-button',
     templateUrl: './button.component.html',
-    styleUrls: ['./button.component.scss'],
-    standalone: false
+    styleUrls: ['./button.component.scss']
 })
 export class CustomButtonComponent {
   @Input() public label: string = '';
