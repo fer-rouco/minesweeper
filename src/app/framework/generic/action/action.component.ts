@@ -4,9 +4,10 @@ import { Action, FunctionAction, LinkAction, Icon, Label, ActionType } from '../
 
 
 @Component({
-  selector: 'action',
-  templateUrl: './action.component.html',
-  styleUrl: './action.component.scss'
+    selector: 'action',
+    templateUrl: './action.component.html',
+    styleUrl: './action.component.scss',
+    standalone: false
 })
 export class ActionComponent {
   @Input() public object: Action | undefined = {} as Action;

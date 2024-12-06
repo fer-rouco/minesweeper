@@ -10,8 +10,9 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'base-field',
-  template: '',
+    selector: 'base-field',
+    template: '',
+    standalone: false
 })
 export class BaseFieldComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public label: string = '';

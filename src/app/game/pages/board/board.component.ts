@@ -17,11 +17,10 @@ type RowColumn = { row: number; column: number };
 type RowColumnOrNull = RowColumn | null;
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
-  standalone: true,
-  imports: [FrameworkModule, BoardHeaderComponent, TileComponent]
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.scss'],
+    imports: [FrameworkModule, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
   public readonly ActionHelper: typeof ActionHelper = ActionHelper;

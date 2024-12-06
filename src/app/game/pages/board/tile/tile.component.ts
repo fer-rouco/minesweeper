@@ -4,11 +4,10 @@ import { TileType } from '../../../models/tile.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'tile',
-  templateUrl: './tile.component.html',
-  styleUrls: ['./tile.component.scss'],
-  standalone: true,
-  imports: [CommonModule]
+    selector: 'tile',
+    templateUrl: './tile.component.html',
+    styleUrls: ['./tile.component.scss'],
+    imports: [CommonModule]
 })
 export class TileComponent {
   public readonly TileTypes: typeof TileType = TileType;

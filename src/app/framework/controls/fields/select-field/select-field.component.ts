@@ -7,9 +7,10 @@ export interface Option {
 }
 
 @Component({
-  selector: 'select-field',
-  templateUrl: './select-field.component.html',
-  styleUrls: ['./select-field.component.scss'],
+    selector: 'select-field',
+    templateUrl: './select-field.component.html',
+    styleUrls: ['./select-field.component.scss'],
+    standalone: false
 })
 export class SelectFieldComponent extends BaseFieldComponent {
   @Input() public options: Array<Option> = [];

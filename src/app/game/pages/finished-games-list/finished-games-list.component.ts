@@ -19,11 +19,10 @@ export interface FinishedGameItemForTableInterface {
   status: string;
 }
 @Component({
-  selector: 'app-finished-games-list',
-  templateUrl: './finished-games-list.component.html',
-  styleUrls: ['./finished-games-list.component.scss'],
-  standalone: true,
-  imports: [CommonModule, FrameworkModule]
+    selector: 'app-finished-games-list',
+    templateUrl: './finished-games-list.component.html',
+    styleUrls: ['./finished-games-list.component.scss'],
+    imports: [CommonModule, FrameworkModule]
 })
 export class FinishedGamesListComponent implements OnInit {
   public readonly ActionHelper: typeof ActionHelper = ActionHelper;

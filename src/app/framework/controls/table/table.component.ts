@@ -6,9 +6,10 @@ export interface ColumnDefinition {
 }
 
 @Component({
-  selector: 'custom-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+    selector: 'custom-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss'],
+    standalone: false
 })
 export class TableComponent {
   @Input() public columnDefinitions: Array<ColumnDefinition> = [];

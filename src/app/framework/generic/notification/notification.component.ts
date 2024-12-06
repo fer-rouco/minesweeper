@@ -6,9 +6,10 @@ import { NotificationType } from '../notification-interface';
 import { Subscription, mergeMap, map, tap, timer, of } from 'rxjs';
 
 @Component({
-  selector: 'notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss'],
+    selector: 'notification',
+    templateUrl: './notification.component.html',
+    styleUrls: ['./notification.component.scss'],
+    standalone: false
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   public readonly NotificationType: typeof NotificationType = NotificationType;

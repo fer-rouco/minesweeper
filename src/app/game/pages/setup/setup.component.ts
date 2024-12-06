@@ -17,11 +17,10 @@ import { DifficultyLevel } from '../../models/config.model';
 import { ConfigService } from '../../services/config.service';
 
 @Component({
-  selector: 'app-setup',
-  templateUrl: './setup.component.html',
-  styleUrls: ['./setup.component.scss'],
-  standalone: true,
-  imports: [CommonModule, FrameworkModule]
+    selector: 'app-setup',
+    templateUrl: './setup.component.html',
+    styleUrls: ['./setup.component.scss'],
+    imports: [CommonModule, FrameworkModule]
 })
 export class SetupComponent implements OnInit {
   public difficultyLevels: Array<Option> = [

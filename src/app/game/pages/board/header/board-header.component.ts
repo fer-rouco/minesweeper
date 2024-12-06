@@ -15,11 +15,10 @@ import { BoardService } from 'src/app/game/services/board.service';
 import { ConfigService } from 'src/app/game/services/config.service';
 
 @Component({
-  selector: 'board-header',
-  templateUrl: './board-header.component.html',
-  styleUrls: ['./board-header.component.scss'],
-  standalone: true,
-  imports: [FrameworkModule]
+    selector: 'board-header',
+    templateUrl: './board-header.component.html',
+    styleUrls: ['./board-header.component.scss'],
+    imports: [FrameworkModule]
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
   public timerIntervalSubscription: Subscription = Subscription.EMPTY;
