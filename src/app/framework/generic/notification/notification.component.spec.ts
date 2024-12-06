@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
+import { ActionComponent } from '../../generic/action/action.component';
 import { NotificationComponent } from './notification.component';
 
 describe('NotificationComponent', () => {
@@ -8,7 +10,7 @@ describe('NotificationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NotificationComponent],
+      imports: [NotificationComponent, ActionComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationComponent);

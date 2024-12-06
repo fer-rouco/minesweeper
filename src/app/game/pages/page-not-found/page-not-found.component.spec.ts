@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { PageNotFoundComponent } from './page-not-found.component';
 import { CustomButtonComponent } from 'src/app/framework/controls/button/button.component';
+import { PageNotFoundComponent } from './page-not-found.component';
 
 describe('PageNotFoundComponent', () => {
   let component: PageNotFoundComponent;
@@ -9,7 +10,7 @@ describe('PageNotFoundComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PageNotFoundComponent, CustomButtonComponent],
+      imports: [PageNotFoundComponent, CustomButtonComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PageNotFoundComponent);

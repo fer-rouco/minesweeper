@@ -1,30 +1,34 @@
+import { Location } from '@angular/common';
+import type { ComponentFixture } from '@angular/core/testing';
 import {
-  ComponentFixture,
   TestBed,
   fakeAsync,
   flush,
   tick,
 } from '@angular/core/testing';
 
+import { provideRouter, withHashLocation } from '@angular/router';
 import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
-import { SetupComponent } from './setup.component';
-import { BoardModule } from '../board/board.module';
-import { AppRoutingModule } from 'src/app/app-routing.module';
 import { TestRequirementsModule } from 'src/test/test-requirements.module';
+import { routes } from '../../../app.routes';
+import { SetupComponent } from './setup.component';
 
 describe('SetupComponent', () => {
   let component: SetupComponent;
   let fixture: ComponentFixture<SetupComponent>;
+  let location: Location;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestRequirementsModule, BoardModule, AppRoutingModule],
-      declarations: [PanelComponent, SetupComponent],
+      imports: [TestRequirementsModule, PanelComponent, SetupComponent],
+      providers: [provideRouter(routes, withHashLocation())]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SetupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    location = TestBed.inject(Location);
   });
 
   it('should create', () => {
@@ -41,7 +45,7 @@ describe('SetupComponent', () => {
 
     tick();
 
-    expect(location.pathname).toBe('/board');
+    expect(location.path()).toBe('/board');
 
     flush();
   }));

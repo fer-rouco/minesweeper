@@ -1,5 +1,5 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TileComponent } from './tile.component';
 
 describe('TileComponent', () => {
@@ -8,7 +8,7 @@ describe('TileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TileComponent],
+      imports: [CommonModule, TileComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TileComponent);

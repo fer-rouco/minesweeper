@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
+import { ActionComponent } from '../../generic/action/action.component';
 import { PanelComponent } from './panel.component';
 
 describe('PanelComponent', () => {
@@ -8,7 +10,7 @@ describe('PanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PanelComponent],
+      imports: [PanelComponent, ActionComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PanelComponent);

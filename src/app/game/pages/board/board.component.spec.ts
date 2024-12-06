@@ -1,29 +1,27 @@
+import { Location } from '@angular/common';
+import type { DebugElement } from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
 import {
-  ComponentFixture,
   TestBed,
   fakeAsync,
   flush,
   tick,
 } from '@angular/core/testing';
+import { provideRouter, withHashLocation } from '@angular/router';
+import { routes } from '../../../app.routes';
+import type { FinishedGameItemInterface } from '../../models/finished-game-item.model';
+import type { Tile } from '../../models/tile.model';
 
-import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
 import { CustomButtonComponent } from 'src/app/framework/controls/button/button.component';
 import { ConfigModel, DifficultyLevel } from '../../models/config.model';
-import {
-  FinishedGameItemInterface,
-  GameStatus,
-} from '../../models/finished-game-item.model';
-import { Tile } from '../../models/tile.model';
+import { GameStatus } from '../../models/finished-game-item.model';
 import { BoardService } from '../../services/board.service';
 import { ConfigService } from '../../services/config.service';
 import { BoardComponent } from './board.component';
 import { BoardHeaderComponent } from './header/board-header.component';
 import { TileComponent } from './tile/tile.component';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-import { SetupModule } from '../setup/setup.module';
-import { FinishedGamesListModule } from '../finished-games-list/finished-games-list.module';
 
 class ConfigServiceMock extends ConfigService {
   public override getConfig(): ConfigModel {
@@ -35,6 +33,7 @@ describe('BoardComponent', () => {
   let component: BoardComponent;
   let fixture: ComponentFixture<BoardComponent>;
   let boardService: BoardService;
+  let location: Location;
 
   const getTilesWithBomb = () => {
     return component.grid.flat().filter((tile: Tile) => tile.isTypeBomb());
@@ -103,20 +102,21 @@ describe('BoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SetupModule, FinishedGamesListModule, AppRoutingModule],
-      declarations: [
+      imports: [
         PanelComponent,
         BoardComponent,
         BoardHeaderComponent,
         TileComponent,
         CustomButtonComponent,
       ],
-      providers: [{ provide: ConfigService, useClass: ConfigServiceMock }],
+      providers: [provideRouter(routes, withHashLocation()), { provide: ConfigService, useClass: ConfigServiceMock }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    location = TestBed.inject(Location);
 
     boardService = fixture.debugElement.injector.get(BoardService);
   });
@@ -258,7 +258,7 @@ describe('BoardComponent', () => {
 
     tick();
 
-    expect(location.pathname).toBe('/setup');
+    expect(location.path()).toBe('/setup');
 
     flush();
   }));
@@ -273,7 +273,7 @@ describe('BoardComponent', () => {
 
     tick();
 
-    expect(location.pathname).toBe('/finished-games-list');
+    expect(location.path()).toBe('/finished-games-list');
 
     flush();
   }));

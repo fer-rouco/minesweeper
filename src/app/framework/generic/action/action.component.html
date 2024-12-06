@@ -10,7 +10,7 @@
 }
 
 <ng-template #action>
-  <div class="action">
+  <div class="action" id={{object?.id}} >
     @if (object) {
       @if (isIcon(object)) {
         <i>

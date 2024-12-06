@@ -1,23 +1,24 @@
+import { CommonModule, Location } from '@angular/common';
+import type { ComponentFixture } from '@angular/core/testing';
 import {
-  ComponentFixture,
   TestBed,
   fakeAsync,
   flush,
   tick,
 } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
-import { AppRoutingModule } from 'src/app/app-routing.module';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
 import { CustomButtonComponent } from 'src/app/framework/controls/button/button.component';
 import { TableComponent } from 'src/app/framework/controls/table/table.component';
-import { BoardModule } from '../board/board.module';
-import { SetupModule } from '../setup/setup.module';
+import { routes } from '../../../app.routes';
 import { FinishedGamesListComponent } from './finished-games-list.component';
+
 
 describe('FinishedGamesListComponent', () => {
   let component: FinishedGamesListComponent;
   let fixture: ComponentFixture<FinishedGamesListComponent>;
+  let location: Location;
 
   const createComponentInstance = () => {
     fixture = TestBed.createComponent(FinishedGamesListComponent);
@@ -68,16 +69,12 @@ describe('FinishedGamesListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BoardModule, SetupModule, AppRoutingModule],
-      declarations: [
-        PanelComponent,
-        FinishedGamesListComponent,
-        TableComponent,
-        CustomButtonComponent,
-      ],
+      imports: [CommonModule, PanelComponent, FinishedGamesListComponent, TableComponent, CustomButtonComponent],
+      providers: [provideRouter(routes, withHashLocation())]
     }).compileComponents();
 
     createComponentInstance();
+    location = TestBed.inject(Location);
   });
 
   beforeEach(async () => {
@@ -133,7 +130,7 @@ describe('FinishedGamesListComponent', () => {
 
     tick();
 
-    expect(location.pathname).toBe('/board');
+    expect(location.path()).toBe('/board');
 
     flush();
   }));
@@ -148,7 +145,7 @@ describe('FinishedGamesListComponent', () => {
 
     tick();
 
-    expect(location.pathname).toBe('/setup');
+    expect(location.path()).toBe('/setup');
 
     flush();
   }));

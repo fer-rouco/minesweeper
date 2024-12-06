@@ -8,7 +8,7 @@ describe('FieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FieldComponent],
+      imports: [FieldComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FieldComponent);

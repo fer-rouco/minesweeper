@@ -1,4 +1,4 @@
-import { DifficultyLevel } from './config.model';
+import type { DifficultyLevel } from './config.model';
 
 export enum GameStatus {
   WIN = 0,

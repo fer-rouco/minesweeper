@@ -4,16 +4,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 
 @NgModule({ declarations: [],
     exports: [
         BrowserModule,
         FormsModule,
-        RouterTestingModule,
         BrowserAnimationsModule,
     ], imports: [BrowserModule,
         FormsModule,
-        RouterTestingModule,
         BrowserAnimationsModule], providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()] })
 export class TestRequirementsModule {}

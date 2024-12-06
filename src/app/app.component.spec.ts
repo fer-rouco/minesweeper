@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { TestRequirementsModule } from 'src/test/test-requirements.module';
 import { AppComponent } from './app.component';
 import { NotificationComponent } from './framework/generic/notification/notification.component';
-import { TestRequirementsModule } from 'src/test/test-requirements.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestRequirementsModule],
-      declarations: [AppComponent, NotificationComponent],
+      imports: [TestRequirementsModule, AppComponent, NotificationComponent],
     }).compileComponents();
   });
 
