@@ -4,7 +4,7 @@ import type {
 } from '@angular/core';
 import {
   Component,
-  Inject,
+  inject,
   signal
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,41 +20,45 @@ import { ConfigService } from '../../services/config.service';
 
 @Component({
     selector: 'app-setup',
-    templateUrl: './setup.component.html',
-    styleUrls: ['./setup.component.scss'],
+    styles: [`
+      .panel {
+        max-width: 20rem;
+
+        &__to-board-button {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    `],
+    template: `
+      <div class="panel">
+        <panel title='Setup' >
+          <select-field [model]="config()" attr="difficultyLevel" label='Difficulty Level' [options]='difficultyLevels' (change)="onDifficultyLevelChange()" ></select-field>
+          <numeric-field [model]="config()" attr="columns" label='Columns' [enabled]="customDifficultyEnabled()" ></numeric-field>
+          <numeric-field [model]="config()" attr="rows" label='Rows' [enabled]="customDifficultyEnabled()" ></numeric-field>
+          <numeric-field [model]="config()" attr="bombs" label='Bombs' [enabled]="customDifficultyEnabled()" ></numeric-field>
+          <custom-button (click)='onGoToBoardClick()' class='panel__to-board-button' >
+            Go to Board
+          </custom-button>
+        </panel>
+      </div>
+    `,
     imports: [PanelComponent, SelectFieldComponent, NumericFieldComponent, CustomButtonComponent]
 })
 export class SetupComponent implements OnInit {
-  public difficultyLevels: Array<Option> = [
-    {
-      label: DifficultyLevel[DifficultyLevel.CUSTOM],
-      value: DifficultyLevel.CUSTOM.toString(),
-    },
-    {
-      label: DifficultyLevel[DifficultyLevel.EASY],
-      value: DifficultyLevel.EASY.toString(),
-    },
-    {
-      label: DifficultyLevel[DifficultyLevel.MEDIUM],
-      value: DifficultyLevel.MEDIUM.toString(),
-    },
-    {
-      label: DifficultyLevel[DifficultyLevel.HARD],
-      value: DifficultyLevel.HARD.toString(),
-    },
+  private readonly configService = inject(ConfigService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly router = inject(Router);
+
+  public readonly difficultyLevels: Array<Option> = [
+    { label: DifficultyLevel[DifficultyLevel.CUSTOM], value: DifficultyLevel.CUSTOM.toString() },
+    { label: DifficultyLevel[DifficultyLevel.EASY], value: DifficultyLevel.EASY.toString() },
+    { label: DifficultyLevel[DifficultyLevel.MEDIUM], value: DifficultyLevel.MEDIUM.toString() },
+    { label: DifficultyLevel[DifficultyLevel.HARD], value: DifficultyLevel.HARD.toString() }
   ];
 
   public config: WritableSignal<ConfigModel | undefined> = signal(undefined);
   public customDifficultyEnabled: WritableSignal<boolean> = signal(false);
-
-  constructor(
-    @Inject(Router) protected router: Router,
-    @Inject(ConfigService) private configService: ConfigService,
-    @Inject(NotificationService)
-    private notificationService: NotificationService,
-  ) {
-    this.config.set(undefined);
-  }
 
   ngOnInit(): void {
     this.configService.restoreConfig();
