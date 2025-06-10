@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject, type OnInit } from '@angular/core';
 import { PanelComponent } from 'src/app/framework/containers/panel/panel.component';
 import { type ColumnDefinition, TableComponent } from 'src/app/framework/controls/table/table.component';
@@ -22,7 +21,7 @@ export interface FinishedGameItemForTableInterface {
     selector: 'app-finished-games-list',
     templateUrl: './finished-games-list.component.html',
     styleUrls: ['./finished-games-list.component.scss'],
-    imports: [CommonModule, PanelComponent, TableComponent]
+    imports: [PanelComponent, TableComponent]
 })
 export class FinishedGamesListComponent implements OnInit {
   public readonly ActionHelper: typeof ActionHelper = ActionHelper;
