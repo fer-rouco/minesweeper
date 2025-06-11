@@ -19,8 +19,16 @@ export interface FinishedGameItemForTableInterface {
 }
 @Component({
     selector: 'app-finished-games-list',
-    templateUrl: './finished-games-list.component.html',
-    styleUrls: ['./finished-games-list.component.scss'],
+    template: `
+      <panel class="finished-game-list" title="Finished Games List" [actions]="ActionHelper.buildFinishedGameListActions()">
+        <custom-table  [rowObjects]="rowObjects"  [columnDefinitions]="columnDefinitions"></custom-table>
+      </panel>
+    `,
+    styles: [`
+      .finished-game-list {
+        view-transition-name: scale3d;
+      }
+    `],
     imports: [PanelComponent, TableComponent]
 })
 export class FinishedGamesListComponent implements OnInit {
