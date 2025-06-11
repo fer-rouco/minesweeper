@@ -22,6 +22,7 @@ import { ConfigService } from '../../services/config.service';
     selector: 'app-setup',
     styles: [`
       .panel {
+        view-transition-name: scale3d;
         max-width: 20rem;
 
         &__to-board-button {

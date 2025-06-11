@@ -1,0 +1,22 @@
+/* Custom transition */
+@keyframes scale-out {
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale3d(0, 0, 0);
+  }
+}
+
+::view-transition-old(scale3d),
+::view-transition-new(scale3d) {
+  animation-duration: 200ms;
+  animation-name: -ua-view-transition-fade-in, scale-in;
+}
+
+::view-transition-old(scale3d) {
+  animation-name: -ua-view-transition-fade-out, scale-out;
+}

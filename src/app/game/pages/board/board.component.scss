@@ -1,6 +1,8 @@
 @import '../../../variables';
 
 .board {
+  view-transition-name: scale3d;
+
   &__grid {
     display: flex;
     justify-content: center;
