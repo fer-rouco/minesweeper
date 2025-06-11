@@ -4,8 +4,34 @@ import { CustomButtonComponent } from '../../../framework/controls/button/button
 
 @Component({
     selector: 'app-page-not-found',
-    templateUrl: './page-not-found.component.html',
-    styleUrls: ['./page-not-found.component.scss'],
+    template: `
+      <div class="page-not-found">
+        <h1 class="page-not-found__message" >Page not found!</h1>
+        <br/>
+        <div class="page-not-found__buttons">
+          <custom-button (click)='navigateToSetup()' >
+            Go to Setup
+          </custom-button>
+          <custom-button (click)='navigateToBoard()' >
+            Go to Board
+          </custom-button>
+        </div>
+      </div>
+    `,
+    styles: [`
+      .page-not-found {
+        text-align: center;
+
+        &__message {
+          font-size: 3rem;
+        }
+
+        &__buttons {
+          display: flex;
+          justify-content: center; 
+        }
+      }
+    `],
     imports: [CustomButtonComponent]
 })
 export class PageNotFoundComponent {
