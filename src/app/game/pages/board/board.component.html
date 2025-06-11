@@ -2,7 +2,7 @@
   <board-header></board-header>
   <div class="board__grid" >
     <table>
-      @for (col of grid; track col) {
+      @for (col of grid; track $index) {
         <tr class="row">
           @for (tile of col; track tile.getId()) {
             <td class="col">
