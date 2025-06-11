@@ -4,8 +4,20 @@ import { NotificationComponent } from './framework/generic/notification/notifica
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    template: `
+      <div class="app">
+        <notification></notification>
+        <router-outlet></router-outlet>
+      </div>
+    `,
+    styles: [`
+      .app {
+        height: 100%;
+        display: flex;
+        justify-content: center; 
+        padding: .5rem;
+      }
+    `],
     imports: [RouterModule, NotificationComponent]
 })
 export class AppComponent {
