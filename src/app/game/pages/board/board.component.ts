@@ -18,8 +18,42 @@ type RowColumnOrNull = RowColumn | null;
 
 @Component({
     selector: 'app-board',
-    templateUrl: './board.component.html',
-    styleUrls: ['./board.component.scss'],
+    template: `
+      <panel class="board" title="Board" [actions]="ActionHelper.buildBoardActions()">
+        <board-header></board-header>
+        <div class="board__grid" >
+          <table>
+            @for (col of grid; track $index) {
+              <tr class="row">
+                @for (tile of col; track tile.getId()) {
+                  <td class="col">
+                    <tile [tile]="tile" [gameOver]="gameOver" (change)="onTileChange($event)"></tile>
+                  </td>
+                }  
+              </tr>
+            } 
+            @empty {
+              There were no items in the list.
+            }
+          </table>
+        </div>
+      </panel>
+    `,
+    styles: [`
+      @import '../../../variables';
+
+      .board {
+        view-transition-name: scale3d;
+
+        &__grid {
+          display: flex;
+          justify-content: center;
+        }
+        .col, .row {
+          border: 1px solid #808080;
+        }
+      }
+    `],
     imports: [PanelComponent, BoardHeaderComponent, TileComponent]
 })
 export class BoardComponent implements OnInit {
