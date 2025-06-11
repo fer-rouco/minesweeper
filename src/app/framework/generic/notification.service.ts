@@ -22,19 +22,19 @@ export class NotificationService implements OnDestroy {
   }
 
   public addSuccess(message: string, action?: Action) {
-    this.notification$.next({ type: NotificationType.SUCCESS, message, action });
+    this.add(NotificationType.SUCCESS, message, action);
   }
 
   public addInfo(message: string, action?: Action) {
-    this.notification$.next({ type: NotificationType.INFO, message, action });
+    this.add(NotificationType.INFO, message, action);
   }
 
   public addWarning(message: string, action?: Action) {
-    this.notification$.next({ type: NotificationType.WARNING, message, action });
+    this.add(NotificationType.WARNING, message, action);
   }
 
   public addError(message: string, action?: Action) {
-    this.notification$.next({ type: NotificationType.ERROR, message, action });
+    this.add(NotificationType.ERROR, message, action);
   }
 
   public observable(): Observable<Notification | null> {
