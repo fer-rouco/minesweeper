@@ -4,7 +4,32 @@ import { TileType } from '../../../models/tile.model';
 
 @Component({
     selector: 'tile',
-    templateUrl: './tile.component.html',
+    template: `
+      <span
+        [id]="'tile-' + tile?.getId()"
+        class="tile" 
+        [class.filled]="!tile?.isDiscovered() && (tile?.isTypeEmpty() || tile?.isTypeNumber() || tile?.isTypeBomb())"
+        [class.bomb]="tile?.isDiscovered() && tile?.isTypeBomb()"
+        [class.explosion]="tile?.isDiscovered() && tile?.isTypeExplosion()"
+        [class.flag]="!tile?.isDiscovered() && tile?.isFlag()"
+        (click)="onClick()"
+        (contextmenu)="onContextMenuClick($event)">
+        @if ((tile && tile.getNumber() > 0) && tile.isDiscovered()) 
+        {
+          <span
+            class="tile__number"
+            [class.one]="tile.isNumber(1)"
+            [class.two]="tile.isNumber(2)"
+            [class.three]="tile.isNumber(3)"
+            [class.four]="tile.isNumber(4)"
+            [class.five]="tile.isNumber(5)"
+            [class.six]="tile.isNumber(6)"
+          >
+            {{ tile.getNumber() }}
+          </span>
+        } 
+      </span>
+    `,
     styleUrls: ['./tile.component.scss'],
     imports: []
 })

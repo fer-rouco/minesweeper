@@ -10,19 +10,19 @@
   width: 2rem;
 
   &.filled {
-    background-image: url('../../../../../assets/icons/filled-tile.svg');
+    background-image: url('/assets/icons/filled-tile.svg');
   }
 
   &.flag {
-    background-image: url('../../../../../assets/icons/flag.svg');
+    background-image: url('/assets/icons/flag.svg');
   }
 
   &.bomb {
-    background-image: url('../../../../../assets/icons/bomb.png');
+    background-image: url('/assets/icons/bomb.png');
   }
   
   &.explosion {
-    background-image: url('../../../../../assets/icons/explosion.png');
+    background-image: url('/assets/icons/explosion.png');
   }
 
   &__number {
