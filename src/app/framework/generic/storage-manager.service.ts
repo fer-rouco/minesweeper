@@ -16,7 +16,7 @@ export class StorageManagerService {
     separator: '.',
   } as StorageManagerInterface;
 
-  private storeObject = this.config.useSessionStorage
+  private storeObject: Storage = this.config.useSessionStorage
     ? window.sessionStorage
     : window.localStorage;
 
@@ -28,8 +28,8 @@ export class StorageManagerService {
     this.storeObject = storage;
   }
 
-  public ensureKey(key: string): string {
-    const split = key.split('.');
+  private ensureKey(key: string): string {
+    const split: Array<string> = key.split('.');
     if (split.length > 0 && split[0] !== this.config.prefix) {
       return `${this.config.prefix}${this.config.separator}${key}`;
     }
@@ -41,7 +41,7 @@ export class StorageManagerService {
       console.error('StorageManagerService empty key');
       return;
     }
-    const ensuredKey = this.ensureKey(key);
+    const ensuredKey: string = this.ensureKey(key);
     this.storeObject.setItem(ensuredKey, JSON.stringify(object));
   }
 
@@ -50,10 +50,10 @@ export class StorageManagerService {
       console.error('StorageManagerService empty key');
       return null;
     }
-    const ensuredKey = this.ensureKey(key);
-    const objectString = this.storeObject.getItem(ensuredKey);
+    const ensuredKey: string = this.ensureKey(key);
+    const objectString: string | null  = this.storeObject.getItem(ensuredKey);
     if (objectString) {
-      return JSON.parse(objectString);
+      return JSON.parse(objectString) as T;
     }
     return null;
   }
@@ -74,7 +74,7 @@ export class StorageManagerService {
     }
     const ensuredKey: string = this.ensureKey(key);
     if (this.hasItem(ensuredKey)) {
-      const item = JSON.parse(this.storeObject.getItem(ensuredKey) || '');
+      const item: T | null = JSON.parse(this.storeObject.getItem(ensuredKey) || '');
       this.storeObject.removeItem(ensuredKey);
       return item;
     }
