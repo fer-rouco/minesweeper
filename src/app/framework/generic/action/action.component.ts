@@ -39,12 +39,12 @@ import { ActionType } from '../../generic/generic-interface';
       .action {
         display: inline;
 
-        .link {
+        & .link {
           text-decoration: underline;
           color: rgb(8, 82, 1);
           cursor: pointer;
         }
-      },
+      }
     `],
     imports: [CommonModule, CustomButtonComponent]
 })
