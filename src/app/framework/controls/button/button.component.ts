@@ -2,8 +2,24 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'custom-button',
-    templateUrl: './button.component.html',
-    styleUrls: ['./button.component.scss']
+    template: `
+      <button class='custom-button' title='button' (click)='handleClick()'  >
+        <ng-content></ng-content>
+      </button>
+    `,
+    styles: [`
+      @import '../../../variables';
+
+      .custom-button {
+        margin: var(--control-margin);
+        padding: var(--control-padding);
+
+        border: var(--control-border);
+        border-radius: var(--control-border-radius);
+
+        cursor: pointer;
+      }
+    `]
 })
 export class CustomButtonComponent {
   @Input() public label: string = '';

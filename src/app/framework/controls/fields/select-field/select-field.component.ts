@@ -10,8 +10,46 @@ export interface Option {
 
 @Component({
     selector: 'select-field',
-    templateUrl: './select-field.component.html',
-    styleUrls: ['./select-field.component.scss'],
+    template: `
+      <field for="select_" label="{{label}}">
+        <select
+          [(ngModel)]="visualModel"
+          autocomplete="off"
+          class="form-control select-field"
+          placeholder=""
+          title="asd"
+          name="select_"
+          (change)="onInputChange()"
+          (keyup.enter)="onInputChange()"
+        >
+          @for (option of options; track (option.label + '_' + option.value)) {
+            <option [value]="option.value">{{option.label}}</option>
+          }
+        </select>
+      </field>
+    `,
+    styles: [`
+      @import '../../../../variables';
+
+      .select-field {
+
+        padding: var(--control-padding);
+        
+        border: none;
+        border-radius: var(--control-border-radius);
+      
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        background-color: #ffffff;
+        background-image: url('/assets/icons/down-arrow.png');
+        background-position: 100%;
+        background-repeat: no-repeat;
+
+        &:focus {
+          border: var(--control-border-focus);
+        }
+      }
+    `],
     imports: [FormsModule, FieldComponent]
 })
 export class SelectFieldComponent extends BaseFieldComponent {

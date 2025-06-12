@@ -8,8 +8,44 @@ import { ActionType } from '../../generic/generic-interface';
 
 @Component({
     selector: 'action',
-    templateUrl: './action.component.html',
-    styleUrl: './action.component.scss',
+    template: `
+      @if (object) {
+        @if (isTypeButton(object)) {
+          <custom-button (click)="onActionClick(object)">
+            <ng-container *ngTemplateOutlet="action"></ng-container>
+          </custom-button>  
+        }
+        @else if (isTypeLink(object)) {
+          <ng-container *ngTemplateOutlet="action"></ng-container>
+        }
+      }
+
+      <ng-template #action>
+        <div class="action" id={{object?.id}} >
+          @if (object) {
+            @if (isIcon(object)) {
+              <i>
+                <img class="icon" [src]="'assets/icons/' + object.icon">
+              </i>
+            }
+            @if (isLabel(object)) {
+              <span class="link" (click)="onActionClick(object)">{{ object.label }}</span>
+            }
+          }
+        </div>
+      </ng-template>
+    `,
+    styles: [`
+      .action {
+        display: inline;
+
+        .link {
+          text-decoration: underline;
+          color: rgb(8, 82, 1);
+          cursor: pointer;
+        }
+      },
+    `],
     imports: [CommonModule, CustomButtonComponent]
 })
 export class ActionComponent {

@@ -5,8 +5,16 @@ import { InputFieldComponent } from '../input-field/input-field.component';
 
 @Component({
     selector: 'numeric-field',
-    templateUrl: './numeric-field.component.html',
-    styleUrls: ['./numeric-field.component.scss'],
+    template: `
+      <input-field 
+        [type]='type'
+        [model]='model'
+        [attr]='attr'
+        [label]='label'
+        [enabled]="enabled"
+        >
+      </input-field>
+    `,
     imports: [FormsModule, InputFieldComponent]
 })
 export class NumericFieldComponent extends BaseFieldComponent {
