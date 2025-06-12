@@ -74,7 +74,7 @@ export class ConfigService {
     this.setConfig(
       Object.assign(
         new ConfigModel(),
-        this.storageManagerService.getItem('config') as ConfigModel,
+        this.storageManagerService.getItem('config') as ConfigModel
       ),
     );
   }
