@@ -16,7 +16,26 @@ import { ConfigService } from 'src/app/game/services/config.service';
 
 @Component({
     selector: 'board-header',
-    templateUrl: './board-header.component.html',
+    template: `
+      <div class="board-header">
+        <div class="board-header-display-container">
+          <i class="board-header-display-container__icon icon-bomb" ></i>
+          <span id="flag-counter" class="board-header-display-container__label"> {{ flagsCounter() }}</span>
+        </div>
+        <custom-button (click)='restartGame()' class="board-header__button">
+          @if (!gameOver()) {
+            <img class="board-header__face" src="assets/icons/face_unpressed.svg" title="Restart Game"/>
+          }
+          @else {
+            <img class="board-header__face" src="assets/icons/face_loose.svg" title="Restart Game"/>
+          }
+        </custom-button>
+        <div class="board-header-display-container">
+          <i class="board-header-display-container__icon icon-clock" ></i>
+          <span id="timer" class="board-header-display-container__label"> {{ elapsedTime() }}</span>
+        </div>
+      </div>
+    `,
     styleUrls: ['./board-header.component.scss'],
     imports: [CustomButtonComponent]
 })
